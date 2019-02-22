@@ -1,6 +1,6 @@
-# Contributing to _repository-template-java_
+# Contributing to _corellia_
 
-**Thank you for your interest in _repository-template-java_. Your contributions are highly welcome.**
+**Thank you for your interest in _corellia_. Your contributions are highly welcome.**
 
 There are multiple ways of getting involved:
 
