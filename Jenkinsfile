@@ -39,7 +39,7 @@ pipeline {
                 checkout scm
                 script {
                     pomInfo = readMavenPom file: 'pom.xml'
-                    currentBuild.description += "${pomInfo.version}"
+                    currentBuild.description = "${pomInfo.version}"
                 }
             }
         }
