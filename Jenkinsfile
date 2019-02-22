@@ -47,7 +47,15 @@ pipeline {
         stage("CI build") {
             steps {
                 mavenbuild uploadArtifactsWithBranchnameInVersion: true,
-                           mavenArgs: "-DcreateChecksum=true -Dmaven.javadoc.skip=true"
+                           mavenArgs: "-DcreateChecksum=true -Dmaven.javadoc.skip=true dependency:copy-dependencies"
+            }
+        }
+
+        stage("Nexus Lifecycle") {
+            steps {
+                nexusPolicyEvaluation iqApplication: 'com.baloise.open.corellia', 
+                    iqScanPatterns: [[scanPattern: 'target/dependency/*.jar']], 
+                    iqStage: 'build'
             }
         }
 
