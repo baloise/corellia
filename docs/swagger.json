@@ -1,0 +1,651 @@
+{
+	"swagger": "2.0",
+	"info": {},
+	"basePath": "/corellia/api",
+	"tags": [
+		{
+			"name": "Corellia"
+		}
+	],
+	"paths": {
+		"/version": {
+			"get": {
+				"tags": [
+					"Corellia"
+				],
+				"summary": "returns version",
+				"description": "",
+				"operationId": "getVersion",
+				"produces": [
+					"text/plain"
+				],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"/contracts": {
+			"post": {
+				"tags": [
+					"Corellia"
+				],
+				"summary": "Saves a contract",
+				"description": "",
+				"operationId": "saveContract",
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Contract"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"/documents": {
+			"post": {
+				"tags": [
+					"Corellia"
+				],
+				"summary": "Saves a document",
+				"description": "",
+				"operationId": "saveDocument",
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Document"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Address": {
+			"type": "object",
+			"required": [
+				"city",
+				"houseNumber",
+				"street",
+				"zipCode"
+			],
+			"properties": {
+				"street": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"houseNumber": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"zipCode": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"city": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				}
+			}
+		},
+		"Agent": {
+			"type": "object",
+			"required": [
+				"agentNumber",
+				"email"
+			],
+			"properties": {
+				"agentNumber": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"email": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				}
+			}
+		},
+		"Company": {
+			"type": "object",
+			"required": [
+				"address",
+				"legalForm",
+				"name",
+				"uidNumber"
+			],
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"legalForm": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"uidNumber": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"address": {
+					"$ref": "#/definitions/Address"
+				}
+			}
+		},
+		"CompanyInvoiceAddress": {
+			"type": "object",
+			"required": [
+				"address",
+				"name"
+			],
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"address": {
+					"$ref": "#/definitions/Address"
+				}
+			}
+		},
+		"Contract": {
+			"type": "object",
+			"required": [
+				"agent",
+				"companyInvoiceAddress",
+				"discountCode",
+				"distributor",
+				"endDate",
+				"id",
+				"personInvoiceAddress",
+				"policyId",
+				"policyIssueDate",
+				"product",
+				"roles",
+				"stampTax",
+				"startDate",
+				"subAgent",
+				"tcsNumber",
+				"term",
+				"totalPrice"
+			],
+			"properties": {
+				"id": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"startDate": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"endDate": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"policyIssueDate": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"policyId": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 20
+				},
+				"totalPrice": {
+					"type": "number"
+				},
+				"stampTax": {
+					"type": "number"
+				},
+				"roles": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Role"
+					},
+					"maxItems": 2,
+					"minItems": 1
+				},
+				"product": {
+					"$ref": "#/definitions/Product"
+				},
+				"agent": {
+					"$ref": "#/definitions/Agent"
+				},
+				"subAgent": {
+					"$ref": "#/definitions/Agent"
+				},
+				"distributor": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"companyInvoiceAddress": {
+					"$ref": "#/definitions/CompanyInvoiceAddress"
+				},
+				"personInvoiceAddress": {
+					"$ref": "#/definitions/PersonInvoiceAddress"
+				},
+				"term": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"discountCode": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"tcsNumber": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				}
+			}
+		},
+		"Coverable": {
+			"type": "object",
+			"required": [
+				"code",
+				"coverage",
+				"deductible",
+				"groupOfPersons",
+				"name",
+				"sumInsured"
+			],
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"code": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 10
+				},
+				"deductible": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"sumInsured": {
+					"type": "number"
+				},
+				"groupOfPersons": {
+					"type": "string",
+					"enum": [
+						"SINGLE",
+						"FAMILY"
+					]
+				},
+				"movement": {
+					"$ref": "#/definitions/Movement"
+				},
+				"vehicle": {
+					"$ref": "#/definitions/Vehicle"
+				},
+				"property": {
+					"$ref": "#/definitions/Property"
+				},
+				"coverage": {
+					"$ref": "#/definitions/Coverage"
+				}
+			}
+		},
+		"Coverage": {
+			"type": "object",
+			"required": [
+				"code",
+				"name",
+				"premium"
+			],
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"code": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 10
+				},
+				"premium": {
+					"type": "number"
+				}
+			}
+		},
+		"Movement": {
+			"type": "object",
+			"required": [
+				"from",
+				"movingDate",
+				"to"
+			],
+			"properties": {
+				"movingDate": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"from": {
+					"$ref": "#/definitions/Address"
+				},
+				"to": {
+					"$ref": "#/definitions/Address"
+				}
+			}
+		},
+		"Person": {
+			"type": "object",
+			"required": [
+				"address",
+				"citizenship",
+				"dateOfBirth",
+				"emailAdress",
+				"firstName",
+				"language",
+				"name",
+				"phone",
+				"salutation"
+			],
+			"properties": {
+				"salutation": {
+					"type": "string",
+					"enum": [
+						"MR",
+						"MRS"
+					]
+				},
+				"name": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"firstName": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"dateOfBirth": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"citizenship": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"phone": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"emailAdress": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"language": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"address": {
+					"$ref": "#/definitions/Address"
+				}
+			}
+		},
+		"PersonInvoiceAddress": {
+			"type": "object",
+			"required": [
+				"address",
+				"firstName",
+				"name",
+				"salutation"
+			],
+			"properties": {
+				"salutation": {
+					"type": "string",
+					"enum": [
+						"MR",
+						"MRS"
+					]
+				},
+				"name": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"firstName": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"address": {
+					"$ref": "#/definitions/Address"
+				}
+			}
+		},
+		"Product": {
+			"type": "object",
+			"required": [
+				"code",
+				"coverables",
+				"name"
+			],
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"code": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 10
+				},
+				"coverables": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Coverable"
+					},
+					"maxItems": 100,
+					"minItems": 0
+				}
+			}
+		},
+		"Property": {
+			"type": "object",
+			"required": [
+				"brand",
+				"dateOfPurchase",
+				"invoiceNumber",
+				"model",
+				"productName",
+				"serialNumber"
+			],
+			"properties": {
+				"dateOfPurchase": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"serialNumber": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"brand": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"model": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"productName": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"invoiceNumber": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"imei": {
+					"type": "string"
+				}
+			}
+		},
+		"Role": {
+			"type": "object",
+			"required": [
+				"company",
+				"person",
+				"role"
+			],
+			"properties": {
+				"role": {
+					"type": "string",
+					"enum": [
+						"INSURANCE_HOLDER",
+						"PREMIUM_PAYER",
+						"PAYEE"
+					]
+				},
+				"person": {
+					"$ref": "#/definitions/Person"
+				},
+				"company": {
+					"$ref": "#/definitions/Company"
+				}
+			}
+		},
+		"Vehicle": {
+			"type": "object",
+			"required": [
+				"brand",
+				"canton",
+				"frameNumber",
+				"inTrafficSince",
+				"model",
+				"number",
+				"rootNumber",
+				"type"
+			],
+			"properties": {
+				"frameNumber": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"type": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"brand": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"model": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"inTrafficSince": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"rootNumber": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 100
+				},
+				"canton": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 2
+				},
+				"number": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 6
+				}
+			}
+		},
+		"Document": {
+			"type": "object",
+			"required": [
+				"data",
+				"documentType",
+				"policyId"
+			],
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "byte"
+					}
+				},
+				"policyId": {
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 20
+				},
+				"documentType": {
+					"type": "string",
+					"enum": [
+						"RECEIPT",
+						"CONTRACT"
+					]
+				}
+			}
+		}
+	}
+}
