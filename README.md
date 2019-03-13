@@ -5,5 +5,6 @@
 [![Build Status](https://travis-ci.org/baloise/corellia.svg?branch=master)](https://travis-ci.org/baloise/corellia)
 [![Codecov](https://img.shields.io/codecov/c/github/baloise/corellia.svg)](https://codecov.io/gh/baloise/corellia)
 [![gitpod-IDE](https://img.shields.io/badge/open--IDE-as--gitpod-blue.svg?style=flat&label=openIDE)](https://gitpod.io#https://github.com/baloise/corellia)
+[![swagger-editor](https://img.shields.io/badge/open--API-in--editor-green.svg?style=flat&label=open-api)](https://editor.swagger.io/?url=https://raw.githubusercontent.com/baloise/corellia/JAVAMIG-3393/docs/swagger.json)
 
 ## the [docs](docs/index.md)
