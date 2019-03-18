@@ -29,7 +29,7 @@ public class Contract implements Serializable {
   private String policyId;
 
   @NotNull
-  private BigDecimal totalPrice;
+  private BigDecimal totalNetPrice;
 
   @NotNull
   private BigDecimal stampTax;
@@ -46,9 +46,6 @@ public class Contract implements Serializable {
   @NotNull
   @Valid
   private Agent agent;
-
-  @Valid
-  private Agent subAgent;
 
   @NotNull
   @Valid
@@ -101,12 +98,12 @@ public class Contract implements Serializable {
     this.policyId = policyId;
   }
 
-  public BigDecimal getTotalPrice() {
-    return totalPrice;
+  public BigDecimal getTotalNetPrice() {
+    return totalNetPrice;
   }
 
-  public void setTotalPrice(BigDecimal totalPrice) {
-    this.totalPrice = totalPrice;
+  public void setTotalNetPrice(BigDecimal totalNetPrice) {
+    this.totalNetPrice = totalNetPrice;
   }
 
   public BigDecimal getStampTax() {
@@ -139,14 +136,6 @@ public class Contract implements Serializable {
 
   public void setAgent(Agent agent) {
     this.agent = agent;
-  }
-
-  public Agent getSubAgent() {
-    return subAgent;
-  }
-
-  public void setSubAgent(Agent subAgent) {
-    this.subAgent = subAgent;
   }
 
   public Payment getPayment() {
