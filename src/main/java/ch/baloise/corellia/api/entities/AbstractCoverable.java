@@ -28,9 +28,6 @@ public abstract class AbstractCoverable implements Serializable {
   private String code;
 
   @NotNull
-  private BigDecimal sumInsured;
-
-  @NotNull
   @Valid
   private List<Coverage> coverage;
 
@@ -50,14 +47,6 @@ public abstract class AbstractCoverable implements Serializable {
 
   public void setCode(String code) {
     this.code = code;
-  }
-
-  public BigDecimal getSumInsured() {
-    return sumInsured;
-  }
-
-  public void setSumInsured(BigDecimal sumInsured) {
-    this.sumInsured = sumInsured;
   }
 
   public List<Coverage> getCoverage() {

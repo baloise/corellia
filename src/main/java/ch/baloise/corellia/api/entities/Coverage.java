@@ -24,6 +24,9 @@ public class Coverage implements Serializable {
   @NotNull
   private Integer deductible;
 
+  @NotNull
+  private Integer sumInsured;
+
   public Coverage() {}
 
   public String getName() {
@@ -48,6 +51,14 @@ public class Coverage implements Serializable {
 
   public void setPremium(BigDecimal premium) {
     this.premium = premium;
+  }
+
+  public Integer getSumInsured() {
+    return sumInsured;
+  }
+
+  public void setSumInsured(Integer sumInsured) {
+    this.sumInsured = sumInsured;
   }
 
   public Integer getDeductible() {
