@@ -11,37 +11,24 @@ public class Payment implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @Size(max = 100)
-  private String name;
-
-  @NotNull
-  @Size(max = 20)
-  private String code;
+  private Integer code;
 
   @Size(max = 20)
   private String discountCode;
 
   @Valid
-  private CompanyInvoiceAddress companyInvoiceAddress;
+  private Company company;
 
   @Valid
-  private PersonInvoiceAddress personInvoiceAddress;
+  private Person person;
 
   public Payment() {}
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getCode() {
+  public Integer getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(Integer code) {
     this.code = code;
   }
 
@@ -53,20 +40,19 @@ public class Payment implements Serializable {
     this.discountCode = discountCode;
   }
 
-  public CompanyInvoiceAddress getCompanyInvoiceAddress() {
-    return companyInvoiceAddress;
+  public Company getCompany() {
+    return company;
   }
 
-  public void setCompanyInvoiceAddress(CompanyInvoiceAddress companyInvoiceAddress) {
-    this.companyInvoiceAddress = companyInvoiceAddress;
+  public void setCompany(Company company) {
+    this.company = company;
   }
 
-  public PersonInvoiceAddress getPersonInvoiceAddress() {
-    return personInvoiceAddress;
+  public Person getPerson() {
+    return person;
   }
 
-  public void setPersonInvoiceAddress(PersonInvoiceAddress personInvoiceAddress) {
-    this.personInvoiceAddress = personInvoiceAddress;
+  public void setPerson(Person person) {
+    this.person = person;
   }
-
 }

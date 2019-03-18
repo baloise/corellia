@@ -16,12 +16,6 @@ public class Company implements Serializable {
   @Size(min = 3, max = 70)
   private String name;
 
-  @NotNull
-  @Size(max = 20)
-  // TODO: 15.03.2019 b021719 Code gemäss Coderechtsform mit Kasko vereinbaren
-  private String legalForm;
-
-  @NotNull
   @Size(max = 15)
   @JsonPropertyDescription("example CHE-105.805.649")
   private String uidNumber;
@@ -39,14 +33,6 @@ public class Company implements Serializable {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public String getLegalForm() {
-    return legalForm;
-  }
-
-  public void setLegalForm(String legalForm) {
-    this.legalForm = legalForm;
   }
 
   public String getUidNumber() {

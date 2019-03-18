@@ -7,6 +7,8 @@ import javax.validation.constraints.Size;
 
 public class Document implements Serializable {
 
+  public enum DocumentType { contract, receipt};
+
   private static final long serialVersionUID = 10;
 
   @NotNull
@@ -14,11 +16,11 @@ public class Document implements Serializable {
 
   @NotNull
   @Size(max = 20)
-  private String policyId;
+  private String contractId;
 
   @NotNull
   @Size(max = 20)
-  private String documentType;
+  private DocumentType documentType;
 
   public byte[] getData() {
     return data;
@@ -28,19 +30,19 @@ public class Document implements Serializable {
     this.data = data;
   }
 
-  public String getPolicyId() {
-    return policyId;
+  public String getContractId() {
+    return contractId;
   }
 
-  public void setPolicyId(String policyId) {
-    this.policyId = policyId;
+  public void setContractId(String contractId) {
+    this.contractId = contractId;
   }
 
-  public String getDocumentType() {
+  public DocumentType getDocumentType() {
     return documentType;
   }
 
-  public void setDocumentType(String documentType) {
+  public void setDocumentType(DocumentType documentType) {
     this.documentType = documentType;
   }
 }

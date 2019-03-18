@@ -10,42 +10,25 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@JsonSubTypes({
-    @JsonSubTypes.Type(value = Movement.class), //
-    @JsonSubTypes.Type(value = Vehicle.class),  //
-    @JsonSubTypes.Type(value = Property.class), //
-    @JsonSubTypes.Type(value=AnyCoverable.class)}) //
-public abstract class AbstractCoverable implements Serializable {
+public abstract class Coverable implements Serializable {
 
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @Size(max = 100)
-  private String name;
-
-  @NotNull
-  @Size(max = 20)
-  private String code;
+  private Integer code;
 
   @NotNull
   @Valid
+  @Size(min = 1, max=99)
   private List<Coverage> coverage;
 
-  public AbstractCoverable() {}
+  public Coverable() {}
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getCode() {
+  public Integer getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(Integer code) {
     this.code = code;
   }
 

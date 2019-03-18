@@ -12,41 +12,29 @@ public class Product implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @Size(max = 100)
-  private String name;
-
-  @NotNull
   @Size(max = 20)
-  private String code;
+  private Integer code;
 
   @NotNull
   @Valid
-  @Size(min = 0, max = 100)
-  private List<? extends AbstractCoverable> coverables;
+  @Size(min = 0, max = 99)
+  private List<Coverable> coverables;
 
   public Product() {}
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getCode() {
+  public Integer getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(Integer code) {
     this.code = code;
   }
 
-  public List<? extends AbstractCoverable> getCoverables() {
+  public List<Coverable> getCoverables() {
     return coverables;
   }
 
-  public void setCoverables(List<? extends AbstractCoverable> coverables) {
+  public void setCoverables(List<Coverable> coverables) {
     this.coverables = coverables;
   }
 }

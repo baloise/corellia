@@ -18,6 +18,7 @@ package ch.baloise.corellia.api.entities;
 
 import javax.xml.bind.annotation.XmlTransient;
 
+// TODO: 18.03.2019 b021719 ErrorResponse
 @javax.xml.bind.annotation.XmlRootElement
 public class ApiResponse {
   public static final int ERROR = 1;

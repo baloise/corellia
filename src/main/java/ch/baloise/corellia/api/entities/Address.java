@@ -22,7 +22,7 @@ public class Address implements Serializable {
   private String zipCode;
 
   @NotNull
-  @Size(max = 100)
+  @Size(max = 30)
   private String city;
 
   public Address() {

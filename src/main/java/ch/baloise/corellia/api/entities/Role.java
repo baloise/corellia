@@ -10,26 +10,24 @@ public class Role implements Serializable {
 
   private static final long serialVersionUID = 10;
 
-  @NotNull
-  @Size(max = 20)
-  // TODO: 15.03.2019 b021719 codify role
-  private String role;
+  public enum RoleType { Insuranceholder, Payer };
 
   @NotNull
+  private RoleType role;
+
   @Valid
   private Person person;
 
-  @NotNull
   @Valid
   private Company company;
 
   public Role() {}
 
-  public String getRole() {
+  public RoleType getRole() {
     return role;
   }
 
-  public void setRole(String role) {
+  public void setRole(RoleType role) {
     this.role = role;
   }
 

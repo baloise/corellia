@@ -1,8 +1,7 @@
 package ch.baloise.corellia.api.entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,27 +15,21 @@ public class Contract implements Serializable {
   // TODO: 18.03.2019 b021719 Abgaben aufnehmen FL vs. CH
 
   @NotNull
-  private Date startDate;
+  private LocalDate startDate;
 
   @NotNull
-  private Date endDate;
-
-  @NotNull
-  private Date policyIssueDate;
+  private LocalDate endDate;
 
   @NotNull
   @Size(max = 20)
-  private String policyId;
+  private String contractId;
 
   @NotNull
-  private BigDecimal totalNetPrice;
-
-  @NotNull
-  private BigDecimal stampTax;
+  private MonetaryAmount totalNetPrice;
 
   @NotNull
   @Valid
-  @Size(min = 1, max = 2)
+  @Size(min = 1, max = 99)
   private List<Role> roles;
 
   @NotNull
@@ -52,66 +45,41 @@ public class Contract implements Serializable {
   private Payment payment;
 
   @NotNull
-  @Size(max = 20)
-  private String distributor;
-
-  @NotNull
   @Size(min = 1, max = 99)
-  private List<String> documentHandles;
-
-  @NotNull
-  @Size(max = 20)
-  // TODO: 15.03.2019 b021719 use code for term representation? 
-  private String term;
+  private List<FileHandle> fileHandles;
 
   public Contract() {}
 
-  public Date getStartDate() {
+  public LocalDate getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(Date startDate) {
+  public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
-  public Date getEndDate() {
+  public LocalDate getEndDate() {
     return endDate;
   }
 
-  public void setEndDate(Date endDate) {
+  public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
-  public Date getPolicyIssueDate() {
-    return policyIssueDate;
+  public String getContractId() {
+    return contractId;
   }
 
-  public void setPolicyIssueDate(Date policyIssueDate) {
-    this.policyIssueDate = policyIssueDate;
+  public void setContractId(String contractId) {
+    this.contractId = contractId;
   }
 
-  public String getPolicyId() {
-    return policyId;
-  }
-
-  public void setPolicyId(String policyId) {
-    this.policyId = policyId;
-  }
-
-  public BigDecimal getTotalNetPrice() {
+  public MonetaryAmount getTotalNetPrice() {
     return totalNetPrice;
   }
 
-  public void setTotalNetPrice(BigDecimal totalNetPrice) {
+  public void setTotalNetPrice(MonetaryAmount totalNetPrice) {
     this.totalNetPrice = totalNetPrice;
-  }
-
-  public BigDecimal getStampTax() {
-    return stampTax;
-  }
-
-  public void setStampTax(BigDecimal stampTax) {
-    this.stampTax = stampTax;
   }
 
   public List<Role> getRoles() {
@@ -146,28 +114,11 @@ public class Contract implements Serializable {
     this.payment = payment;
   }
 
-  public String getDistributor() {
-    return distributor;
+  public List<FileHandle> getFileHandles() {
+    return fileHandles;
   }
 
-  public void setDistributor(String distributor) {
-    this.distributor = distributor;
+  public void setFileHandles(List<FileHandle> fileHandles) {
+    this.fileHandles = fileHandles;
   }
-
-  public String getTerm() {
-    return term;
-  }
-
-  public void setTerm(String term) {
-    this.term = term;
-  }
-
-  public List<String> getDocumentHandles() {
-    return documentHandles;
-  }
-
-  public void setDocumentHandles(List<String> documentHandles) {
-    this.documentHandles = documentHandles;
-  }
-
 }

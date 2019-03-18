@@ -8,7 +8,7 @@ openAPI:
     title: 'Contracts API'
     description: 'An API which allows to communicate with SaaS Providers, which produces Contracts for the host of this API'
     contact:
-      email: TBD
+      email: TBD.TBD@baloise.com
     license:
       name: TBD
       url: TBD

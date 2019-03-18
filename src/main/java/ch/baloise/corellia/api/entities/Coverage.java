@@ -11,62 +11,47 @@ public class Coverage implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @Size(max = 100)
-  private String name;
+  private Integer code;
 
   @NotNull
-  @Size(max = 20)
-  private String code;
+  private MonetaryAmount premium;
+
+  private MonetaryAmount deductible;
 
   @NotNull
-  private BigDecimal premium;
-
-  @NotNull
-  private Integer deductible;
-
-  @NotNull
-  private Integer sumInsured;
+  private MonetaryAmount sumInsured;
 
   public Coverage() {}
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getCode() {
+  public Integer getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(Integer code) {
     this.code = code;
   }
 
-  public BigDecimal getPremium() {
+  public MonetaryAmount getPremium() {
     return premium;
   }
 
-  public void setPremium(BigDecimal premium) {
+  public void setPremium(MonetaryAmount premium) {
     this.premium = premium;
   }
 
-  public Integer getSumInsured() {
-    return sumInsured;
-  }
-
-  public void setSumInsured(Integer sumInsured) {
-    this.sumInsured = sumInsured;
-  }
-
-  public Integer getDeductible() {
+  public MonetaryAmount getDeductible() {
     return deductible;
   }
 
-  public void setDeductible(Integer deductible) {
+  public void setDeductible(MonetaryAmount deductible) {
     this.deductible = deductible;
   }
 
+  public MonetaryAmount getSumInsured() {
+    return sumInsured;
+  }
+
+  public void setSumInsured(MonetaryAmount sumInsured) {
+    this.sumInsured = sumInsured;
+  }
 }
