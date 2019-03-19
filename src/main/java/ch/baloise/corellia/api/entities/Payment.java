@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class Payment implements Serializable {
 
@@ -13,13 +14,12 @@ public class Payment implements Serializable {
   @NotNull
   private Integer code;
 
-  @Size(max = 20)
-  private String discountCode;
-
   @Valid
+  @Schema(description = "If the payment was done by a company, this property must be filled. Only one of the properties person or company may be filled.")
   private Company company;
 
   @Valid
+  @Schema(description = "If the payment was done by a person, this property must be filled. Only one of the properties person or company may be filled.")
   private Person person;
 
   public Payment() {}
@@ -30,14 +30,6 @@ public class Payment implements Serializable {
 
   public void setCode(Integer code) {
     this.code = code;
-  }
-
-  public String getDiscountCode() {
-    return discountCode;
-  }
-
-  public void setDiscountCode(String discountCode) {
-    this.discountCode = discountCode;
   }
 
   public Company getCompany() {

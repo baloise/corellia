@@ -8,6 +8,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class Product implements Serializable {
 
   private static final long serialVersionUID = 10;
@@ -16,6 +18,7 @@ public class Product implements Serializable {
   @Size(max = 20)
   private Integer code;
 
+  @Schema(description = "The year in which the pricing for the contract was set.")
   private LocalDate pricingYear;
 
   @NotNull

@@ -1,18 +1,23 @@
 package ch.baloise.corellia.api.entities;
 
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class Person implements Serializable {
 
   private static final long serialVersionUID = 10;
 
-  public enum Salutation {Mr, Mrs}
+  public enum Salutation {
+    Mr, Mrs
+  }
 
   @NotNull
   @Size(max = 20)
@@ -32,19 +37,18 @@ public class Person implements Serializable {
   private PhoneNumber phoneNumber;
 
   @Size(min = 0, max = 70)
-  // TODO: 15.03.2019 b021719 provide regexp for validation?
+  @Schema(description = "A valid email address")
   private String emailAddress;
 
   @Size(min = 2, max = 2)
-  @JsonPropertyDescription("the language for correspondence with the customer, according to ISO 639-1 language code, only DE, FR, IT, or EN are accepted")
+  @JsonPropertyDescription("The language for correspondence with the customer. According to ISO 639-1 language codes, only the values 'de', 'fr', 'it' or 'en' are accepted.")
   private String language;
 
   @NotNull
   @Valid
   private Address address;
 
-  public Person() {
-  }
+  public Person() {}
 
   public Salutation getSalutation() {
     return salutation;

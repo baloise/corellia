@@ -1,6 +1,11 @@
 package ch.baloise.corellia.api.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class FileHandle {
+
+  @Schema(description = "Reference to an uploaded file. This can be e.g. a PDF or a picture (e.g. JPG) of a contract or a purchase receipt.")
+  private String handle;
 
   public String getHandle() {
     return handle;
@@ -10,5 +15,4 @@ public class FileHandle {
     this.handle = handle;
   }
 
-  private String handle;
 }
