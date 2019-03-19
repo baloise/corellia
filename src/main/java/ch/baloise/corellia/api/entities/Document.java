@@ -1,5 +1,7 @@
 package ch.baloise.corellia.api.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
@@ -12,10 +14,12 @@ public class Document implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
+  @Schema(description = "the document itself")
   private byte[] data;
 
   @NotNull
   @Size(max = 20)
+  @Schema(description = "the contract this document belongs to")
   private String contractId;
 
   @NotNull

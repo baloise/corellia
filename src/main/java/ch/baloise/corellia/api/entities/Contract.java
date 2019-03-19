@@ -1,5 +1,7 @@
 package ch.baloise.corellia.api.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,24 +15,30 @@ public class Contract implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
+  @Schema(description = "the day the contract was issued")
   private LocalDate creationDate;
 
   @NotNull
+  @Schema(description = "start of contract which means start of insurance coverage")
   private LocalDate startDate;
 
   @NotNull
+  @Schema(description = "end of contract which means end of insurance coverage")
   private LocalDate endDate;
 
   @NotNull
   @Size(max = 20)
+  @Schema(description = "id given by SaaS provider")
   private String contractId;
 
   @NotNull
+  @Schema(description = "the amount the customer pays excluding tax")
   private MonetaryAmount totalNetPrice;
 
   @NotNull
   @Valid
   @Size(min = 1, max = 99)
+  @Schema(description = "all roles in the contract, e.g. insuranceHolder")
   private List<Role> roles;
 
   @NotNull
@@ -39,23 +47,28 @@ public class Contract implements Serializable {
 
   @NotNull
   @Valid
+  @Schema(description = "the agent who induced the contract issuance, usually is eligible for receiving commission")
   private Agent agent;
 
   @NotNull
   @Valid
+  @Schema(description = "information about how the customer wants (or has already) payed the premium")
   private Payment payment;
 
   @NotNull
   @Size(min = 1, max = 99)
+  @Schema(description = "a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts")
   private List<FileHandle> fileHandles;
 
   @NotNull
   @Size(min = 1, max = 99)
-  private String  conditionType;
+  @Schema(description = "type of contract conditions")
+  private String conditionType;
 
   @NotNull
   @Size(min = 4, max = 4)
-  private String conditionYear;
+  @Schema(description = "when was the condition issued Format MMYY")
+  private String conditionMonthYear;
 
   public Contract() {}
 
@@ -147,11 +160,11 @@ public class Contract implements Serializable {
     this.conditionType = conditionType;
   }
 
-  public String getConditionYear() {
-    return conditionYear;
+  public String getConditionMonthYear() {
+    return conditionMonthYear;
   }
 
-  public void setConditionYear(String conditionYear) {
-    this.conditionYear = conditionYear;
+  public void setConditionMonthYear(String conditionMonthYear) {
+    this.conditionMonthYear = conditionMonthYear;
   }
 }

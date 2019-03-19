@@ -18,6 +18,7 @@ public class Agent implements Serializable {
 
   @NotNull
   @Size(max = 70)
+  @Schema(description = "valid email adress")
   private String email;
 
   public Agent() {
