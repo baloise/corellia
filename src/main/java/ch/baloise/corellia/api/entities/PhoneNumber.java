@@ -1,12 +1,11 @@
 package ch.baloise.corellia.api.entities;
 
-import javax.validation.constraints.NotNull;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import javax.validation.constraints.NotNull;
 
 public class PhoneNumber {
 
-  @NotNull
   @Schema(description = "Country code, default is +41.", defaultValue = "+41")
   private String countryCode;
 
