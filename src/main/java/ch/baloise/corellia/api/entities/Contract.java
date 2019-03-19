@@ -2,13 +2,12 @@ package ch.baloise.corellia.api.entities;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
 
 public class Contract implements Serializable {
 
@@ -70,7 +69,8 @@ public class Contract implements Serializable {
   @Schema(description = "when was the condition issued Format MMYY")
   private String conditionMonthYear;
 
-  public Contract() {}
+  public Contract() {
+  }
 
   public LocalDate getCreationDate() {
     return creationDate;

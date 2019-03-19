@@ -1,6 +1,5 @@
 package ch.baloise.corellia.api.entities;
 
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotNull;

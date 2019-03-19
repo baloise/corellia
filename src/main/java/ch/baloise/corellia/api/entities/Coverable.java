@@ -1,15 +1,12 @@
 package ch.baloise.corellia.api.entities;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.List;
 
 public class Coverable implements Serializable {
 
@@ -21,10 +18,11 @@ public class Coverable implements Serializable {
 
   @NotNull
   @Valid
-  @Size(min = 1, max=99)
+  @Size(min = 1, max = 99)
   private List<Coverage> coverage;
 
-  public Coverable() {}
+  public Coverable() {
+  }
 
   public Integer getCode() {
     return code;

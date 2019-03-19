@@ -1,13 +1,11 @@
 package ch.baloise.corellia.api.entities;
 
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import java.io.Serializable;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 public class Company implements Serializable {
 
@@ -40,8 +38,8 @@ public class Company implements Serializable {
   @Valid
   private Address address;
 
-
-  public Company() {}
+  public Company() {
+  }
 
   public String getName() {
     return name;
