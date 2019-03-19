@@ -1,14 +1,13 @@
 package ch.baloise.corellia.api.entities;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
 
 public class Product implements Serializable {
 
@@ -18,8 +17,8 @@ public class Product implements Serializable {
   @Size(max = 20)
   private Integer code;
 
-  @Schema(description = "The year in which the pricing for the contract was set.")
-  private LocalDate pricingYear;
+  @Schema(description = "The month/year in which the pricing for the contract was set. Format MMYY")
+  private LocalDate pricingMonthYear;
 
   @NotNull
   @Valid
@@ -28,12 +27,12 @@ public class Product implements Serializable {
 
   public Product() {}
 
-  public LocalDate getPricingYear() {
-    return pricingYear;
+  public LocalDate getPricingMonthYear() {
+    return pricingMonthYear;
   }
 
-  public void setPricingYear(LocalDate pricingYear) {
-    this.pricingYear = pricingYear;
+  public void setPricingMonthYear(LocalDate pricingMonthYear) {
+    this.pricingMonthYear = pricingMonthYear;
   }
 
   public Integer getCode() {
