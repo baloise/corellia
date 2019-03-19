@@ -26,7 +26,7 @@ hs_err_pid*
 target/
 
 # IDE Files
-.settings/org.eclipse.jdt.core.prefs
+.settings/
 .project
 .classpath
 /bin/
