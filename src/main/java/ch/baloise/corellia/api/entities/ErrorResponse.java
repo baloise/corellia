@@ -16,6 +16,8 @@
 
 package ch.baloise.corellia.api.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.List;
 
 public class ErrorResponse {
@@ -23,7 +25,11 @@ public class ErrorResponse {
   public enum ErrorCause {badRequest, inputValidation}
 
   private ErrorCause errorCause;
+
+  @Schema(description = "information about the error")
   private String message;
+
+  @Schema(description = "in case of e.g. validation error, each validation error is represented by one detail message")
   private List<String> detailMessages;
 
   public ErrorResponse(ErrorCause errorCause, String message) {

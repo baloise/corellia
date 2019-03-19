@@ -1,6 +1,7 @@
 package ch.baloise.corellia.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -10,11 +11,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public abstract class Coverable implements Serializable {
+public class Coverable implements Serializable {
 
   private static final long serialVersionUID = 10;
 
   @NotNull
+  @Schema(description = "a code uniquely identifying a type of coverable")
   private Integer code;
 
   @NotNull

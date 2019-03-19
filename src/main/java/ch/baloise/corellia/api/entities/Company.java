@@ -1,6 +1,7 @@
 package ch.baloise.corellia.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 
@@ -17,19 +18,22 @@ public class Company implements Serializable {
   private String name;
 
   @Size(max = 15)
-  @JsonPropertyDescription("example CHE-105.805.649")
+  @Schema(description = "identifies a company uniquely, example CHE-105.805.649")
   private String uidNumber;
 
   @NotNull
   @Size(max = 20)
+  @Schema(description = "a contact is a person representing the company")
   private Person.Salutation contactSalutation;
 
   @NotNull
   @Size(min = 2, max = 35)
+  @Schema(description = "a contact is a person representing the company")
   private String contactLastName;
 
   @NotNull
   @Size(min = 2, max = 35)
+  @Schema(description = "a contact is a person representing the company")
   private String contactFirstName;
 
   @NotNull

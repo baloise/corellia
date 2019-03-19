@@ -1,5 +1,7 @@
 package ch.baloise.corellia.api.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -11,6 +13,7 @@ public class Coverage implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
+  @Schema(description = "a code uniquely identifying a type of coverage")
   private Integer code;
 
   @NotNull
