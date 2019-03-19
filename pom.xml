@@ -23,7 +23,7 @@
     <url>https://www.baloise.com</url>
   </organization>
 
-  <groupId>com.baloise.open.corellia</groupId>
+  <groupId>com.baloise.open</groupId>
   <artifactId>corellia</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
@@ -47,9 +47,9 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
 
-    <swagger-version>2.0.1</swagger-version>
-    <jackson-version>2.9.1</jackson-version>
-    <jetty-version>9.4.9.v20180320</jetty-version>
+    <swagger.version>2.0.1</swagger.version>
+    <jackson.version>2.9.1</jackson.version>
+    <jetty.version>9.4.9.v20180320</jetty.version>
 
     <junit.jupiter.version>5.2.0</junit.jupiter.version>
     <junit.platform.version>1.2.0</junit.platform.version>
@@ -82,32 +82,32 @@
       <groupId>io.swagger.core.v3</groupId>
       <artifactId>swagger-jaxrs2</artifactId>
       <scope>compile</scope>
-      <version>${swagger-version}</version>
+      <version>${swagger.version}</version>
     </dependency>
     <dependency>
       <groupId>io.swagger.core.v3</groupId>
       <artifactId>swagger-jaxrs2-servlet-initializer</artifactId>
-      <version>${swagger-version}</version>
+      <version>${swagger.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.jaxrs</groupId>
       <artifactId>jackson-jaxrs-json-provider</artifactId>
-      <version>${jackson-version}</version>
+      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>
       <artifactId>jackson-module-parameter-names</artifactId>
-      <version>${jackson-version}</version>
+      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jdk8</artifactId>
-      <version>${jackson-version}</version>
+      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>${jackson-version}</version>
+      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.ws.rs</groupId>
@@ -199,7 +199,7 @@
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>${jetty-version}</version>
+        <version>${jetty.version}</version>
         <configuration>
           <webApp>
             <contextPath>/</contextPath>

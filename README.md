@@ -8,7 +8,7 @@
 
 ## about
 
-The project hosts a classical b2b-interface (REST) specification for (insurance) contract data and document exchange.
+The project hosts a classical b2b-interface (Web-API) specification for (insurance) contract data and document exchange.
 
 This is a java project leveraging a stand-alone jetty server. It provides the Baloise Contracts API according to the OpenAPI Spec. 
 This application uses JAX-RS annotated resources to resolve a valid OpenAPI definition out of Java classes representing the API 

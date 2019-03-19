@@ -1,6 +1,7 @@
 package ch.baloise.corellia.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,7 +13,7 @@ public class Agent implements Serializable {
 
   @NotNull
   @Size(max = 8)
-  @JsonPropertyDescription("Identification of an Agent")
+  @Schema(description = "Identification of an Agent")
   private String agentNumber;
 
   @NotNull
