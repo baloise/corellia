@@ -2,26 +2,22 @@ package ch.baloise.corellia.api.entities;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 public class Document implements Serializable {
 
-  public enum DocumentType { contract, receipt};
-
   private static final long serialVersionUID = 10;
 
+  ;
   @NotNull
   @Schema(description = "the document itself")
   private byte[] data;
-
   @NotNull
   @Size(max = 20)
   @Schema(description = "the contract this document belongs to")
   private String contractId;
-
   @NotNull
   @Size(max = 20)
   private DocumentType documentType;
@@ -49,4 +45,6 @@ public class Document implements Serializable {
   public void setDocumentType(DocumentType documentType) {
     this.documentType = documentType;
   }
+
+  public enum DocumentType {contract, receipt}
 }

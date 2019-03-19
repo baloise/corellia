@@ -2,11 +2,8 @@ package ch.baloise.corellia.api.entities;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 public class Coverage implements Serializable {
 
@@ -24,7 +21,8 @@ public class Coverage implements Serializable {
   @NotNull
   private MonetaryAmount sumInsured;
 
-  public Coverage() {}
+  public Coverage() {
+  }
 
   public Integer getCode() {
     return code;
