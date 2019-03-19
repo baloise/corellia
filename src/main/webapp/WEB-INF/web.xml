@@ -7,7 +7,6 @@
     <!-- use OpenApi servlet to serve spec -->
     <servlet-name>api</servlet-name>
     <servlet-class>io.swagger.v3.jaxrs2.integration.OpenApiServlet</servlet-class>
-
     <load-on-startup>2</load-on-startup>
   </servlet>
 

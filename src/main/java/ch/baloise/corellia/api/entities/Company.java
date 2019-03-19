@@ -21,6 +21,18 @@ public class Company implements Serializable {
   private String uidNumber;
 
   @NotNull
+  @Size(max = 20)
+  private Person.Salutation contactSalutation;
+
+  @NotNull
+  @Size(min = 2, max = 35)
+  private String contactLastName;
+
+  @NotNull
+  @Size(min = 2, max = 35)
+  private String contactFirstName;
+
+  @NotNull
   @Valid
   private Address address;
 
@@ -41,6 +53,30 @@ public class Company implements Serializable {
 
   public void setUidNumber(String uidNumber) {
     this.uidNumber = uidNumber;
+  }
+
+  public Person.Salutation getContactSalutation() {
+    return contactSalutation;
+  }
+
+  public void setContactSalutation(Person.Salutation contactSalutation) {
+    this.contactSalutation = contactSalutation;
+  }
+
+  public String getContactLastName() {
+    return contactLastName;
+  }
+
+  public void setContactLastName(String contactLastName) {
+    this.contactLastName = contactLastName;
+  }
+
+  public String getContactFirstName() {
+    return contactFirstName;
+  }
+
+  public void setContactFirstName(String contactFirstName) {
+    this.contactFirstName = contactFirstName;
   }
 
   public Address getAddress() {

@@ -12,7 +12,8 @@ public class Contract implements Serializable {
 
   private static final long serialVersionUID = 10;
 
-  // TODO: 18.03.2019 b021719 Abgaben aufnehmen FL vs. CH
+  @NotNull
+  private LocalDate creationDate;
 
   @NotNull
   private LocalDate startDate;
@@ -48,7 +49,23 @@ public class Contract implements Serializable {
   @Size(min = 1, max = 99)
   private List<FileHandle> fileHandles;
 
+  @NotNull
+  @Size(min = 1, max = 99)
+  private String  conditionType;
+
+  @NotNull
+  @Size(min = 4, max = 4)
+  private String conditionYear;
+
   public Contract() {}
+
+  public LocalDate getCreationDate() {
+    return creationDate;
+  }
+
+  public void setCreationDate(LocalDate creationDate) {
+    this.creationDate = creationDate;
+  }
 
   public LocalDate getStartDate() {
     return startDate;
@@ -120,5 +137,21 @@ public class Contract implements Serializable {
 
   public void setFileHandles(List<FileHandle> fileHandles) {
     this.fileHandles = fileHandles;
+  }
+
+  public String getConditionType() {
+    return conditionType;
+  }
+
+  public void setConditionType(String conditionType) {
+    this.conditionType = conditionType;
+  }
+
+  public String getConditionYear() {
+    return conditionYear;
+  }
+
+  public void setConditionYear(String conditionYear) {
+    this.conditionYear = conditionYear;
   }
 }

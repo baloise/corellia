@@ -1,6 +1,7 @@
 package ch.baloise.corellia.api.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,12 +16,22 @@ public class Product implements Serializable {
   @Size(max = 20)
   private Integer code;
 
+  private LocalDate pricingYear;
+
   @NotNull
   @Valid
   @Size(min = 0, max = 99)
   private List<Coverable> coverables;
 
   public Product() {}
+
+  public LocalDate getPricingYear() {
+    return pricingYear;
+  }
+
+  public void setPricingYear(LocalDate pricingYear) {
+    this.pricingYear = pricingYear;
+  }
 
   public Integer getCode() {
     return code;
