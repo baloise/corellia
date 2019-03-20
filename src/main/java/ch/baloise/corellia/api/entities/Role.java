@@ -6,14 +6,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Schema(description = "Only one of the properties person or company may be filled.")
+@Schema(description = "At least and at most one one of the properties person or company must provided")
 public class Role implements Serializable {
 
   private static final long serialVersionUID = 10;
 
-  public enum RoleType {
-    Insuranceholder, Payer
-  };
+  public enum RoleType {Insuranceholder, Payer}
 
   @NotNull
   private RoleType role;
@@ -24,7 +22,8 @@ public class Role implements Serializable {
   @Valid
   private Company company;
 
-  public Role() {}
+  public Role() {
+  }
 
   public RoleType getRole() {
     return role;

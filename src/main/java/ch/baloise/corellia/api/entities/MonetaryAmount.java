@@ -1,15 +1,14 @@
 package ch.baloise.corellia.api.entities;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import javax.validation.constraints.NotNull;
-
-import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 
 public class MonetaryAmount {
 
   @NotNull
-  @Schema(description = "An amount, e.g. an insured sum or a deductible.")
+  @JsonPropertyDescription("An amount with two decimal digit like an insured sum or a deductible (e.g. 100,22).")
   private BigDecimal amount;
 
   public BigDecimal getAmount() {

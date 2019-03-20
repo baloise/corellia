@@ -1,6 +1,6 @@
 package ch.baloise.corellia.api.entities;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ public class Coverable implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @Schema(description = "a code uniquely identifying a type of coverable")
+  @JsonPropertyDescription("a code uniquely identifying a type of coverable")
   private Integer code;
 
   @NotNull

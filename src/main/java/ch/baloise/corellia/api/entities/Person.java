@@ -1,23 +1,19 @@
 package ch.baloise.corellia.api.entities;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
-
-import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Person implements Serializable {
 
   private static final long serialVersionUID = 10;
 
-  public enum Salutation {
-    Mr, Mrs
-  }
+  public enum Salutation {  Mr, Mrs }
 
   @NotNull
   @Size(max = 20)
@@ -37,10 +33,11 @@ public class Person implements Serializable {
   private PhoneNumber phoneNumber;
 
   @Size(min = 0, max = 70)
-  @Schema(description = "A valid email address")
+  @JsonPropertyDescription("A valid email address")
   private String emailAddress;
 
   @Size(min = 2, max = 2)
+  @JsonProperty
   @JsonPropertyDescription("The language for correspondence with the customer. According to ISO 639-1 language codes, only the values 'de', 'fr', 'it' or 'en' are accepted.")
   private String language;
 

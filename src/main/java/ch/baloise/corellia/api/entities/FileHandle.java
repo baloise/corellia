@@ -1,10 +1,13 @@
 package ch.baloise.corellia.api.entities;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+
+import javax.validation.constraints.NotNull;
 
 public class FileHandle {
 
-  @Schema(description = "Reference to an uploaded file. This can be e.g. a PDF or a picture (e.g. JPG) of a contract or a purchase receipt.")
+  @NotNull
+  @JsonPropertyDescription("Reference to an uploaded file. This can be e.g. a PDF or a picture (e.g. JPG) of a contract or a purchase receipt.")
   private String handle;
 
   public String getHandle() {

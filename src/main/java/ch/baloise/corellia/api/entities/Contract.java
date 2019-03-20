@@ -1,6 +1,6 @@
 package ch.baloise.corellia.api.entities;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -14,59 +14,58 @@ public class Contract implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @Schema(description = "the day the contract was issued")
+  @JsonPropertyDescription("the day the contract was issued")
   private LocalDate creationDate;
 
   @NotNull
-  @Schema(description = "start of contract which means start of insurance coverage")
+  @JsonPropertyDescription("start of contract which means start of insurance coverage")
   private LocalDate startDate;
 
   @NotNull
-  @Schema(description = "end of contract which means end of insurance coverage")
+  @JsonPropertyDescription("end of contract which means end of insurance coverage")
   private LocalDate endDate;
 
   @NotNull
   @Size(max = 20)
-  @Schema(description = "id given by SaaS provider")
+  @JsonPropertyDescription("id given by SaaS provider")
   private String contractId;
 
   @NotNull
-  @Schema(description = "the amount the customer pays excluding tax")
+  @JsonPropertyDescription("the amount the customer pays excluding tax")
   private MonetaryAmount totalNetPrice;
 
   @NotNull
   @Valid
   @Size(min = 1, max = 99)
-  @Schema(description = "all roles in the contract, e.g. insuranceHolder")
+  @JsonPropertyDescription("all roles in the contract, e.g. insuranceHolder")
   private List<Role> roles;
 
   @NotNull
   @Valid
   private Product product;
 
-  @NotNull
   @Valid
-  @Schema(description = "the agent who induced the contract issuance, usually is eligible for receiving commission")
+  @JsonPropertyDescription("the agent who induced the contract issuance, usually is eligible for receiving commission")
   private Agent agent;
 
   @NotNull
   @Valid
-  @Schema(description = "information about how the customer wants (or has already) payed the premium")
+  @JsonPropertyDescription("information about how the customer wants (or has already) payed the premium")
   private Payment payment;
 
   @NotNull
   @Size(min = 1, max = 99)
-  @Schema(description = "a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts")
+  @JsonPropertyDescription("a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts")
   private List<FileHandle> fileHandles;
 
   @NotNull
   @Size(min = 1, max = 99)
-  @Schema(description = "type of contract conditions")
+  @JsonPropertyDescription("type of contract conditions")
   private String conditionType;
 
   @NotNull
   @Size(min = 4, max = 4)
-  @Schema(description = "when was the condition issued Format MMYY")
+  @JsonPropertyDescription("when was the condition issued? Format MMYY")
   private String conditionMonthYear;
 
   public Contract() {

@@ -1,6 +1,6 @@
 package ch.baloise.corellia.api.entities;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -15,9 +15,10 @@ public class Product implements Serializable {
 
   @NotNull
   @Size(max = 20)
+  @JsonPropertyDescription("a code uniquely identifying the product")
   private Integer code;
 
-  @Schema(description = "The month/year in which the pricing for the contract was set. Format MMYY")
+  @JsonPropertyDescription("The month/year in which the pricing for the contract was set. Format MMYY")
   private LocalDate pricingMonthYear;
 
   @NotNull

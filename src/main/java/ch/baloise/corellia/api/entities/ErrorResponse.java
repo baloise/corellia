@@ -16,16 +16,21 @@
 
 package ch.baloise.corellia.api.entities;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class ErrorResponse {
 
+  @NotNull
   private ErrorCause errorCause;
-  @Schema(description = "information about the error")
+
+  @NotNull
+  @JsonPropertyDescription("information about the error")
   private String message;
-  @Schema(description = "in case of e.g. validation error, each validation error is represented by one detail message")
+
+  @JsonPropertyDescription("in case of e.g. validation error, each validation error is represented by one detail message")
   private List<String> detailMessages;
 
   public ErrorResponse(ErrorCause errorCause, String message) {
