@@ -15,7 +15,7 @@ This application uses JAX-RS annotated resources to resolve a valid OpenAPI defi
 
 
 ### the name
-[![swagger-editor](https://img.shields.io/badge/open--API-in--editor-green.svg?style=flat&label=open-api)](https://editor.swagger.io/?url=https://raw.githubusercontent.com/baloise/corellia/JAVAMIG-3393/docs/swagger.json)
+[![swagger-editor](https://img.shields.io/badge/open--API-in--editor-green.svg?style=flat&label=open-api)](https://editor.swagger.io/?url=https://raw.githubusercontent.com/baloise/corellia/JAVAMIG-3393/docs/openapi.json)
 
 ## the [docs](docs/index.md)
 
