@@ -14,11 +14,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-// TODO: 13.03.2019 b021719 implement Errorhandling - throw Exceptions?
 @Path("/contracts/v1")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ContractRestController {
+public interface ContractRestController {
 
 
   @POST
@@ -30,9 +29,7 @@ public class ContractRestController {
           @ApiResponse(responseCode = "400", description = "Invalid Contract is provided. See Error details for more information about validation issues", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
           @ApiResponse(responseCode = "503", description = "technical issue on our side, please retry later", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
       })
-  public ContractReference uploadContract(@Parameter(description = "Contract that needs to be uploaded to Baloise", required = true) Contract contract) {
-    return new ContractReference();
-  }
+  public ContractReference uploadContract(@Parameter(description = "Contract that needs to be uploaded to Baloise", required = true) Contract contract);
 
   @POST
   @Path("/documents")
@@ -44,7 +41,5 @@ public class ContractRestController {
           @ApiResponse(responseCode = "400", description = "Invalid Document is provided. See Error details for more information about validation issues", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
           @ApiResponse(responseCode = "503", description = "technical issue on our side, please retry later", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
       })
-  public FileHandle uploadDocument(@Parameter(description = "a documnent that is part of a contract", required = true) Document document) {
-    return new FileHandle();
-  }
+  public FileHandle uploadDocument(@Parameter(description = "a documnent that is part of a contract", required = true) Document document);
 }
