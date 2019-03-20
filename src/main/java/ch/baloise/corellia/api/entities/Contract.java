@@ -59,11 +59,6 @@ public class Contract implements Serializable {
   private List<FileHandle> fileHandles;
 
   @NotNull
-  @Size(min = 1, max = 99)
-  @JsonPropertyDescription("type of contract conditions")
-  private String conditionType;
-
-  @NotNull
   @Size(min = 4, max = 4)
   @JsonPropertyDescription("when was the condition issued? Format MMYY")
   private String conditionMonthYear;
@@ -149,14 +144,6 @@ public class Contract implements Serializable {
 
   public void setFileHandles(List<FileHandle> fileHandles) {
     this.fileHandles = fileHandles;
-  }
-
-  public String getConditionType() {
-    return conditionType;
-  }
-
-  public void setConditionType(String conditionType) {
-    this.conditionType = conditionType;
   }
 
   public String getConditionMonthYear() {
