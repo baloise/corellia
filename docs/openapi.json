@@ -118,6 +118,61 @@
   },
   "components" : {
     "schemas" : {
+      "ContractReference" : {
+        "type" : "object",
+        "properties" : {
+          "reference" : {
+            "maxLength" : 30,
+            "minLength" : 1,
+            "type" : "string"
+          }
+        }
+      },
+      "ErrorResponse" : {
+        "required" : [ "errorCause", "message" ],
+        "type" : "object",
+        "properties" : {
+          "errorCause" : {
+            "type" : "string",
+            "enum" : [ "badRequest", "inputValidation" ]
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "detailMessages" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "Address" : {
+        "required" : [ "city", "houseNumber", "street", "zipCode" ],
+        "type" : "object",
+        "properties" : {
+          "street" : {
+            "maxLength" : 35,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "houseNumber" : {
+            "maxLength" : 10,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "zipCode" : {
+            "maxLength" : 4,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "city" : {
+            "maxLength" : 30,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        }
+      },
       "Agent" : {
         "required" : [ "agentNumber", "email" ],
         "type" : "object",
@@ -166,219 +221,6 @@
           },
           "address" : {
             "$ref" : "#/components/schemas/Address"
-          }
-        }
-      },
-      "Address" : {
-        "required" : [ "city", "houseNumber", "street", "zipCode" ],
-        "type" : "object",
-        "properties" : {
-          "street" : {
-            "maxLength" : 35,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "houseNumber" : {
-            "maxLength" : 10,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "zipCode" : {
-            "maxLength" : 4,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "city" : {
-            "maxLength" : 30,
-            "minLength" : 0,
-            "type" : "string"
-          }
-        }
-      },
-      "MonetaryAmount" : {
-        "required" : [ "amount" ],
-        "type" : "object",
-        "properties" : {
-          "amount" : {
-            "type" : "number"
-          }
-        }
-      },
-      "FileHandle" : {
-        "required" : [ "handle" ],
-        "type" : "object",
-        "properties" : {
-          "handle" : {
-            "type" : "string"
-          }
-        }
-      },
-      "Coverable" : {
-        "required" : [ "code", "coverage" ],
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "coverage" : {
-            "maxItems" : 99,
-            "minItems" : 1,
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Coverage"
-            }
-          }
-        }
-      },
-      "Product" : {
-        "required" : [ "code", "coverables" ],
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "maximum" : 20,
-            "minimum" : 0,
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "pricingMonthYear" : {
-            "type" : "string",
-            "format" : "date"
-          },
-          "coverables" : {
-            "maxItems" : 99,
-            "minItems" : 0,
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Coverable"
-            }
-          }
-        }
-      },
-      "Coverage" : {
-        "required" : [ "code", "premium", "sumInsured" ],
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "premium" : {
-            "$ref" : "#/components/schemas/MonetaryAmount"
-          },
-          "deductible" : {
-            "$ref" : "#/components/schemas/MonetaryAmount"
-          },
-          "sumInsured" : {
-            "$ref" : "#/components/schemas/MonetaryAmount"
-          }
-        }
-      },
-      "Document" : {
-        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string",
-              "format" : "byte"
-            }
-          },
-          "contractId" : {
-            "maxLength" : 30,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "mediaType" : {
-            "type" : "string",
-            "enum" : [ "application_pdf", "image_jpeg", "image_tiff" ]
-          },
-          "fileName" : {
-            "maxLength" : 256,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "documentType" : {
-            "type" : "string",
-            "enum" : [ "contract", "receipt" ]
-          }
-        }
-      },
-      "ErrorResponse" : {
-        "required" : [ "errorCause", "message" ],
-        "type" : "object",
-        "properties" : {
-          "errorCause" : {
-            "type" : "string",
-            "enum" : [ "badRequest", "inputValidation" ]
-          },
-          "message" : {
-            "type" : "string"
-          },
-          "detailMessages" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          }
-        }
-      },
-      "ContractReference" : {
-        "type" : "object",
-        "properties" : {
-          "reference" : {
-            "maxLength" : 30,
-            "minLength" : 1,
-            "type" : "string"
-          }
-        }
-      },
-      "Role" : {
-        "required" : [ "role" ],
-        "type" : "object",
-        "properties" : {
-          "role" : {
-            "type" : "string",
-            "enum" : [ "Insuranceholder", "Payer" ]
-          },
-          "person" : {
-            "$ref" : "#/components/schemas/Person"
-          },
-          "company" : {
-            "$ref" : "#/components/schemas/Company"
-          }
-        },
-        "description" : "At least and at most one one of the properties person or company must provided"
-      },
-      "Payment" : {
-        "required" : [ "code" ],
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "company" : {
-            "$ref" : "#/components/schemas/Company"
-          },
-          "person" : {
-            "$ref" : "#/components/schemas/Person"
-          }
-        }
-      },
-      "PhoneNumber" : {
-        "required" : [ "phoneNumber" ],
-        "type" : "object",
-        "properties" : {
-          "countryCode" : {
-            "type" : "string",
-            "description" : "Country code, default is +41.",
-            "default" : "+41"
-          },
-          "phoneNumber" : {
-            "type" : "string",
-            "description" : "Phone number, without the leading zero."
           }
         }
       },
@@ -438,6 +280,77 @@
           }
         }
       },
+      "Coverable" : {
+        "required" : [ "code", "coverage" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "coverage" : {
+            "maxItems" : 99,
+            "minItems" : 1,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Coverage"
+            }
+          }
+        }
+      },
+      "Coverage" : {
+        "required" : [ "code", "premium", "sumInsured" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "premium" : {
+            "$ref" : "#/components/schemas/MonetaryAmount"
+          },
+          "deductible" : {
+            "$ref" : "#/components/schemas/MonetaryAmount"
+          },
+          "sumInsured" : {
+            "$ref" : "#/components/schemas/MonetaryAmount"
+          }
+        }
+      },
+      "FileHandle" : {
+        "required" : [ "handle" ],
+        "type" : "object",
+        "properties" : {
+          "handle" : {
+            "type" : "string"
+          }
+        }
+      },
+      "MonetaryAmount" : {
+        "required" : [ "amount" ],
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "type" : "number"
+          }
+        }
+      },
+      "Payment" : {
+        "required" : [ "code" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "company" : {
+            "$ref" : "#/components/schemas/Company"
+          },
+          "person" : {
+            "$ref" : "#/components/schemas/Person"
+          }
+        }
+      },
       "Person" : {
         "required" : [ "address", "firstName", "lastName", "salutation" ],
         "type" : "object",
@@ -480,6 +393,89 @@
           }
         },
         "description" : "If the payment was done by a person, this property must be filled. Only one of the properties person or company may be filled."
+      },
+      "PhoneNumber" : {
+        "required" : [ "phoneNumber" ],
+        "type" : "object",
+        "properties" : {
+          "countryCode" : {
+            "type" : "string"
+          },
+          "phoneNumber" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Product" : {
+        "required" : [ "code", "coverables" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "maximum" : 20,
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "pricingMonthYear" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "coverables" : {
+            "maxItems" : 99,
+            "minItems" : 0,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Coverable"
+            }
+          }
+        }
+      },
+      "Role" : {
+        "required" : [ "role" ],
+        "type" : "object",
+        "properties" : {
+          "role" : {
+            "type" : "string",
+            "enum" : [ "insuranceholder", "payer" ]
+          },
+          "person" : {
+            "$ref" : "#/components/schemas/Person"
+          },
+          "company" : {
+            "$ref" : "#/components/schemas/Company"
+          }
+        }
+      },
+      "Document" : {
+        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "contractId" : {
+            "maxLength" : 30,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "mediaType" : {
+            "type" : "string",
+            "enum" : [ "application_pdf", "image_jpeg", "image_tiff" ]
+          },
+          "fileName" : {
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "documentType" : {
+            "type" : "string",
+            "enum" : [ "contract", "receipt" ]
+          }
+        }
       }
     }
   }

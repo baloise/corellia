@@ -22,7 +22,7 @@ public class Company implements Serializable {
   @NotNull
   @Size(max = 20)
   @JsonPropertyDescription("a contact is a person representing the company")
-  private Person.Salutation contactSalutation;
+  private ch.baloise.corellia.api.entities.Person.Salutation contactSalutation;
 
   @NotNull
   @Size(min = 2, max = 35)
@@ -57,11 +57,11 @@ public class Company implements Serializable {
     this.uidNumber = uidNumber;
   }
 
-  public Person.Salutation getContactSalutation() {
+  public ch.baloise.corellia.api.entities.Person.Salutation getContactSalutation() {
     return contactSalutation;
   }
 
-  public void setContactSalutation(Person.Salutation contactSalutation) {
+  public void setContactSalutation(ch.baloise.corellia.api.entities.Person.Salutation contactSalutation) {
     this.contactSalutation = contactSalutation;
   }
 

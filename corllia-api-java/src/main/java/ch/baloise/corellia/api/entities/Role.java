@@ -1,17 +1,17 @@
 package ch.baloise.corellia.api.entities;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonClassDescription;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Schema(description = "At least and at most one one of the properties person or company must provided")
+@JsonClassDescription("At least and at most one one of the properties person or company must provided")
 public class Role implements Serializable {
 
   private static final long serialVersionUID = 10;
 
-  public enum RoleType {Insuranceholder, Payer}
+  public enum RoleType {insuranceholder, payer}
 
   @NotNull
   private RoleType role;

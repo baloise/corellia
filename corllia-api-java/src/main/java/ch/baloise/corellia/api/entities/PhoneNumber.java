@@ -1,16 +1,16 @@
 package ch.baloise.corellia.api.entities;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import javax.validation.constraints.NotNull;
 
 public class PhoneNumber {
 
-  @Schema(description = "Country code, default is +41.", defaultValue = "+41")
+  @JsonPropertyDescription("Country code, default is +41.")
   private String countryCode;
 
   @NotNull
-  @Schema(description = "Phone number, without the leading zero.")
+  @JsonPropertyDescription("Phone number, without the leading zero.")
   private String phoneNumber;
 
   public String getCountryCode() {

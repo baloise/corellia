@@ -19,16 +19,27 @@ This application uses JAX-RS annotated resources to resolve a valid OpenAPI defi
 
 ## the [docs](docs/index.md)
 
-### To run (with Maven)
-To run the server, run this task:
+## Modules
+### corellia-api-war
+used to produce OpenAPI-Spec (JSON-Format)
+produces a war which is deployed to jetty - to run a jetty server (with Maven)
+
+#### run the server
+To run the server, change to module corellia-api-war and run this task:
 
 ```
 mvn package jetty:run
 ```
 
-### generate JSON representation
+#### generate JSON representation
 Once started, you can navigate to http://localhost:8002/api to view the Swagger Resource Listing.
 This tells you that the server is up and ready to demonstrate Swagger.
 
-# Origin
+#### Origin
 adopted from https://github.com/swagger-api/swagger-samples/blob/2.0/java/java-jaxrs2-openapiservlet/pom.xml
+
+
+### corellia-api-java
+contains the Java sources used to generate the OpenAPI-Spec (JSON-Format)
+Rest-Controller Interface can be implemented by providers of this service
+ 
