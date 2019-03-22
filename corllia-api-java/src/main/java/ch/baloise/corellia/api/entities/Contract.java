@@ -32,7 +32,7 @@ public class Contract implements Serializable {
 
   @NotNull
   @JsonPropertyDescription("the amount the customer pays excluding tax")
-  private ch.baloise.corellia.api.entities.MonetaryAmount totalNetPrice;
+  private MonetaryAmount totalNetPrice;
 
   @NotNull
   @Valid
@@ -42,7 +42,7 @@ public class Contract implements Serializable {
 
   @NotNull
   @Valid
-  private ch.baloise.corellia.api.entities.Product product;
+  private Product product;
 
   @Valid
   @JsonPropertyDescription("the agent who induced the contract issuance, usually is eligible for receiving commission")
@@ -51,12 +51,12 @@ public class Contract implements Serializable {
   @NotNull
   @Valid
   @JsonPropertyDescription("information about how the customer wants (or has already) payed the premium")
-  private ch.baloise.corellia.api.entities.Payment payment;
+  private Payment payment;
 
   @NotNull
   @Size(min = 1, max = 99)
   @JsonPropertyDescription("a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts")
-  private List<ch.baloise.corellia.api.entities.FileHandle> fileHandles;
+  private List<FileHandle> fileHandles;
 
   @NotNull
   @Size(min = 4, max = 4)
@@ -98,11 +98,11 @@ public class Contract implements Serializable {
     this.contractId = contractId;
   }
 
-  public ch.baloise.corellia.api.entities.MonetaryAmount getTotalNetPrice() {
+  public MonetaryAmount getTotalNetPrice() {
     return totalNetPrice;
   }
 
-  public void setTotalNetPrice(ch.baloise.corellia.api.entities.MonetaryAmount totalNetPrice) {
+  public void setTotalNetPrice(MonetaryAmount totalNetPrice) {
     this.totalNetPrice = totalNetPrice;
   }
 
@@ -114,11 +114,11 @@ public class Contract implements Serializable {
     this.roles = roles;
   }
 
-  public ch.baloise.corellia.api.entities.Product getProduct() {
+  public Product getProduct() {
     return product;
   }
 
-  public void setProduct(ch.baloise.corellia.api.entities.Product product) {
+  public void setProduct(Product product) {
     this.product = product;
   }
 
@@ -130,19 +130,19 @@ public class Contract implements Serializable {
     this.agent = agent;
   }
 
-  public ch.baloise.corellia.api.entities.Payment getPayment() {
+  public Payment getPayment() {
     return payment;
   }
 
-  public void setPayment(ch.baloise.corellia.api.entities.Payment payment) {
+  public void setPayment(Payment payment) {
     this.payment = payment;
   }
 
-  public List<ch.baloise.corellia.api.entities.FileHandle> getFileHandles() {
+  public List<FileHandle> getFileHandles() {
     return fileHandles;
   }
 
-  public void setFileHandles(List<ch.baloise.corellia.api.entities.FileHandle> fileHandles) {
+  public void setFileHandles(List<FileHandle> fileHandles) {
     this.fileHandles = fileHandles;
   }
 

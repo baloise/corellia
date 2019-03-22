@@ -3,6 +3,7 @@ package ch.baloise.corellia.api.entities;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class PhoneNumber {
 
@@ -10,6 +11,7 @@ public class PhoneNumber {
   private String countryCode;
 
   @NotNull
+  @Size(min = 5, max = 20)
   @JsonPropertyDescription("Phone number, without the leading zero.")
   private String phoneNumber;
 
