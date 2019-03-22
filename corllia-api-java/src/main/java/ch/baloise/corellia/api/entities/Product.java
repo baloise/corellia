@@ -6,7 +6,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 
 public class Product implements Serializable {
@@ -19,7 +18,7 @@ public class Product implements Serializable {
   private Integer code;
 
   @JsonPropertyDescription("The month/year in which the pricing for the contract was set. Format MMYY")
-  private LocalDate pricingMonthYear;
+  private String pricingMonthYear;
 
   @NotNull
   @Valid
@@ -28,11 +27,11 @@ public class Product implements Serializable {
 
   public Product() {}
 
-  public LocalDate getPricingMonthYear() {
+  public String getPricingMonthYear() {
     return pricingMonthYear;
   }
 
-  public void setPricingMonthYear(LocalDate pricingMonthYear) {
+  public void setPricingMonthYear(String pricingMonthYear) {
     this.pricingMonthYear = pricingMonthYear;
   }
 
