@@ -43,3 +43,12 @@ adopted from https://github.com/swagger-api/swagger-samples/blob/2.0/java/java-j
 contains the Java sources used to generate the OpenAPI-Spec (JSON-Format)
 Rest-Controller Interface can be implemented by providers of this service
  
+=======
+The project hosts a classical b2b-interface (REST) specification for (insurance) contract data and document exchange.
+
+### the name
+
+The name [Corellia](https://en.wikipedia.org/w/index.php?title=Corellia) is a reference to a fictitious planet from  StarWars: one of the first trading planets in the universe with its own [Corellian Trade Spine](https://starwars.fandom.com/wiki/Corellian_Trade_Spine).
+
+### the [docs](docs/index.md)
+
