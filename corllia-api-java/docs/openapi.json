@@ -1,5 +1,17 @@
 {
   "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Contracts API",
+    "description" : "An API which allows to communicate with SaaS Providers, which produces Contracts for the host of this API",
+    "contact" : {
+      "email" : "TBD.TBD@baloise.com"
+    },
+    "license" : {
+      "name" : "TBD",
+      "url" : "TBD"
+    },
+    "version" : "1.0.0"
+  },
   "paths" : {
     "/contracts/v1" : {
       "post" : {
