@@ -20,9 +20,8 @@ public class Company implements Serializable {
   private String uidNumber;
 
   @NotNull
-  @Size(max = 20)
   @JsonPropertyDescription("a contact is a person representing the company")
-  private ch.baloise.corellia.api.entities.Person.Salutation contactSalutation;
+  private Person.Salutation contactSalutation;
 
   @NotNull
   @Size(min = 2, max = 35)

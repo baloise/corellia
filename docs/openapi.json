@@ -13,57 +13,6 @@
     "version" : "1.0.0"
   },
   "paths" : {
-    "/contracts/v1" : {
-      "post" : {
-        "tags" : [ "contracts" ],
-        "summary" : "upload a contract at Baloise",
-        "description" : "uploaded a contract to Baloise. If validation fails processing is refused, a corresponding error is thrown",
-        "operationId" : "uploadContract",
-        "requestBody" : {
-          "description" : "Contract that needs to be uploaded to Baloise",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Contract"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "default" : {
-            "description" : "a handle to the contract for conversation with Baloise is provided",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ContractReference"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid Contract is provided. See Error details for more information about validation issues",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "technical issue on our side, please retry later",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/contracts/v1/documents" : {
       "post" : {
         "tags" : [ "documents" ],
@@ -114,16 +63,66 @@
           }
         }
       }
+    },
+    "/contracts/v1" : {
+      "post" : {
+        "tags" : [ "contracts" ],
+        "summary" : "upload a contract at Baloise",
+        "description" : "uploaded a contract to Baloise. If validation fails processing is refused, a corresponding error is thrown",
+        "operationId" : "uploadContract",
+        "requestBody" : {
+          "description" : "Contract that needs to be uploaded to Baloise",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Contract"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "a handle to the contract for conversation with Baloise is provided",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ContractReference"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid Contract is provided. See Error details for more information about validation issues",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "technical issue on our side, please retry later",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
     "schemas" : {
-      "ContractReference" : {
+      "FileHandle" : {
+        "required" : [ "handle" ],
         "type" : "object",
         "properties" : {
-          "reference" : {
-            "maxLength" : 30,
-            "minLength" : 1,
+          "handle" : {
             "type" : "string"
           }
         }
@@ -137,6 +136,8 @@
             "enum" : [ "badRequest", "inputValidation" ]
           },
           "message" : {
+            "maxLength" : 1024,
+            "minLength" : 1,
             "type" : "string"
           },
           "detailMessages" : {
@@ -144,6 +145,47 @@
             "items" : {
               "type" : "string"
             }
+          }
+        }
+      },
+      "Document" : {
+        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "contractId" : {
+            "maxLength" : 30,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "mediaType" : {
+            "type" : "string",
+            "enum" : [ "application_pdf", "image_jpeg", "image_tiff" ]
+          },
+          "fileName" : {
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "documentType" : {
+            "type" : "string",
+            "enum" : [ "contract", "receipt" ]
+          }
+        }
+      },
+      "ContractReference" : {
+        "type" : "object",
+        "properties" : {
+          "reference" : {
+            "maxLength" : 30,
+            "minLength" : 1,
+            "type" : "string"
           }
         }
       },
@@ -204,8 +246,6 @@
             "type" : "string"
           },
           "contactSalutation" : {
-            "maxLength" : 20,
-            "minLength" : 0,
             "type" : "string",
             "enum" : [ "Mr", "Mrs" ]
           },
@@ -281,14 +321,14 @@
         }
       },
       "Coverable" : {
-        "required" : [ "code", "coverage" ],
+        "required" : [ "code", "coverages" ],
         "type" : "object",
         "properties" : {
           "code" : {
             "type" : "integer",
             "format" : "int32"
           },
-          "coverage" : {
+          "coverages" : {
             "maxItems" : 99,
             "minItems" : 1,
             "type" : "array",
@@ -314,15 +354,6 @@
           },
           "sumInsured" : {
             "$ref" : "#/components/schemas/MonetaryAmount"
-          }
-        }
-      },
-      "FileHandle" : {
-        "required" : [ "handle" ],
-        "type" : "object",
-        "properties" : {
-          "handle" : {
-            "type" : "string"
           }
         }
       },
@@ -356,8 +387,6 @@
         "type" : "object",
         "properties" : {
           "salutation" : {
-            "maxLength" : 20,
-            "minLength" : 0,
             "type" : "string",
             "enum" : [ "Mr", "Mrs" ]
           },
@@ -402,23 +431,24 @@
             "type" : "string"
           },
           "phoneNumber" : {
+            "maxLength" : 20,
+            "minLength" : 5,
             "type" : "string"
           }
         }
       },
       "Product" : {
-        "required" : [ "code", "coverables" ],
+        "required" : [ "code", "coverables", "pricingMonthYear" ],
         "type" : "object",
         "properties" : {
           "code" : {
-            "maximum" : 20,
-            "minimum" : 0,
             "type" : "integer",
             "format" : "int32"
           },
           "pricingMonthYear" : {
-            "type" : "string",
-            "format" : "date"
+            "maxLength" : 4,
+            "minLength" : 4,
+            "type" : "string"
           },
           "coverables" : {
             "maxItems" : 99,
@@ -443,37 +473,6 @@
           },
           "company" : {
             "$ref" : "#/components/schemas/Company"
-          }
-        }
-      },
-      "Document" : {
-        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string",
-              "format" : "byte"
-            }
-          },
-          "contractId" : {
-            "maxLength" : 30,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "mediaType" : {
-            "type" : "string",
-            "enum" : [ "application_pdf", "image_jpeg", "image_tiff" ]
-          },
-          "fileName" : {
-            "maxLength" : 256,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "documentType" : {
-            "type" : "string",
-            "enum" : [ "contract", "receipt" ]
           }
         }
       }

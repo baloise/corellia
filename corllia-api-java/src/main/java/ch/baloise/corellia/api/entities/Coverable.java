@@ -19,7 +19,7 @@ public class Coverable implements Serializable {
   @NotNull
   @Valid
   @Size(min = 1, max = 99)
-  private List<Coverage> coverage;
+  private List<Coverage> coverages;
 
   public Coverable() {
   }
@@ -32,11 +32,11 @@ public class Coverable implements Serializable {
     this.code = code;
   }
 
-  public List<Coverage> getCoverage() {
-    return coverage;
+  public List<Coverage> getCoverages() {
+    return coverages;
   }
 
-  public void setCoverage(List<Coverage> coverage) {
-    this.coverage = coverage;
+  public void setCoverages(List<Coverage> coverages) {
+    this.coverages = coverages;
   }
 }

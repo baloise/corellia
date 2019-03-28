@@ -16,7 +16,6 @@ public class Person implements Serializable {
   public enum Salutation {  Mr, Mrs }
 
   @NotNull
-  @Size(max = 20)
   private Salutation salutation;
 
   @NotNull
