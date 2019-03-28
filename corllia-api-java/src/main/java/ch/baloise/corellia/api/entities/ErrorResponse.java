@@ -28,7 +28,7 @@ public class ErrorResponse {
   private ErrorCause errorCause;
 
   @NotNull
-  @Size(min = 1, max = 256)
+  @Size(min = 1, max = 1024)
   @JsonPropertyDescription("information about the error")
   private String message;
 

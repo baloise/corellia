@@ -1,12 +1,10 @@
 package ch.baloise.corellia.api.entities;
 
-import com.fasterxml.jackson.annotation.JsonClassDescription;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@JsonClassDescription("At least and at most one one of the properties person or company must provided")
 public class Role implements Serializable {
 
   private static final long serialVersionUID = 10;
