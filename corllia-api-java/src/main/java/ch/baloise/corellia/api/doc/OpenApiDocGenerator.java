@@ -21,7 +21,6 @@ public class OpenApiDocGenerator {
                     .buildContext(true)
                     .read();
             File docs = new File("docs");
-            docs.delete();
             docs.mkdirs();
             FileWriter fw = new FileWriter("docs/openapi.json");
             fw.write(Json.pretty(openAPI));
