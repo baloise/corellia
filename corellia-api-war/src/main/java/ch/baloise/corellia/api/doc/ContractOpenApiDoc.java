@@ -16,10 +16,14 @@
 package ch.baloise.corellia.api.doc;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.introspect.Annotated;
 import io.swagger.v3.core.converter.AnnotatedType;
 import io.swagger.v3.core.converter.ModelConverter;
 import io.swagger.v3.core.converter.ModelConverterContext;
 import io.swagger.v3.core.converter.ModelConverters;
+import io.swagger.v3.core.jackson.ModelResolver;
+import io.swagger.v3.core.util.Json;
 import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;
 import io.swagger.v3.oas.integration.OpenApiConfigurationException;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -41,6 +45,8 @@ import static io.swagger.v3.core.util.Json.prettyPrint;
  * The resulting json is simply printed to the console for now.
  */
 public class ContractOpenApiDoc {
+
+
 
     private static class CustomConverter implements ModelConverter {
 
@@ -95,7 +101,8 @@ public class ContractOpenApiDoc {
             context.init();
             OpenAPI openAPI = context.read();*/
 
-            ModelConverters.getInstance().addConverter(new CustomConverter());
+            //ModelConverters.getInstance().addConverter(new CustomConverter());
+            ModelConverters.getInstance().addConverter(new JsonPropertyDescriptionResolver(Json.mapper()));
 
             OpenAPI openAPI = new JaxrsOpenApiContextBuilder()
                     .buildContext(true)
