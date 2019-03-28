@@ -1,0 +1,502 @@
+{
+  "openapi" : "3.0.1",
+  "paths" : {
+    "/contracts/v1" : {
+      "post" : {
+        "tags" : [ "contracts" ],
+        "summary" : "upload a contract at Baloise",
+        "description" : "uploaded a contract to Baloise. If validation fails processing is refused, a corresponding error is thrown",
+        "operationId" : "uploadContract",
+        "requestBody" : {
+          "description" : "Contract that needs to be uploaded to Baloise",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Contract"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "a handle to the contract for conversation with Baloise is provided",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ContractReference"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid Contract is provided. See Error details for more information about validation issues",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "technical issue on our side, please retry later",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contracts/v1/documents" : {
+      "post" : {
+        "tags" : [ "documents" ],
+        "summary" : "upload a Document for a contract at Baloise.",
+        "description" : "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
+        "operationId" : "uploadDocument",
+        "requestBody" : {
+          "description" : "a documnent that is part of a contract",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Document"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "a handle to the document for providing with a new contract to be uploaded via POST contracts",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FileHandle"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid Document is provided. See Error details for more information about validation issues",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "technical issue on our side, please retry later",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "ContractReference" : {
+        "type" : "object",
+        "properties" : {
+          "reference" : {
+            "maxLength" : 30,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "under this reference the contract is stored at Baloise"
+          }
+        }
+      },
+      "ErrorResponse" : {
+        "required" : [ "errorCause", "message" ],
+        "type" : "object",
+        "properties" : {
+          "errorCause" : {
+            "type" : "string",
+            "enum" : [ "badRequest", "inputValidation" ]
+          },
+          "message" : {
+            "maxLength" : 1024,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "information about the error"
+          },
+          "detailMessages" : {
+            "type" : "array",
+            "description" : "in case of e.g. validation error, each validation error is represented by one detail message",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "Address" : {
+        "required" : [ "city", "houseNumber", "street", "zipCode" ],
+        "type" : "object",
+        "properties" : {
+          "street" : {
+            "maxLength" : 35,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "houseNumber" : {
+            "maxLength" : 10,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "zipCode" : {
+            "maxLength" : 4,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "city" : {
+            "maxLength" : 30,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        }
+      },
+      "Agent" : {
+        "required" : [ "agentNumber", "email" ],
+        "type" : "object",
+        "properties" : {
+          "agentNumber" : {
+            "maxLength" : 8,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Identification of an Agent"
+          },
+          "email" : {
+            "maxLength" : 70,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "A valid email adress"
+          }
+        },
+        "description" : "the agent who induced the contract issuance, usually is eligible for receiving commission"
+      },
+      "Company" : {
+        "required" : [ "address", "contactFirstName", "contactLastName", "contactSalutation", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 70,
+            "minLength" : 3,
+            "type" : "string"
+          },
+          "uidNumber" : {
+            "maxLength" : 15,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "identifies a company uniquely, example CHE-105.805.649"
+          },
+          "contactSalutation" : {
+            "type" : "string",
+            "description" : "a contact is a person representing the company",
+            "enum" : [ "Mr", "Mrs" ]
+          },
+          "contactLastName" : {
+            "maxLength" : 35,
+            "minLength" : 2,
+            "type" : "string",
+            "description" : "a contact is a person representing the company"
+          },
+          "contactFirstName" : {
+            "maxLength" : 35,
+            "minLength" : 2,
+            "type" : "string",
+            "description" : "a contact is a person representing the company"
+          },
+          "address" : {
+            "$ref" : "#/components/schemas/Address"
+          }
+        },
+        "description" : "If the payment was done by a company, this property must be filled. Only one of the properties person or company may be filled."
+      },
+      "Contract" : {
+        "required" : [ "conditionMonthYear", "contractId", "creationDate", "endDate", "fileHandles", "payment", "product", "roles", "startDate", "totalNetPrice" ],
+        "type" : "object",
+        "properties" : {
+          "creationDate" : {
+            "type" : "string",
+            "description" : "the day the contract was issued",
+            "format" : "date"
+          },
+          "startDate" : {
+            "type" : "string",
+            "description" : "start of contract which means start of insurance coverage",
+            "format" : "date"
+          },
+          "endDate" : {
+            "type" : "string",
+            "description" : "end of contract which means end of insurance coverage",
+            "format" : "date"
+          },
+          "contractId" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "id given by SaaS provider"
+          },
+          "totalNetPrice" : {
+            "$ref" : "#/components/schemas/MonetaryAmount"
+          },
+          "roles" : {
+            "maxItems" : 99,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "all roles in the contract, e.g. insuranceHolder",
+            "items" : {
+              "$ref" : "#/components/schemas/Role"
+            }
+          },
+          "product" : {
+            "$ref" : "#/components/schemas/Product"
+          },
+          "agent" : {
+            "$ref" : "#/components/schemas/Agent"
+          },
+          "payment" : {
+            "$ref" : "#/components/schemas/Payment"
+          },
+          "fileHandles" : {
+            "maxItems" : 99,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts",
+            "items" : {
+              "$ref" : "#/components/schemas/FileHandle"
+            }
+          },
+          "conditionMonthYear" : {
+            "maxLength" : 4,
+            "minLength" : 4,
+            "type" : "string",
+            "description" : "when was the condition issued? Format MMYY"
+          }
+        }
+      },
+      "Coverable" : {
+        "required" : [ "code", "coverages" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "description" : "a code uniquely identifying a type of coverable",
+            "format" : "int32"
+          },
+          "coverages" : {
+            "maxItems" : 99,
+            "minItems" : 1,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Coverage"
+            }
+          }
+        }
+      },
+      "Coverage" : {
+        "required" : [ "code", "premium", "sumInsured" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "description" : "a code uniquely identifying a type of coverage",
+            "format" : "int32"
+          },
+          "premium" : {
+            "$ref" : "#/components/schemas/MonetaryAmount"
+          },
+          "deductible" : {
+            "$ref" : "#/components/schemas/MonetaryAmount"
+          },
+          "sumInsured" : {
+            "$ref" : "#/components/schemas/MonetaryAmount"
+          }
+        }
+      },
+      "FileHandle" : {
+        "required" : [ "handle" ],
+        "type" : "object",
+        "properties" : {
+          "handle" : {
+            "type" : "string",
+            "description" : "Reference to an uploaded file. This can be e.g. a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
+          }
+        }
+      },
+      "MonetaryAmount" : {
+        "required" : [ "amount" ],
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "type" : "number",
+            "description" : "An amount with two decimal digit like an insured sum or a deductible (e.g. 100,22)."
+          }
+        }
+      },
+      "Payment" : {
+        "required" : [ "code" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "description" : "a code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
+            "format" : "int32"
+          },
+          "company" : {
+            "$ref" : "#/components/schemas/Company"
+          },
+          "person" : {
+            "$ref" : "#/components/schemas/Person"
+          }
+        },
+        "description" : "information about how the customer wants (or has already) payed the premium"
+      },
+      "Person" : {
+        "required" : [ "address", "firstName", "lastName", "salutation" ],
+        "type" : "object",
+        "properties" : {
+          "salutation" : {
+            "type" : "string",
+            "enum" : [ "Mr", "Mrs" ]
+          },
+          "lastName" : {
+            "maxLength" : 35,
+            "minLength" : 2,
+            "type" : "string"
+          },
+          "firstName" : {
+            "maxLength" : 35,
+            "minLength" : 2,
+            "type" : "string"
+          },
+          "dateOfBirth" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "phoneNumber" : {
+            "$ref" : "#/components/schemas/PhoneNumber"
+          },
+          "emailAddress" : {
+            "maxLength" : 70,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "A valid email address"
+          },
+          "language" : {
+            "maxLength" : 2,
+            "minLength" : 2,
+            "type" : "string",
+            "description" : "The language for correspondence with the customer. According to ISO 639-1 language codes, only the values 'de', 'fr', 'it' or 'en' are accepted."
+          },
+          "address" : {
+            "$ref" : "#/components/schemas/Address"
+          }
+        },
+        "description" : "If the payment was done by a person, this property must be filled. Only one of the properties person or company may be filled."
+      },
+      "PhoneNumber" : {
+        "required" : [ "phoneNumber" ],
+        "type" : "object",
+        "properties" : {
+          "countryCode" : {
+            "type" : "string",
+            "description" : "Country code, default is +41."
+          },
+          "phoneNumber" : {
+            "maxLength" : 20,
+            "minLength" : 5,
+            "type" : "string",
+            "description" : "Phone number, without the leading zero."
+          }
+        }
+      },
+      "Product" : {
+        "required" : [ "code", "coverables", "pricingMonthYear" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "description" : "a code uniquely identifying the product",
+            "format" : "int32"
+          },
+          "pricingMonthYear" : {
+            "maxLength" : 4,
+            "minLength" : 4,
+            "type" : "string",
+            "description" : "The month/year in which the pricing for the contract was set. Format MMYY"
+          },
+          "coverables" : {
+            "maxItems" : 99,
+            "minItems" : 0,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Coverable"
+            }
+          }
+        }
+      },
+      "Role" : {
+        "required" : [ "role" ],
+        "type" : "object",
+        "properties" : {
+          "role" : {
+            "type" : "string",
+            "enum" : [ "insuranceholder", "payer" ]
+          },
+          "person" : {
+            "$ref" : "#/components/schemas/Person"
+          },
+          "company" : {
+            "$ref" : "#/components/schemas/Company"
+          }
+        }
+      },
+      "Document" : {
+        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "description" : "the document itself",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "contractId" : {
+            "maxLength" : 30,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "the contract this document belongs to"
+          },
+          "mediaType" : {
+            "type" : "string",
+            "description" : "accepted media types for documents represented by data byte[]",
+            "enum" : [ "application_pdf", "image_jpeg", "image_tiff" ]
+          },
+          "fileName" : {
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "documentType" : {
+            "type" : "string",
+            "enum" : [ "contract", "receipt" ]
+          }
+        }
+      }
+    }
+  }
+}
