@@ -17,7 +17,7 @@ The name [Corellia](https://en.wikipedia.org/w/index.php?title=Corellia) is a re
 
 ### the [docs](docs/index.md)
 
-### usage
+### usage open api v3
 
 To generated the `docs/openapi.json` OpenAPI specification, call
 
@@ -25,8 +25,24 @@ To generated the `docs/openapi.json` OpenAPI specification, call
 $ mvn exec:java
 ```
 
+_(One must at least once have called `$ mvn install`, otherwise the above call won't work)_
+
 To get the API, one issues
 
 ```
 $ mvn package
 ```
+
+### usage open api v2
+
+Firstly generate the OpenAPI v3 specs (will be located at `docs/openapi.json`)
+Then, use npm to install the main dependency, [the converter](https://github.com/LucyBot-Inc/api-spec-converter).
+
+Call
+
+```
+$ npm run convert > swagger.json
+```
+
+to create the OpenApi v2. There might be some artifacts in the first few lines of that json file.
+Clean it accordingly.
