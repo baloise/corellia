@@ -90,37 +90,44 @@
       <artifactId>swagger-jaxrs2</artifactId>
       <scope>compile</scope>
       <version>${swagger.version}</version>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
       <version>${jackson.version}</version>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jdk8</artifactId>
       <version>${jackson.version}</version>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>
       <artifactId>jackson-module-parameter-names</artifactId>
       <version>${jackson.version}</version>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>javax.ws.rs</groupId>
       <artifactId>javax.ws.rs-api</artifactId>
       <version>${javax.ws.rs-api.version}</version>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson.version}</version>
+      <optional>true</optional>
       <!--<scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>3.1.0</version>
+      <optional>true</optional>
       <!--<scope>provided</scope>-->
     </dependency>
   </dependencies>
