@@ -10,6 +10,10 @@ import java.lang.annotation.Annotation;
 
 /**
  * Custom ModelResolver which resolves descriptions given by
+ * {@link JsonPropertyDescription} annotation.
+ * <br>
+ * The current description of the @{@link io.swagger.v3.oas.models.media.Schema} will always be overwritten
+ * by the {@link JsonPropertyDescription}'s value.
  */
 public class JsonPropertyDescriptionResolver extends ModelResolver {
     public JsonPropertyDescriptionResolver(ObjectMapper mapper) {
