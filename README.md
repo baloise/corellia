@@ -64,7 +64,7 @@ Call
 ```
 $ npm run convert > swagger.json
 ```
+_(One must have issued `npm install` previously.)_
 
 to create the OpenApi v2. There might be some artifacts in the first few lines of that json file.
-Clean it accordingly.
->>>>>>> Added a converter to also generate openapi v2 (fka swagger) specs.
+Clean it accordingly.>>>>>>> Added a converter to also generate openapi v2 (fka swagger) specs.
