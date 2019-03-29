@@ -11,10 +11,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
+/**
+ * Class to generate the OpenAPI specification, based on the JAX-RS annotated API codebase.
+ * <br>
+ * Upon execution, the file {@code docs/openapi.json} will be overwritten by a newly generated
+ * file.
+ * <br>
+ * This uses SWAGGER.IO core and respects {@link com.fasterxml.jackson.annotation.JsonPropertyDescription} annotated
+ * descriptions upon schemata generation.
+ */
 public class OpenApiDocGenerator {
 
     public static void main(String[] args) {
         try {
+            // Required to get the @JsonPropertyDescription
             ModelConverters.getInstance().addConverter(new JsonPropertyDescriptionResolver(Json.mapper()));
 
             OpenAPI openAPI = new JaxrsOpenApiContextBuilder()
