@@ -22,7 +22,7 @@ The name [Corellia](https://en.wikipedia.org/w/index.php?title=Corellia) is a re
 To generated the `docs/openapi.json` OpenAPI specification, call
 
 ```
-$ mvn exec:java
+$ mvn exec:java@gen-openapi
 ```
 
 _(One must at least once have called `$ mvn install`, otherwise the above call won't work)_
@@ -35,15 +35,14 @@ $ mvn package
 
 ### usage open api v2
 
-Firstly generate the OpenAPI v3 specs (will be located at `docs/openapi.json`)
-Then, use npm to install the main dependency, [the converter](https://github.com/LucyBot-Inc/api-spec-converter).
+Leverages the wonderful [api-spec-converter](https://github.com/LucyBot-Inc/api-spec-converter)
 
-Call
+Firstly generate the OpenAPI v3 specs (will be located at `docs/openapi.json`)
+Then , issue the following maven call:
 
 ```
-$ npm run convert > swagger.json
+$ mvn exec:java@gen-swagger
 ```
 _(One must have issued `npm install` previously.)_
 
-to create the OpenApi v2. There might be some artifacts in the first few lines of that json file.
-Clean it accordingly.
+to create the OpenApi v2. It will be stored at `docs/swagger.json`

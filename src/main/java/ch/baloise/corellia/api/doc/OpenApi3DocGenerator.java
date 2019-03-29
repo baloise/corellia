@@ -20,7 +20,7 @@ import java.io.IOException;
  * This uses SWAGGER.IO core and respects {@link com.fasterxml.jackson.annotation.JsonPropertyDescription} annotated
  * descriptions upon schemata generation.
  */
-public class OpenApiDocGenerator {
+public class OpenApi3DocGenerator {
 
     public static void main(String[] args) {
         try {

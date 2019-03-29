@@ -60,14 +60,25 @@
         <version>1.6.0</version>
         <executions>
           <execution>
+            <id>gen-openapi</id>
             <goals>
               <goal>java</goal>
             </goals>
+            <configuration>
+              <mainClass>ch.baloise.corellia.api.doc.OpenApi3DocGenerator</mainClass>
+            </configuration>
+          </execution>
+          <execution>
+            <id>gen-swagger</id>
+            <goals>
+              <goal>java</goal>
+            </goals>
+            <configuration>
+              <mainClass>ch.baloise.corellia.api.doc.OpenApi2DocGenerator</mainClass>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <mainClass>ch.baloise.corellia.api.doc.OpenApiDocGenerator</mainClass>
-        </configuration>
+
       </plugin>
     </plugins>
   </build>
