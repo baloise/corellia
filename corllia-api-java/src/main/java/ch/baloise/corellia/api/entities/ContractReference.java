@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import javax.validation.constraints.Size;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_REFERENCE_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_REFERENCE_MIN_SIZE;
+
 public class ContractReference {
 
-  @Size(min = 1, max = 30)
+  @Size(min = CONTRACT_REFERENCE_MIN_SIZE, max = CONTRACT_REFERENCE_MAX_SIZE)
   @JsonPropertyDescription("under this reference the contract is stored at Baloise")
   private String reference;
 

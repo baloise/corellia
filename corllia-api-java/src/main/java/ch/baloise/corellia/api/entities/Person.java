@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.*;
+
 public class Person implements Serializable {
 
   private static final long serialVersionUID = 10;
@@ -19,11 +21,11 @@ public class Person implements Serializable {
   private Salutation salutation;
 
   @NotNull
-  @Size(min = 2, max = 35)
+  @Size(min = LAST_NAME_MIN_SIZE, max = LAST_NAME_MAX_SIZE)
   private String lastName;
 
   @NotNull
-  @Size(min = 2, max = 35)
+  @Size(min = FIRST_NAME_MIN_SIZE, max = FIRST_NAME_MAX_SIZE)
   private String firstName;
 
   private LocalDate dateOfBirth;
@@ -31,11 +33,11 @@ public class Person implements Serializable {
   @Valid
   private PhoneNumber phoneNumber;
 
-  @Size(min = 0, max = 70)
+  @Size(min = EMAIL_MIN_SIZE, max = EMAIL_MAX_SIZE)
   @JsonPropertyDescription("A valid email address")
   private String emailAddress;
 
-  @Size(min = 2, max = 2)
+  @Size(min = LANGUAGE_SIZE, max = LANGUAGE_SIZE)
   @JsonProperty
   @JsonPropertyDescription("The language for correspondence with the customer. According to ISO 639-1 language codes, only the values 'de', 'fr', 'it' or 'en' are accepted.")
   private String language;

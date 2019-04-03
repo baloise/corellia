@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.*;
+
 public class Contract implements Serializable {
 
   private static final long serialVersionUID = 10;
@@ -26,7 +28,7 @@ public class Contract implements Serializable {
   private LocalDate endDate;
 
   @NotNull
-  @Size(max = 20)
+  @Size(max = CONTRACT_ID_MAX_SIZE)
   @JsonPropertyDescription("id given by SaaS provider")
   private String contractId;
 
@@ -36,7 +38,7 @@ public class Contract implements Serializable {
 
   @NotNull
   @Valid
-  @Size(min = 1, max = 99)
+  @Size(min = 1, max = LIST_MAX_SIZE)
   @JsonPropertyDescription("all roles in the contract, e.g. insuranceHolder")
   private List<Role> roles;
 
@@ -54,12 +56,12 @@ public class Contract implements Serializable {
   private Payment payment;
 
   @NotNull
-  @Size(min = 1, max = 99)
+  @Size(min = 1, max = LIST_MAX_SIZE)
   @JsonPropertyDescription("a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts")
   private List<FileHandle> fileHandles;
 
   @NotNull
-  @Size(min = 4, max = 4)
+  @Size(min = MONTH_YEAR_SIZE, max = MONTH_YEAR_SIZE)
   @JsonPropertyDescription("when was the condition issued? Format MMYY")
   private String conditionMonthYear;
 

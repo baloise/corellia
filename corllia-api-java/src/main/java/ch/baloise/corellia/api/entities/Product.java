@@ -8,6 +8,9 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.LIST_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.MONTH_YEAR_SIZE;
+
 public class Product implements Serializable {
 
   private static final long serialVersionUID = 10;
@@ -17,13 +20,13 @@ public class Product implements Serializable {
   private Integer code;
 
   @NotNull
-  @Size(min = 4, max = 4)
+  @Size(min = MONTH_YEAR_SIZE, max = MONTH_YEAR_SIZE)
   @JsonPropertyDescription("The month/year in which the pricing for the contract was set. Format MMYY")
   private String pricingMonthYear;
 
   @NotNull
   @Valid
-  @Size(min = 0, max = 99)
+  @Size(min = 0, max = LIST_MAX_SIZE)
   private List<Coverable> coverables;
 
   public Product() {}
