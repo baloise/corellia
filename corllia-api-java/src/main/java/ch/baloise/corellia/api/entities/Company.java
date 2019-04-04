@@ -7,15 +7,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.*;
+
 public class Company implements Serializable {
 
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @Size(min = 3, max = 70)
+  @Size(min = COMPANY_NAME_MIN_SIZE, max = COMPANY_NAME_MAX_SIZE)
   private String name;
 
-  @Size(max = 15)
+  @Size(max = UID_NUMBER_MAX_SIZE)
   @JsonPropertyDescription("identifies a company uniquely, example CHE-105.805.649")
   private String uidNumber;
 
@@ -24,12 +26,12 @@ public class Company implements Serializable {
   private Person.Salutation contactSalutation;
 
   @NotNull
-  @Size(min = 2, max = 35)
+  @Size(min = LAST_NAME_MIN_SIZE, max = LAST_NAME_MAX_SIZE)
   @JsonPropertyDescription("a contact is a person representing the company")
   private String contactLastName;
 
   @NotNull
-  @Size(min = 2, max = 35)
+  @Size(min = FIRST_NAME_MIN_SIZE, max = FIRST_NAME_MAX_SIZE)
   @JsonPropertyDescription("a contact is a person representing the company")
   private String contactFirstName;
 

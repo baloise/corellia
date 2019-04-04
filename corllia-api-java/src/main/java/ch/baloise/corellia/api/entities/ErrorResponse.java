@@ -22,13 +22,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.MESSAGE_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.MESSAGE_MIN_SIZE;
+
 public class ErrorResponse {
 
   @NotNull
   private ErrorCause errorCause;
 
   @NotNull
-  @Size(min = 1, max = 1024)
+  @Size(min = MESSAGE_MIN_SIZE, max = MESSAGE_MAX_SIZE)
   @JsonPropertyDescription("information about the error")
   private String message;
 

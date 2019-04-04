@@ -6,6 +6,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_ID_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.FILE_NAME_MAX_SIZE;
+
 public class Document implements Serializable {
 
   private static final long serialVersionUID = 10;
@@ -18,7 +21,7 @@ public class Document implements Serializable {
   private byte[] data;
 
   @NotNull
-  @Size(max = 30)
+  @Size(max = CONTRACT_ID_MAX_SIZE)
   @JsonPropertyDescription("the contract this document belongs to")
   private String contractId;
 
@@ -27,7 +30,7 @@ public class Document implements Serializable {
   private MediaType mediaType;
 
   @NotNull
-  @Size(max = 256)
+  @Size(max = FILE_NAME_MAX_SIZE)
   private String fileName;
 
   @NotNull
