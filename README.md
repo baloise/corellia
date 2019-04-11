@@ -27,7 +27,7 @@ To run the server, change to module corellia-api-war and run this task:
 mvn package jetty:run
 ```
 
-_(One must at least once have called `$ mvn install`, otherwise the above call won't work)_
+Note: _(One must at least once have called `$ mvn install`, otherwise the above call won't work)_
 
 To get the API, one issues
 
@@ -45,6 +45,7 @@ Call
 ```
 $ npm run convert > swagger.json
 ```
+Note: _(One must have issued `npm install` previously.)_
 
 to create the OpenApi v2. There might be some artifacts in the first few lines of that json file.
 Clean it accordingly.
