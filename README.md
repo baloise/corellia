@@ -25,7 +25,7 @@ To generated the `docs/openapi.json` OpenAPI specification, call
 $ mvn exec:java@gen-openapi
 ```
 
-_(One must at least once have called `$ mvn install`, otherwise the above call won't work)_
+Note: _(One must at least once have called `$ mvn install`, otherwise the above call won't work)_
 
 To get the API, one issues
 
@@ -43,6 +43,6 @@ Then , issue the following maven call:
 ```
 $ mvn exec:java@gen-swagger
 ```
-_(One must have issued `npm install` previously.)_
+Note: _(One must have issued `npm install` previously.)_
 
 to create the OpenApi v2. It will be stored at `docs/swagger.json`
