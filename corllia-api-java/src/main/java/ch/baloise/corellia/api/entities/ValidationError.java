@@ -26,4 +26,13 @@ public class ValidationError {
     this.path = path;
   }
 
+
+  @Override
+  public String toString() {
+    return "ValidationError{" +
+      "path='" + path + '\'' +
+      ", errorCauses=" + errorCauses +
+      '}';
+  }
+
 }
