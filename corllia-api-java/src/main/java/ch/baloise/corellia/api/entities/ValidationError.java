@@ -4,10 +4,18 @@ import java.util.List;
 
 public class ValidationError {
   private String path;
-  private List<Rule> rules;
+  private List<ErrorCause> errorCauses;
 
-  public enum Rule {
+  public enum ErrorCause {
     REQUIRED, SIZE, INVALID_VALUE
+  }
+
+  public List<ErrorCause> getErrorCauses() {
+    return errorCauses;
+  }
+
+  public void setErrorCauses(List<ErrorCause> errorCauses) {
+    this.errorCauses = errorCauses;
   }
 
   public String getPath() {
@@ -18,11 +26,4 @@ public class ValidationError {
     this.path = path;
   }
 
-  public List<Rule> getRules() {
-    return rules;
-  }
-
-  public void setRules(List<Rule> rules) {
-    this.rules = rules;
-  }
 }

@@ -4,15 +4,15 @@ import java.util.List;
 
 public class ErrorResponse {
   private String message;
-  private List<ValidationError> errors;
+  private List<ValidationError> validationErrors;
 
   public ErrorResponse(String message) {
     this.message = message;
   }
 
-  public ErrorResponse(String message, List<ValidationError> errors) {
+  public ErrorResponse(String message, List<ValidationError> validationErrors) {
     this.message = message;
-    this.errors = errors;
+    this.validationErrors = validationErrors;
   }
 
   public String getMessage() {
@@ -23,11 +23,11 @@ public class ErrorResponse {
     this.message = message;
   }
 
-  public List<ValidationError> getErrors() {
-    return errors;
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
   }
 
-  public void setErrors(List<ValidationError> errors) {
-    this.errors = errors;
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
   }
 }
