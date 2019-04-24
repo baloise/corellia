@@ -1,9 +1,15 @@
 package ch.baloise.corellia.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+
 import java.util.List;
 
 public class ErrorResponse {
+
+  @JsonPropertyDescription("information about the error")
   private String message;
+
+  @JsonPropertyDescription("a list of validation errors")
   private List<ValidationError> validationErrors;
 
   public ErrorResponse(String message) {
