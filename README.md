@@ -17,8 +17,6 @@ This is a java project leveraging a stand-alone jetty server. It provides the Ba
 
 The name [Corellia](https://en.wikipedia.org/w/index.php?title=Corellia) is a reference to a fictitious planet from  StarWars: one of the first trading planets in the universe with its own [Corellian Trade Spine](https://starwars.fandom.com/wiki/Corellian_Trade_Spine).
 
-### the [docs](docs/index.md)
-
 ### usage open api v3
 
 To generated the `docs/openapi.json` OpenAPI specification, call
