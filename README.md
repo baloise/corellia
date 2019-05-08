@@ -1,5 +1,6 @@
 # corellia
-[![swagger-editor](https://img.shields.io/badge/open--API-in--editor-green.svg?style=flat&label=open-api)](https://editor.swagger.io/?url=https://raw.githubusercontent.com/baloise/corellia/master/docs/openapi.json)
+[![swagger-editor](https://img.shields.io/badge/open--API-in--editor-green.svg?style=flat&label=open-api-v3)](https://editor.swagger.io/?url=https://raw.githubusercontent.com/baloise/corellia/master/docs/openapi.json)
+[![swagger-editor](https://img.shields.io/badge/open--API-in--editor-green.svg?style=flat&label=open-api-v2)](https://editor.swagger.io/?url=https://raw.githubusercontent.com/baloise/corellia/master/docs/swagger.json)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/bf6fa237dd934970991ecba2c66db23e)](https://app.codacy.com/app/baloise/corellia?utm_source=github.com&utm_medium=referral&utm_content=baloise/corellia&utm_campaign=Badge_Grade_Dashboard)
 [![DepShield Badge](https://depshield.sonatype.org/badges/baloise/corellia/depshield.svg)](https://depshield.github.io)
 [![Build Status](https://travis-ci.org/baloise/corellia.svg?branch=master)](https://travis-ci.org/baloise/corellia)
@@ -20,11 +21,10 @@ The name [Corellia](https://en.wikipedia.org/w/index.php?title=Corellia) is a re
 
 ### usage open api v3
 
-#### run the server
-To run the server, change to module corellia-api-war and run this task:
+To generated the `docs/openapi.json` OpenAPI specification, call
 
 ```
-mvn package jetty:run
+$ mvn exec:java@gen-openapi
 ```
 
 Note: _(One must at least once have called `$ mvn install`, otherwise the above call won't work)_
@@ -43,7 +43,7 @@ Then, use npm to install the main dependency, [the converter](https://github.com
 Call
 
 ```
-$ npm run convert > swagger.json
+$ npm run convert > docs/swagger.json
 ```
 Note: _(One must have issued `npm install` previously.)_
 
