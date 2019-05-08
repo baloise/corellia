@@ -4,15 +4,66 @@
     "title" : "Contracts API",
     "description" : "An API which allows to communicate with SaaS Providers, which produces Contracts for the host of this API",
     "contact" : {
-      "email" : "TBD.TBD@baloise.com"
+      "email" : "Group.CH_Open-Source@baloise.ch"
     },
     "license" : {
-      "name" : "TBD",
-      "url" : "TBD"
+      "name" : "Apache License 2.0",
+      "url" : "https://github.com/baloise/corellia/blob/master/LICENSE.txt"
     },
     "version" : "1.0.0"
   },
   "paths" : {
+    "/contracts/v1/documents" : {
+      "post" : {
+        "tags" : [ "documents" ],
+        "summary" : "upload a Document for a contract at Baloise.",
+        "description" : "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
+        "operationId" : "uploadDocument",
+        "requestBody" : {
+          "description" : "a documnent that is part of a contract",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Document"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "a handle to the document for providing with a new contract to be uploaded via POST contracts",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FileHandle"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid Document is provided. See Error details for more information about validation issues",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "technical issue on our side, please retry later",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/contracts/v1" : {
       "post" : {
         "tags" : [ "contracts" ],
@@ -64,40 +115,19 @@
         }
       }
     },
-    "/contracts/v1/documents" : {
-      "post" : {
-        "tags" : [ "documents" ],
-        "summary" : "upload a Document for a contract at Baloise.",
-        "description" : "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
-        "operationId" : "uploadDocument",
-        "requestBody" : {
-          "description" : "a documnent that is part of a contract",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Document"
-              }
-            }
-          },
-          "required" : true
-        },
+    "/contracts/v1/version" : {
+      "get" : {
+        "tags" : [ "version" ],
+        "summary" : "callable way of retrieving current version",
+        "description" : "callable way (compared to analyzing the URL of the endpoint) of retrieving current version. As well good for testing purposes as operation is get only",
+        "operationId" : "version",
         "responses" : {
           "default" : {
-            "description" : "a handle to the document for providing with a new contract to be uploaded via POST contracts",
+            "description" : "version identifier",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/FileHandle"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid Document is provided. See Error details for more information about validation issues",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
+                  "$ref" : "#/components/schemas/Version"
                 }
               }
             }
@@ -118,6 +148,83 @@
   },
   "components" : {
     "schemas" : {
+      "FileHandle" : {
+        "required" : [ "handle" ],
+        "type" : "object",
+        "properties" : {
+          "handle" : {
+            "type" : "string",
+            "description" : "Reference to an uploaded file. This can be e.g. a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
+          }
+        }
+      },
+      "ErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "type" : "string",
+            "description" : "information about the error"
+          },
+          "validationErrors" : {
+            "type" : "array",
+            "description" : "a list of validation errors",
+            "items" : {
+              "$ref" : "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "ValidationError" : {
+        "type" : "object",
+        "properties" : {
+          "path" : {
+            "type" : "string",
+            "description" : "the path to the invalid value"
+          },
+          "errorCauses" : {
+            "type" : "array",
+            "description" : "a list of error causes",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "REQUIRED", "SIZE", "INVALID_VALUE" ]
+            }
+          }
+        }
+      },
+      "Document" : {
+        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "description" : "the document itself",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "contractId" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "the contract this document belongs to"
+          },
+          "mediaType" : {
+            "type" : "string",
+            "description" : "accepted media types for documents represented by data byte[]",
+            "enum" : [ "application_pdf", "image_jpeg", "image_tiff" ]
+          },
+          "fileName" : {
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "documentType" : {
+            "type" : "string",
+            "enum" : [ "contract", "receipt" ]
+          }
+        }
+      },
       "ContractReference" : {
         "type" : "object",
         "properties" : {
@@ -126,29 +233,6 @@
             "minLength" : 1,
             "type" : "string",
             "description" : "under this reference the contract is stored at Baloise"
-          }
-        }
-      },
-      "ErrorResponse" : {
-        "required" : [ "errorCause", "message" ],
-        "type" : "object",
-        "properties" : {
-          "errorCause" : {
-            "type" : "string",
-            "enum" : [ "badRequest", "inputValidation" ]
-          },
-          "message" : {
-            "maxLength" : 1024,
-            "minLength" : 1,
-            "type" : "string",
-            "description" : "information about the error"
-          },
-          "detailMessages" : {
-            "type" : "array",
-            "description" : "in case of e.g. validation error, each validation error is represented by one detail message",
-            "items" : {
-              "type" : "string"
-            }
           }
         }
       },
@@ -168,11 +252,11 @@
           },
           "zipCode" : {
             "maxLength" : 4,
-            "minLength" : 0,
+            "minLength" : 4,
             "type" : "string"
           },
           "city" : {
-            "maxLength" : 30,
+            "maxLength" : 10,
             "minLength" : 0,
             "type" : "string"
           }
@@ -190,7 +274,7 @@
           },
           "email" : {
             "maxLength" : 70,
-            "minLength" : 0,
+            "minLength" : 2,
             "type" : "string",
             "description" : "A valid email adress"
           }
@@ -337,16 +421,6 @@
           }
         }
       },
-      "FileHandle" : {
-        "required" : [ "handle" ],
-        "type" : "object",
-        "properties" : {
-          "handle" : {
-            "type" : "string",
-            "description" : "Reference to an uploaded file. This can be e.g. a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
-          }
-        }
-      },
       "MonetaryAmount" : {
         "required" : [ "amount" ],
         "type" : "object",
@@ -402,7 +476,7 @@
           },
           "emailAddress" : {
             "maxLength" : 70,
-            "minLength" : 0,
+            "minLength" : 2,
             "type" : "string",
             "description" : "A valid email address"
           },
@@ -475,37 +549,13 @@
           }
         }
       },
-      "Document" : {
-        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
+      "Version" : {
+        "required" : [ "value" ],
         "type" : "object",
         "properties" : {
-          "data" : {
-            "type" : "array",
-            "description" : "the document itself",
-            "items" : {
-              "type" : "string",
-              "format" : "byte"
-            }
-          },
-          "contractId" : {
-            "maxLength" : 30,
-            "minLength" : 0,
+          "value" : {
             "type" : "string",
-            "description" : "the contract this document belongs to"
-          },
-          "mediaType" : {
-            "type" : "string",
-            "description" : "accepted media types for documents represented by data byte[]",
-            "enum" : [ "application_pdf", "image_jpeg", "image_tiff" ]
-          },
-          "fileName" : {
-            "maxLength" : 256,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "documentType" : {
-            "type" : "string",
-            "enum" : [ "contract", "receipt" ]
+            "description" : "version identifier of the current API definition"
           }
         }
       }
