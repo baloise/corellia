@@ -17,6 +17,14 @@ This is a java project leveraging [swagger-core](https://github.com/swagger-api/
 
 The name [Corellia](https://en.wikipedia.org/w/index.php?title=Corellia) is a reference to a fictitious planet from  StarWars: one of the first trading planets in the universe with its own [Corellian Trade Spine](https://starwars.fandom.com/wiki/Corellian_Trade_Spine).
 
+### api specs
+
+You can find the openapi specs in the following files:
+
+OpenAPI v3 Specs: `docs/openapi.json`
+
+OpenAPI v2 Specs: `docs/swagger.json`
+
 ### usage open api v3
 
 To generate the `docs/openapi.json` OpenAPI specification, call
@@ -27,11 +35,6 @@ $ mvn exec:java@gen-openapi
 
 Note: _(One must at least once have called `$ mvn install`, otherwise the above call won't work)_
 
-To get the API, one issues
-
-```
-$ mvn package
-```
 
 ### usage open api v2
 
