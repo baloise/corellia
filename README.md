@@ -35,7 +35,6 @@ $ mvn exec:java@gen-openapi
 
 Note: _(One must at least once have called `$ mvn install`, otherwise the above call won't work)_
 
-
 ### usage open api v2
 
 **Firstly generate the OpenAPI v3 specs** (will be located at `docs/openapi.json`)
