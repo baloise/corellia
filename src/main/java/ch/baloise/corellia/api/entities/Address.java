@@ -4,24 +4,26 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.*;
+
 public class Address implements Serializable {
 
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @Size(max = 35)
+  @Size(max = STREET_MAX_SIZE)
   private String street;
 
   @NotNull
-  @Size(max = 10)
+  @Size(max = HOUSE_NUMBER_MAX_SIZE)
   private String houseNumber;
 
   @NotNull
-  @Size(max = 4)
+  @Size(min = ZIP_CODE_SIZE, max = ZIP_CODE_SIZE)
   private String zipCode;
 
   @NotNull
-  @Size(max = 30)
+  @Size(max = CITY_MAX_SIZE)
   private String city;
 
   public Address() {

@@ -2,16 +2,14 @@ package ch.baloise.corellia.api;
 
 import ch.baloise.corellia.api.entities.Contract;
 import ch.baloise.corellia.api.entities.Document;
+import ch.baloise.corellia.api.entities.Version;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/contracts/v1")
@@ -42,4 +40,16 @@ public interface ContractRestController {
           @ApiResponse(responseCode = "503", description = "technical issue on our side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
       })
   public ch.baloise.corellia.api.entities.FileHandle uploadDocument(@Parameter(description = "a documnent that is part of a contract", required = true) Document document);
+
+
+  @GET
+  @Path("/version")
+  @Operation(summary = "callable way of retrieving current version",
+      tags = {"version"},
+      description = "callable way (compared to analyzing the URL of the endpoint) of retrieving current version. As well good for testing purposes as operation is get only",
+      responses = {
+          @ApiResponse(description = "version identifier", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.Version.class))),
+          @ApiResponse(responseCode = "503", description = "technical issue on our side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
+      })
+  public Version version();
 }

@@ -6,17 +6,19 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.*;
+
 public class Agent implements Serializable {
 
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @Size(max = 8)
+  @Size(max = AGENT_NUMBER_MAX_SIZE)
   @JsonPropertyDescription("Identification of an Agent")
   private String agentNumber;
 
   @NotNull
-  @Size(max = 70)
+  @Size(min = EMAIL_MIN_SIZE, max = EMAIL_MAX_SIZE)
   @JsonPropertyDescription("A valid email adress")
   private String email;
 

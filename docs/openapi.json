@@ -4,15 +4,45 @@
     "title" : "Contracts API",
     "description" : "An API which allows to communicate with SaaS Providers, which produces Contracts for the host of this API",
     "contact" : {
-      "email" : "TBD.TBD@baloise.com"
+      "email" : "Group.CH_Open-Source@baloise.ch"
     },
     "license" : {
-      "name" : "TBD",
-      "url" : "TBD"
+      "name" : "Apache License 2.0",
+      "url" : "https://github.com/baloise/corellia/blob/master/LICENSE.txt"
     },
     "version" : "1.0.0"
   },
   "paths" : {
+    "/contracts/v1/version" : {
+      "get" : {
+        "tags" : [ "version" ],
+        "summary" : "callable way of retrieving current version",
+        "description" : "callable way (compared to analyzing the URL of the endpoint) of retrieving current version. As well good for testing purposes as operation is get only",
+        "operationId" : "version",
+        "responses" : {
+          "default" : {
+            "description" : "version identifier",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Version"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "technical issue on our side, please retry later",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/contracts/v1" : {
       "post" : {
         "tags" : [ "contracts" ],
@@ -118,14 +148,13 @@
   },
   "components" : {
     "schemas" : {
-      "ContractReference" : {
+      "Version" : {
+        "required" : [ "value" ],
         "type" : "object",
         "properties" : {
-          "reference" : {
-            "maxLength" : 30,
-            "minLength" : 1,
+          "value" : {
             "type" : "string",
-            "description" : "under this reference the contract is stored at Baloise"
+            "description" : "version identifier of the current API definition"
           }
         }
       },
@@ -152,6 +181,17 @@
           }
         }
       },
+      "ContractReference" : {
+        "type" : "object",
+        "properties" : {
+          "reference" : {
+            "maxLength" : 30,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "under this reference the contract is stored at Baloise"
+          }
+        }
+      },
       "Address" : {
         "required" : [ "city", "houseNumber", "street", "zipCode" ],
         "type" : "object",
@@ -168,11 +208,11 @@
           },
           "zipCode" : {
             "maxLength" : 4,
-            "minLength" : 0,
+            "minLength" : 4,
             "type" : "string"
           },
           "city" : {
-            "maxLength" : 30,
+            "maxLength" : 10,
             "minLength" : 0,
             "type" : "string"
           }
@@ -190,7 +230,7 @@
           },
           "email" : {
             "maxLength" : 70,
-            "minLength" : 0,
+            "minLength" : 2,
             "type" : "string",
             "description" : "A valid email adress"
           }
@@ -402,7 +442,7 @@
           },
           "emailAddress" : {
             "maxLength" : 70,
-            "minLength" : 0,
+            "minLength" : 2,
             "type" : "string",
             "description" : "A valid email address"
           },
@@ -488,7 +528,7 @@
             }
           },
           "contractId" : {
-            "maxLength" : 30,
+            "maxLength" : 20,
             "minLength" : 0,
             "type" : "string",
             "description" : "the contract this document belongs to"

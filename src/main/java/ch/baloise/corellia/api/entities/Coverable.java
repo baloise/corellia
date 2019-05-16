@@ -8,6 +8,8 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.LIST_MAX_SIZE;
+
 public class Coverable implements Serializable {
 
   private static final long serialVersionUID = 10;
@@ -18,7 +20,7 @@ public class Coverable implements Serializable {
 
   @NotNull
   @Valid
-  @Size(min = 1, max = 99)
+  @Size(min = 1, max = LIST_MAX_SIZE)
   private List<Coverage> coverages;
 
   public Coverable() {
