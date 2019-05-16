@@ -11,7 +11,7 @@
 
 The project hosts a classical b2b-interface (Web-API) specification for (insurance) contract data and document exchange.
 
-This is a java project leveraging a stand-alone jetty server. It provides the Baloise Contracts API according to the OpenAPI Spec. This application uses JAX-RS annotated resources to resolve a valid OpenAPI definition out of Java classes representing the API
+This is a java project leveraging [swagger-core](https://github.com/swagger-api/swagger-core) and a [converter](https://github.com/LucyBot-Inc/api-spec-converter) to create the OpenAPI 2.0 specs. It provides the Baloise Contracts API according to the OpenAPI Spec. This application uses JAX-RS annotated resources to resolve a valid OpenAPI definition out of Java classes representing the API
 
 ### the name
 
@@ -19,7 +19,7 @@ The name [Corellia](https://en.wikipedia.org/w/index.php?title=Corellia) is a re
 
 ### usage open api v3
 
-To generated the `docs/openapi.json` OpenAPI specification, call
+To generate the `docs/openapi.json` OpenAPI specification, call
 
 ```
 $ mvn exec:java@gen-openapi
@@ -35,15 +35,10 @@ $ mvn package
 
 ### usage open api v2
 
-Firstly generate the OpenAPI v3 specs (will be located at `docs/openapi.json`)
-Then, use npm to install the main dependency, [the converter](https://github.com/LucyBot-Inc/api-spec-converter).
-
-Call
+**Firstly generate the OpenAPI v3 specs** (will be located at `docs/openapi.json`)
+Then use the following call to convert the OpenAPI v2 specs (will be located at `docs/swagger.json`)
 
 ```
-$ npm run convert > docs/swagger.json
+$ mvn exec:java@gen-swagger
 ```
 Note: _(One must have issued `npm install` previously.)_
-
-to create the OpenApi v2. There might be some artifacts in the first few lines of that json file.
-Clean it accordingly.
