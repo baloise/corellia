@@ -11,8 +11,9 @@ import javax.ws.rs.core.Application;
 @ApplicationPath("/insurance")
 public class ContractApplication extends Application {
 
-  ObjectMapper mapper = new ObjectMapper() //
-      .registerModule(new ParameterNamesModule()) //
-      .registerModule(new Jdk8Module()) //
-      .registerModule(new JavaTimeModule()); // new module, NOT JSR310Module
+    public ObjectMapper mapper = new ObjectMapper() //
+            .registerModule(new ParameterNamesModule()) //
+            .registerModule(new Jdk8Module()) //
+            .registerModule(new JavaTimeModule()); // new module, NOT JSR310Module
+
 }
