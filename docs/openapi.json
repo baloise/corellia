@@ -10,7 +10,7 @@
       "name" : "Apache License 2.0",
       "url" : "https://github.com/baloise/corellia/blob/master/LICENSE.txt"
     },
-    "version" : "1.0.0"
+    "version" : "0.0.1"
   },
   "paths" : {
     "/contracts/v1/version" : {
