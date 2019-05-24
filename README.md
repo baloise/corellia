@@ -10,7 +10,7 @@
 
 The project hosts a classical b2b-interface (Web-API) specification for (insurance) contract data and document exchange.
 
-This is a java project leveraging [swagger-core](https://github.com/swagger-api/swagger-core) and a [converter](https://github.com/LucyBot-Inc/api-spec-converter) to create the OpenAPI 2.0 specs. It provides the Baloise Contracts API according to the OpenAPI Spec. This application uses JAX-RS annotated resources to resolve a valid OpenAPI definition out of Java classes representing the API
+This is a java project leveraging [swagger-core](https://github.com/swagger-api/swagger-core) and a [converter](https://github.com/LucyBot-Inc/api-spec-converter) to create the OpenAPI 2.0 specs. It provides the Contracts API according to the OpenAPI Spec. This application uses JAX-RS annotated resources to resolve a valid OpenAPI definition out of Java classes representing the API
 
 ### the name
 
