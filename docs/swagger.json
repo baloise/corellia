@@ -10,7 +10,7 @@
       "url": "https://github.com/baloise/corellia/blob/master/LICENSE.txt"
     },
     "title": "Contracts API",
-    "version": "1.0.0"
+    "version": "0.0.1"
   },
   "paths": {
     "/contracts/v1": {
