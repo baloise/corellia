@@ -23,7 +23,7 @@
           "default" : {
             "description" : "version identifier",
             "content" : {
-              "application/json" : {
+              "application/json; charset=UTF-8" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Version"
                 }
@@ -33,7 +33,7 @@
           "503" : {
             "description" : "technical issue on our side, please retry later",
             "content" : {
-              "application/json" : {
+              "application/json; charset=UTF-8" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ErrorResponse"
                 }
@@ -52,7 +52,7 @@
         "requestBody" : {
           "description" : "Contract that needs to be uploaded to Baloise",
           "content" : {
-            "application/json" : {
+            "application/json; charset=UTF-8" : {
               "schema" : {
                 "$ref" : "#/components/schemas/Contract"
               }
@@ -64,7 +64,7 @@
           "default" : {
             "description" : "a handle to the contract for conversation with Baloise is provided",
             "content" : {
-              "application/json" : {
+              "application/json; charset=UTF-8" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ContractReference"
                 }
@@ -74,7 +74,7 @@
           "400" : {
             "description" : "Invalid Contract is provided. See Error details for more information about validation issues",
             "content" : {
-              "application/json" : {
+              "application/json; charset=UTF-8" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ErrorResponse"
                 }
@@ -84,7 +84,7 @@
           "503" : {
             "description" : "technical issue on our side, please retry later",
             "content" : {
-              "application/json" : {
+              "application/json; charset=UTF-8" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ErrorResponse"
                 }
@@ -103,7 +103,7 @@
         "requestBody" : {
           "description" : "a documnent that is part of a contract",
           "content" : {
-            "application/json" : {
+            "application/json; charset=UTF-8" : {
               "schema" : {
                 "$ref" : "#/components/schemas/Document"
               }
@@ -115,7 +115,7 @@
           "default" : {
             "description" : "a handle to the document for providing with a new contract to be uploaded via POST contracts",
             "content" : {
-              "application/json" : {
+              "application/json; charset=UTF-8" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/FileHandle"
                 }
@@ -125,7 +125,7 @@
           "400" : {
             "description" : "Invalid Document is provided. See Error details for more information about validation issues",
             "content" : {
-              "application/json" : {
+              "application/json; charset=UTF-8" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ErrorResponse"
                 }
@@ -135,7 +135,7 @@
           "503" : {
             "description" : "technical issue on our side, please retry later",
             "content" : {
-              "application/json" : {
+              "application/json; charset=UTF-8" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ErrorResponse"
                 }
