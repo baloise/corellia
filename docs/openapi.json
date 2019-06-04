@@ -416,7 +416,7 @@
         "description" : "information about how the customer wants (or has already) payed the premium"
       },
       "Person" : {
-        "required" : [ "address", "firstName", "lastName", "salutation" ],
+        "required" : [ "address", "firstName", "lastName", "salutation", "language" ],
         "type" : "object",
         "properties" : {
           "salutation" : {

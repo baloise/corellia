@@ -52,6 +52,7 @@ public class Person implements Serializable {
   @JsonPropertyDescription("A valid email address")
   private String emailAddress;
 
+  @NotNull
   @Size(min = LANGUAGE_SIZE, max = LANGUAGE_SIZE)
   @JsonProperty
   @JsonPropertyDescription("The language for correspondence with the customer. According to ISO 639-1 language codes, only the values 'de', 'fr', 'it' or 'en' are accepted.")
