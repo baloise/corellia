@@ -28,6 +28,9 @@ public class ContractReference {
   @JsonPropertyDescription("under this reference the contract is stored at Baloise")
   private String reference;
 
+  public ContractReference() {
+  }
+
   public String getReference() {
     return reference;
   }

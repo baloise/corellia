@@ -33,6 +33,9 @@ public class PhoneNumber {
   @JsonPropertyDescription("Phone number, without the leading zero.")
   private String phoneNumber;
 
+  public PhoneNumber() {
+  }
+
   public String getCountryCode() {
     return countryCode;
   }

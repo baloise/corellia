@@ -25,6 +25,9 @@ public class Version {
   @JsonPropertyDescription("version identifier of the current API definition")
   private String value;
 
+  public Version() {
+  }
+
   public String getValue() {
     return value;
   }
