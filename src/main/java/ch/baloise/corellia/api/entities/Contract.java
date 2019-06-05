@@ -66,9 +66,8 @@ public class Contract implements Serializable {
   private Agent agent;
 
   @NotNull
-  @Valid
-  @JsonPropertyDescription("information about how the customer wants (or has already) payed the premium")
-  private Payment payment;
+  @JsonPropertyDescription("a code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.")
+  private Integer paymentCode;
 
   @NotNull
   @Size(min = 1, max = LIST_MAX_SIZE)
@@ -147,12 +146,12 @@ public class Contract implements Serializable {
     this.agent = agent;
   }
 
-  public Payment getPayment() {
-    return payment;
+  public Integer getPaymentCode() {
+    return paymentCode;
   }
 
-  public void setPayment(Payment payment) {
-    this.payment = payment;
+  public void setPaymentCode(Integer paymentCode) {
+    this.paymentCode = paymentCode;
   }
 
   public List<FileHandle> getFileHandles() {
