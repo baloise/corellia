@@ -20,6 +20,7 @@ import ch.baloise.corellia.api.entities.Document;
 import ch.baloise.corellia.api.entities.Version;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -42,7 +43,10 @@ public interface ContractRestController {
           @ApiResponse(responseCode = "400", description = "Invalid Contract is provided. See Error details for more information about validation issues", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
           @ApiResponse(responseCode = "503", description = "technical issue on our side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class)))
       })
-  public ch.baloise.corellia.api.entities.ContractReference uploadContract(@Parameter(description = "Contract that needs to be uploaded to Baloise", required = true) Contract contract);
+  public ch.baloise.corellia.api.entities.ContractReference uploadContract(
+  @Parameter(in = ParameterIn.HEADER, name="eventId", required = true, description = "unique identifier per event (request)", //
+      schema = @Schema(type = "string", format = "uuid", description = "generated uuid")) String eventId,
+  @Parameter(description = "Contract that needs to be uploaded to Baloise", required = true) Contract contract);
 
   @POST
   @Path("/documents")
