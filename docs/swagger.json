@@ -273,8 +273,10 @@
           "minItems": 1,
           "type": "array"
         },
-        "payment": {
-          "$ref": "#/definitions/Payment"
+        "paymentCode": {
+          "description": "a code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
+          "format": "int32",
+          "type": "integer"
         },
         "product": {
           "$ref": "#/definitions/Product"
@@ -303,7 +305,7 @@
         "creationDate",
         "endDate",
         "fileHandles",
-        "payment",
+        "paymentCode",
         "product",
         "roles",
         "startDate",
@@ -465,26 +467,6 @@
       },
       "required": [
         "amount"
-      ],
-      "type": "object"
-    },
-    "Payment": {
-      "description": "information about how the customer wants (or has already) payed the premium",
-      "properties": {
-        "code": {
-          "description": "a code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
-          "format": "int32",
-          "type": "integer"
-        },
-        "company": {
-          "$ref": "#/definitions/Company"
-        },
-        "person": {
-          "$ref": "#/definitions/Person"
-        }
-      },
-      "required": [
-        "code"
       ],
       "type": "object"
     },

@@ -276,7 +276,7 @@
         "description" : "If the payment was done by a company, this property must be filled. Only one of the properties person or company may be filled."
       },
       "Contract" : {
-        "required" : [ "conditionMonthYear", "contractId", "creationDate", "endDate", "fileHandles", "payment", "product", "roles", "startDate", "totalNetPrice" ],
+        "required" : [ "conditionMonthYear", "contractId", "creationDate", "endDate", "fileHandles", "paymentCode", "product", "roles", "startDate", "totalNetPrice" ],
         "type" : "object",
         "properties" : {
           "creationDate" : {
@@ -318,8 +318,10 @@
           "agent" : {
             "$ref" : "#/components/schemas/Agent"
           },
-          "payment" : {
-            "$ref" : "#/components/schemas/Payment"
+          "paymentCode": {
+            "description": "a code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
+            "format": "int32",
+            "type": "integer"
           },
           "fileHandles" : {
             "maxItems" : 99,
@@ -396,24 +398,6 @@
             "description" : "An amount with two decimal digit like an insured sum or a deductible (e.g. 100,22)."
           }
         }
-      },
-      "Payment" : {
-        "required" : [ "code" ],
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "integer",
-            "description" : "a code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
-            "format" : "int32"
-          },
-          "company" : {
-            "$ref" : "#/components/schemas/Company"
-          },
-          "person" : {
-            "$ref" : "#/components/schemas/Person"
-          }
-        },
-        "description" : "information about how the customer wants (or has already) payed the premium"
       },
       "Person" : {
         "required" : [ "address", "firstName", "lastName", "salutation" ],
