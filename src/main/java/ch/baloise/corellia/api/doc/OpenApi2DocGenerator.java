@@ -3,6 +3,7 @@ package ch.baloise.corellia.api.doc;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -10,7 +11,7 @@ public class OpenApi2DocGenerator {
 
     public static void main(String[] args) {
 
-        String npm = System.getProperty("os.name").toLowerCase().contains("win") ? "npm.cmd" : "npm";
+        String npm = System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains("win") ? "npm.cmd" : "npm";
         boolean verbose = args.length >= 1 && "-v".equals(args[0]);
         Consumer<String> println = (s -> {
             if(verbose){
@@ -55,16 +56,14 @@ public class OpenApi2DocGenerator {
                     sb.append(lines.get(i)).append("\n");
                 }
             }
-            Writer w = new OutputStreamWriter(new FileOutputStream("docs/swagger.json"), StandardCharsets.UTF_8);
-            BufferedWriter bw = new BufferedWriter(w);
-            bw.write(sb.toString());
-            bw.flush();
-            bw.close();
+            try (Writer w = new OutputStreamWriter(new FileOutputStream("docs/swagger.json"), StandardCharsets.UTF_8);
+                 BufferedWriter bw = new BufferedWriter(w)) {
+                bw.write(sb.toString());
+                bw.flush();
+            }
             System.out.println("Done.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (IOException |InterruptedException e) {
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 }

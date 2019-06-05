@@ -23,7 +23,7 @@ import java.io.IOException;
 public class OpenApi3DocGenerator {
 
     public static void main(String[] args) {
-        try {
+        try (FileWriter fw = new FileWriter("docs/openapi.json")){
             // Required to get the @JsonPropertyDescription
             ModelConverters.getInstance().addConverter(new JsonPropertyDescriptionResolver(Json.mapper()));
 
@@ -32,10 +32,8 @@ public class OpenApi3DocGenerator {
                     .read();
             File docs = new File("docs");
             docs.mkdirs();
-            FileWriter fw = new FileWriter("docs/openapi.json");
             fw.write(Json.pretty(openAPI));
             fw.flush();
-            fw.close();
         } catch (OpenApiConfigurationException | IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
