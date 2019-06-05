@@ -25,6 +25,9 @@ public class FileHandle {
   @JsonPropertyDescription("Reference to an uploaded file. This can be e.g. a PDF or a picture (e.g. JPG) of a contract or a purchase receipt.")
   private String handle;
 
+  public FileHandle() {
+  }
+
   public String getHandle() {
     return handle;
   }
