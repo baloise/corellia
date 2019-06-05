@@ -51,6 +51,9 @@ public class Document implements Serializable {
   @NotNull
   private DocumentType documentType;
 
+  public Document() {
+  }
+
   public byte[] getData() {
     return data;
   }

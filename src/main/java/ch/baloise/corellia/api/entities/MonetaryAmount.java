@@ -26,6 +26,9 @@ public class MonetaryAmount {
   @JsonPropertyDescription("An amount with two decimal digit like an insured sum or a deductible (e.g. 100,22).")
   private BigDecimal amount;
 
+  public MonetaryAmount() {
+  }
+
   public BigDecimal getAmount() {
     return amount;
   }

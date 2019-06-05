@@ -30,6 +30,9 @@ public class ValidationError {
     REQUIRED, SIZE, INVALID_VALUE
   }
 
+  public ValidationError() {
+  }
+
   public List<ErrorCause> getErrorCauses() {
     return errorCauses;
   }
