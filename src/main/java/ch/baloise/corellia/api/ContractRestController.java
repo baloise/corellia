@@ -59,7 +59,10 @@ public interface ContractRestController {
           @ApiResponse(responseCode = "400", description = "Invalid Document is provided. See Error details for more information about validation issues", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
           @ApiResponse(responseCode = "503", description = "technical issue on our side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
       })
-  public ch.baloise.corellia.api.entities.FileHandle uploadDocument(@Parameter(description = "a documnent that is part of a contract", required = true) Document document);
+  public ch.baloise.corellia.api.entities.FileHandle uploadDocument(
+      @Parameter(in = ParameterIn.HEADER, name= EVENT_ID, required = true, description = "unique identifier per event (request)", schema = @Schema(type = "string", format = "uuid", description = "generated uuid"))
+      @HeaderParam(EVENT_ID) String eventId,
+      @Parameter(description = "a documnent that is part of a contract", required = true) Document document);
 
 
   @GET
