@@ -78,6 +78,14 @@
         ],
         "parameters": [
           {
+            "description": "unique identifier per event (request)",
+            "format": "uuid",
+            "in": "header",
+            "name": "eventId",
+            "required": true,
+            "type": "string"
+          },
+          {
             "description": "a documnent that is part of a contract",
             "in": "body",
             "name": "body",
