@@ -43,63 +43,23 @@
         }
       }
     },
-    "/contracts/v1" : {
-      "post" : {
-        "tags" : [ "contracts" ],
-        "summary" : "upload a contract at Baloise",
-        "description" : "uploaded a contract to Baloise. If validation fails processing is refused, a corresponding error is thrown",
-        "operationId" : "uploadContract",
-        "requestBody" : {
-          "description" : "Contract that needs to be uploaded to Baloise",
-          "content" : {
-            "application/json; charset=UTF-8" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Contract"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "default" : {
-            "description" : "a handle to the contract for conversation with Baloise is provided",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ContractReference"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid Contract is provided. See Error details for more information about validation issues",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "technical issue on our side, please retry later",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/contracts/v1/documents" : {
       "post" : {
         "tags" : [ "documents" ],
         "summary" : "upload a Document for a contract at Baloise.",
         "description" : "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
         "operationId" : "uploadDocument",
+        "parameters" : [ {
+          "name" : "eventId",
+          "in" : "header",
+          "description" : "unique identifier per event (request)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "generated uuid",
+            "format" : "uuid"
+          }
+        } ],
         "requestBody" : {
           "description" : "a documnent that is part of a contract",
           "content" : {
@@ -124,6 +84,68 @@
           },
           "400" : {
             "description" : "Invalid Document is provided. See Error details for more information about validation issues",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "technical issue on our side, please retry later",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contracts/v1" : {
+      "post" : {
+        "tags" : [ "contracts" ],
+        "summary" : "upload a contract at Baloise",
+        "description" : "uploaded a contract to Baloise. If validation fails processing is refused, a corresponding error is thrown",
+        "operationId" : "uploadContract",
+        "parameters" : [ {
+          "name" : "eventId",
+          "in" : "header",
+          "description" : "unique identifier per event (request)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "generated uuid",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Contract that needs to be uploaded to Baloise",
+          "content" : {
+            "application/json; charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Contract"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "a handle to the contract for conversation with Baloise is provided",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ContractReference"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid Contract is provided. See Error details for more information about validation issues",
             "content" : {
               "application/json; charset=UTF-8" : {
                 "schema" : {
@@ -178,6 +200,50 @@
             "items" : {
               "type" : "string"
             }
+          }
+        }
+      },
+      "FileHandle" : {
+        "required" : [ "handle" ],
+        "type" : "object",
+        "properties" : {
+          "handle" : {
+            "type" : "string",
+            "description" : "Reference to an uploaded file. This can be e.g. a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
+          }
+        }
+      },
+      "Document" : {
+        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "description" : "the document itself",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "contractId" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "the contract this document belongs to"
+          },
+          "mediaType" : {
+            "type" : "string",
+            "description" : "accepted media types for documents represented by data byte[]",
+            "enum" : [ "application_pdf", "image_jpeg", "image_tiff" ]
+          },
+          "fileName" : {
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "documentType" : {
+            "type" : "string",
+            "enum" : [ "contract", "receipt" ]
           }
         }
       },
@@ -272,8 +338,7 @@
           "address" : {
             "$ref" : "#/components/schemas/Address"
           }
-        },
-        "description" : "If the payment was done by a company, this property must be filled. Only one of the properties person or company may be filled."
+        }
       },
       "Contract" : {
         "required" : [ "conditionMonthYear", "contractId", "creationDate", "endDate", "fileHandles", "paymentCode", "product", "roles", "startDate", "totalNetPrice" ],
@@ -318,10 +383,10 @@
           "agent" : {
             "$ref" : "#/components/schemas/Agent"
           },
-          "paymentCode": {
-            "description": "a code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
-            "format": "int32",
-            "type": "integer"
+          "paymentCode" : {
+            "type" : "integer",
+            "description" : "a code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
+            "format" : "int32"
           },
           "fileHandles" : {
             "maxItems" : 99,
@@ -379,16 +444,6 @@
           }
         }
       },
-      "FileHandle" : {
-        "required" : [ "handle" ],
-        "type" : "object",
-        "properties" : {
-          "handle" : {
-            "type" : "string",
-            "description" : "Reference to an uploaded file. This can be e.g. a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
-          }
-        }
-      },
       "MonetaryAmount" : {
         "required" : [ "amount" ],
         "type" : "object",
@@ -400,7 +455,7 @@
         }
       },
       "Person" : {
-        "required" : [ "address", "firstName", "lastName", "salutation", "language" ],
+        "required" : [ "address", "firstName", "language", "lastName", "salutation" ],
         "type" : "object",
         "properties" : {
           "salutation" : {
@@ -439,8 +494,7 @@
           "address" : {
             "$ref" : "#/components/schemas/Address"
           }
-        },
-        "description" : "If the payment was done by a person, this property must be filled. Only one of the properties person or company may be filled."
+        }
       },
       "PhoneNumber" : {
         "required" : [ "phoneNumber" ],
@@ -496,40 +550,6 @@
           },
           "company" : {
             "$ref" : "#/components/schemas/Company"
-          }
-        }
-      },
-      "Document" : {
-        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "array",
-            "description" : "the document itself",
-            "items" : {
-              "type" : "string",
-              "format" : "byte"
-            }
-          },
-          "contractId" : {
-            "maxLength" : 20,
-            "minLength" : 0,
-            "type" : "string",
-            "description" : "the contract this document belongs to"
-          },
-          "mediaType" : {
-            "type" : "string",
-            "description" : "accepted media types for documents represented by data byte[]",
-            "enum" : [ "application_pdf", "image_jpeg", "image_tiff" ]
-          },
-          "fileName" : {
-            "maxLength" : 256,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "documentType" : {
-            "type" : "string",
-            "enum" : [ "contract", "receipt" ]
           }
         }
       }
