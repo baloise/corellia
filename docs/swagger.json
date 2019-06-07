@@ -23,10 +23,17 @@
         ],
         "parameters": [
           {
+            "description": "identifying the sender of this event (request) ",
+            "in": "header",
+            "name": "X-Caller-Name",
+            "required": true,
+            "type": "string"
+          },
+          {
             "description": "unique identifier per event (request)",
             "format": "uuid",
             "in": "header",
-            "name": "eventId",
+            "name": "X-Event-ID",
             "required": true,
             "type": "string"
           },
@@ -78,10 +85,17 @@
         ],
         "parameters": [
           {
+            "description": "identifying the sender of this event (request) ",
+            "in": "header",
+            "name": "X-Caller-Name",
+            "required": true,
+            "type": "string"
+          },
+          {
             "description": "unique identifier per event (request)",
             "format": "uuid",
             "in": "header",
-            "name": "eventId",
+            "name": "X-Event-ID",
             "required": true,
             "type": "string"
           },
