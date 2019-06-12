@@ -29,8 +29,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/contracts/v1")
-@Consumes(MediaType.APPLICATION_JSON + "; charset=UTF-8")
-@Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public interface ContractRestController {
 
   String X_EVENT_ID = "X-Event-ID";
