@@ -16,10 +16,10 @@
     "/contracts/v1": {
       "post": {
         "consumes": [
-          "application/json"
+          "application/json; charset=UTF-8"
         ],
         "produces": [
-          "application/json"
+          "application/json; charset=UTF-8"
         ],
         "parameters": [
           {
@@ -78,10 +78,10 @@
     "/contracts/v1/documents": {
       "post": {
         "consumes": [
-          "application/json"
+          "application/json; charset=UTF-8"
         ],
         "produces": [
-          "application/json"
+          "application/json; charset=UTF-8"
         ],
         "parameters": [
           {
@@ -140,7 +140,7 @@
     "/contracts/v1/version": {
       "get": {
         "produces": [
-          "application/json"
+          "application/json; charset=UTF-8"
         ],
         "parameters": [],
         "responses": {
