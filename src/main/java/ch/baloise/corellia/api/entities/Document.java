@@ -28,7 +28,9 @@ public class Document implements Serializable {
 
   private static final long serialVersionUID = 10;
 
-  public enum MediaType {application_pdf, image_jpeg, image_tiff}
+  public enum MediaType {
+    APPLICATION_PDF, IMAGE_JPEG, IMAGE_TIFF, IMAGE_PNG, IMAGE_BMP, IMAGE_GIF
+  }
   public enum DocumentType {contract, receipt}
 
   @NotNull
