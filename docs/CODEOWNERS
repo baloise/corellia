@@ -1,2 +1,5 @@
 # see: https://help.github.com/articles/about-codeowners/
 * @baloise/it-ch_integration-services
+
+# If the API spec is changed, coporation partner should be added as default reviewer in addition
+/docs/*.json @matthewwardle @baloise/it-ch_integration-services
