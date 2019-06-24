@@ -15,11 +15,18 @@
  */
 package ch.baloise.corellia.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_ID_MAX_SIZE;
 import static ch.baloise.corellia.api.constraints.SizeConstraint.FILE_NAME_MAX_SIZE;
@@ -29,9 +36,26 @@ public class Document implements Serializable {
   private static final long serialVersionUID = 10;
 
   public enum MediaType {
-    APPLICATION_PDF, IMAGE_JPEG, IMAGE_TIFF, IMAGE_PNG, IMAGE_BMP, IMAGE_GIF
+    APPLICATION_PDF, IMAGE_JPEG, IMAGE_TIFF, IMAGE_PNG, IMAGE_BMP, IMAGE_GIF;
+
+    private static Map<String, MediaType> ELEMENTS_MAP = Stream.of(MediaType.values()).collect(Collectors.toMap(Enum::name, Function.identity()));
+
+    @JsonCreator // This is the factory method and must be static
+    public static MediaType fromString(String string) {
+      final String upperCaseString = StringUtils.isEmpty(string) ? "" : string.toUpperCase();
+      return Optional.ofNullable(ELEMENTS_MAP.get(upperCaseString)).orElseThrow(() -> new IllegalArgumentException("cannot convert to Enumtype: " + string));
+    }
   }
-  public enum DocumentType {contract, receipt}
+  public enum DocumentType {
+    CONTRACT, RECEIPT;
+
+    private static Map<String, DocumentType> ELEMENTS_MAP = Stream.of(DocumentType.values()).collect(Collectors.toMap(Enum::name, Function.identity()));
+
+    @JsonCreator // This is the factory method and must be static
+    public static DocumentType fromString(String string) {
+      final String upperCaseString = StringUtils.isEmpty(string) ? "" : string.toUpperCase();
+      return Optional.ofNullable(ELEMENTS_MAP.get(upperCaseString)).orElseThrow(() -> new IllegalArgumentException("cannot convert to Enumtype: " + string));
+    }}
 
   @NotNull
   @JsonPropertyDescription("the document itself")

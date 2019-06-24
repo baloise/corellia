@@ -417,8 +417,8 @@
         },
         "documentType": {
           "enum": [
-            "contract",
-            "receipt"
+            "CONTRACT",
+            "RECEIPT"
           ],
           "type": "string"
         },
@@ -430,9 +430,12 @@
         "mediaType": {
           "description": "accepted media types for documents represented by data byte[]",
           "enum": [
-            "application_pdf",
-            "image_jpeg",
-            "image_tiff"
+            "APPLICATION_PDF",
+            "IMAGE_JPEG",
+            "IMAGE_TIFF",
+            "IMAGE_PNG",
+            "IMAGE_BMP",
+            "IMAGE_GIF"
           ],
           "type": "string"
         }
