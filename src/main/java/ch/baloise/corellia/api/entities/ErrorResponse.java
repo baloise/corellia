@@ -15,6 +15,8 @@
  */
 package ch.baloise.corellia.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import javax.validation.constraints.NotNull;
@@ -34,11 +36,12 @@ public class ErrorResponse {
   @JsonPropertyDescription("in case of e.g. validation error, each validation error is represented by one detail message")
   private List<String> detailMessages;
 
-  public ErrorResponse(ErrorCause errorCause, String message) {
+  public ErrorResponse(@JsonProperty("errorCause") ErrorCause errorCause, @JsonProperty("message") String message) {
     this(errorCause, message, null);
   }
 
-  public ErrorResponse(ErrorCause errorCause, String message, List<String> detailMessages) {
+  @JsonCreator
+  public ErrorResponse(@JsonProperty("errorCause") ErrorCause errorCause, @JsonProperty("message") String message, @JsonProperty("detailMessages")  List<String> detailMessages) {
     this.errorCause = errorCause;
     this.message = message;
     this.detailMessages = detailMessages;
