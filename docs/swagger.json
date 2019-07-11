@@ -460,8 +460,9 @@
         },
         "errorCause": {
           "enum": [
-            "badRequest",
-            "inputValidation"
+            "httpClientError",
+            "httpClientErrorInputValidation",
+            "httpServerError"
           ],
           "type": "string"
         },
