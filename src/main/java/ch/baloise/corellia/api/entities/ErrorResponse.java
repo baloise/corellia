@@ -71,5 +71,5 @@ public class ErrorResponse {
     this.detailMessages = detailMessages;
   }
 
-  public enum ErrorCause {badRequest, inputValidation}
+  public enum ErrorCause {httpClientError, httpClientErrorInputValidation, httpServerError}
 }
