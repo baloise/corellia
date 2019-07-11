@@ -204,7 +204,7 @@
         "properties" : {
           "errorCause" : {
             "type" : "string",
-            "enum" : [ "badRequest", "inputValidation" ]
+            "enum" : [ "httpClientError", "httpClientErrorInputValidation", "httpServerError" ]
           },
           "message" : {
             "maxLength" : 1024,
