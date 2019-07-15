@@ -15,12 +15,16 @@
  */
 package ch.baloise.corellia.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Arrays;
 
 import static ch.baloise.corellia.api.constraints.SizeConstraint.*;
 
@@ -28,6 +32,7 @@ public class Company implements Serializable {
 
   private static final long serialVersionUID = 10;
 
+  @JsonFormat(shape = JsonFormat.Shape.OBJECT)
   public enum LegalForm {
     PRIVATPERSON("01"),
     EINZELUNTERNEHMEN("10"),
@@ -55,8 +60,14 @@ public class Company implements Serializable {
       this.legalForm = legalForm;
     }
 
+    @JsonValue
     public String getLegalForm() {
       return legalForm;
+    }
+
+    @JsonCreator
+    public static LegalForm forCode(String code) {
+      return Arrays.stream(values()).filter(item -> item.getLegalForm().equals(code)).findFirst().orElse(null);
     }
   }
 
@@ -68,6 +79,7 @@ public class Company implements Serializable {
   @JsonPropertyDescription("identifies a company uniquely, example CHE-105.805.649")
   private String uidNumber;
 
+  @Size(min = LEGAL_FORM_MIN_MAX_SIZE, max = LEGAL_FORM_MIN_MAX_SIZE)
   @JsonPropertyDescription("identifies the legal form of the company by CrediReform codes. Has to be provided if UID is missing.")
   private LegalForm legalForm;
 
