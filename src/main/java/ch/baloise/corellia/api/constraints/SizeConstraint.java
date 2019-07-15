@@ -31,6 +31,7 @@ public class SizeConstraint {
     public final static int COMPANY_NAME_MIN_SIZE = 3;
     public final static int COMPANY_NAME_MAX_SIZE = 70;
     public final static int UID_NUMBER_MAX_SIZE = 15;
+    public final static int LEGAL_FORM_MIN_MAX_SIZE = 2;
 
     public final static int AGENT_NUMBER_MAX_SIZE = 8;
 
