@@ -28,6 +28,38 @@ public class Company implements Serializable {
 
   private static final long serialVersionUID = 10;
 
+  public enum LegalForm {
+    PRIVATPERSON("01"),
+    EINZELUNTERNEHMEN("10"),
+    GEWERBEBETRIEB("15"),
+    EINFACHE_GESELLSCHAFT("20"),
+    KOLLEKTIVGESELLSCHAFT("21"),
+    KOMMANDITGESELLSCHAFT("22"),
+    TREUHAENDERSCHAFT_TREUUNTERNEHMEN("23"),
+    ERBENGEMEINSCHAFT("25"),
+    EUROPAEISCHE_GESELLSCHAFT("29"),
+    GENOSSENSCHAFT("30"),
+    AKTIENGESELLSCHAFT("31"),
+    KOMMANDIT_AKTIENGESELLSCHAFT("32"),
+    GMBH("33"),
+    STIFTUNG("34"),
+    VEREIN("36"),
+    ANSTALT_LI("38"),
+    FORMLOSER_BERICHT("40"),
+    ZWEIGNIEDERL_AUSLAEND_GESELLSCH("41"),
+    INSTITUT_DES_OEFFENTL_RECHTS("55");
+
+    private final String legalForm;
+
+    LegalForm(final String legalForm) {
+      this.legalForm = legalForm;
+    }
+
+    public String getLegalForm() {
+      return legalForm;
+    }
+  }
+
   @NotNull
   @Size(min = COMPANY_NAME_MIN_SIZE, max = COMPANY_NAME_MAX_SIZE)
   private String name;
@@ -35,6 +67,9 @@ public class Company implements Serializable {
   @Size(max = UID_NUMBER_MAX_SIZE)
   @JsonPropertyDescription("identifies a company uniquely, example CHE-105.805.649")
   private String uidNumber;
+
+  @JsonPropertyDescription("identifies the legal form of the company by CrediReform codes. Has to be provided if UID is missing.")
+  private LegalForm legalForm;
 
   @NotNull
   @JsonPropertyDescription("a contact is a person representing the company")
@@ -71,6 +106,14 @@ public class Company implements Serializable {
 
   public void setUidNumber(String uidNumber) {
     this.uidNumber = uidNumber;
+  }
+
+  public LegalForm getLegalForm() {
+    return legalForm;
+  }
+
+  public void setLegalForm(LegalForm legalForm) {
+    this.legalForm = legalForm;
   }
 
   public ch.baloise.corellia.api.entities.Person.Salutation getContactSalutation() {
