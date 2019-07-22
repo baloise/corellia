@@ -245,6 +245,33 @@
           ],
           "type": "string"
         },
+        "legalForm": {
+          "description": "identifies the legal form of the company by CrediReform codes. Has to be provided if UID is missing.",
+          "enum": [
+            "PRIVATPERSON",
+            "EINZELUNTERNEHMEN",
+            "GEWERBEBETRIEB",
+            "EINFACHE_GESELLSCHAFT",
+            "KOLLEKTIVGESELLSCHAFT",
+            "KOMMANDITGESELLSCHAFT",
+            "TREUHAENDERSCHAFT_TREUUNTERNEHMEN",
+            "ERBENGEMEINSCHAFT",
+            "EUROPAEISCHE_GESELLSCHAFT",
+            "GENOSSENSCHAFT",
+            "AKTIENGESELLSCHAFT",
+            "KOMMANDIT_AKTIENGESELLSCHAFT",
+            "GMBH",
+            "STIFTUNG",
+            "VEREIN",
+            "ANSTALT_LI",
+            "FORMLOSER_BERICHT",
+            "ZWEIGNIEDERL_AUSLAEND_GESELLSCH",
+            "INSTITUT_DES_OEFFENTL_RECHTS"
+          ],
+          "maxLength": 2,
+          "minLength": 2,
+          "type": "string"
+        },
         "name": {
           "maxLength": 70,
           "minLength": 3,
