@@ -13,19 +13,60 @@
     "version" : "0.1.0"
   },
   "paths" : {
-    "/contracts/v1/version" : {
-      "get" : {
-        "tags" : [ "version" ],
-        "summary" : "callable way of retrieving current version",
-        "description" : "callable way (compared to analyzing the URL of the endpoint) of retrieving current version. As well good for testing purposes as operation is get only",
-        "operationId" : "version",
+    "/contracts/v1" : {
+      "post" : {
+        "tags" : [ "contracts" ],
+        "summary" : "upload a contract at Baloise",
+        "description" : "uploaded a contract to Baloise. If validation fails processing is refused, a corresponding error is thrown",
+        "operationId" : "uploadContract",
+        "parameters" : [ {
+          "name" : "X-Caller-Name",
+          "in" : "header",
+          "description" : "identifying the sender of this event (request) ",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "defined by the callee"
+          }
+        }, {
+          "name" : "X-Event-ID",
+          "in" : "header",
+          "description" : "unique identifier per event (request)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "generated uuid",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Contract that needs to be uploaded to Baloise",
+          "content" : {
+            "application/json; charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Contract"
+              }
+            }
+          },
+          "required" : true
+        },
         "responses" : {
           "default" : {
-            "description" : "version identifier",
+            "description" : "a handle to the contract for conversation with Baloise is provided",
             "content" : {
               "application/json; charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Version"
+                  "$ref" : "#/components/schemas/ContractReference"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid Contract is provided. See Error details for more information about validation issues",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -114,60 +155,19 @@
         }
       }
     },
-    "/contracts/v1" : {
-      "post" : {
-        "tags" : [ "contracts" ],
-        "summary" : "upload a contract at Baloise",
-        "description" : "uploaded a contract to Baloise. If validation fails processing is refused, a corresponding error is thrown",
-        "operationId" : "uploadContract",
-        "parameters" : [ {
-          "name" : "X-Caller-Name",
-          "in" : "header",
-          "description" : "identifying the sender of this event (request) ",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "defined by the callee"
-          }
-        }, {
-          "name" : "X-Event-ID",
-          "in" : "header",
-          "description" : "unique identifier per event (request)",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "generated uuid",
-            "format" : "uuid"
-          }
-        } ],
-        "requestBody" : {
-          "description" : "Contract that needs to be uploaded to Baloise",
-          "content" : {
-            "application/json; charset=UTF-8" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Contract"
-              }
-            }
-          },
-          "required" : true
-        },
+    "/contracts/v1/version" : {
+      "get" : {
+        "tags" : [ "version" ],
+        "summary" : "callable way of retrieving current version",
+        "description" : "callable way (compared to analyzing the URL of the endpoint) of retrieving current version. As well good for testing purposes as operation is get only",
+        "operationId" : "version",
         "responses" : {
           "default" : {
-            "description" : "a handle to the contract for conversation with Baloise is provided",
+            "description" : "version identifier",
             "content" : {
               "application/json; charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/ContractReference"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid Contract is provided. See Error details for more information about validation issues",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
+                  "$ref" : "#/components/schemas/Version"
                 }
               }
             }
@@ -188,13 +188,14 @@
   },
   "components" : {
     "schemas" : {
-      "Version" : {
-        "required" : [ "value" ],
+      "ContractReference" : {
         "type" : "object",
         "properties" : {
-          "value" : {
+          "reference" : {
+            "maxLength" : 30,
+            "minLength" : 1,
             "type" : "string",
-            "description" : "version identifier of the current API definition"
+            "description" : "under this reference the contract is stored at Baloise"
           }
         }
       },
@@ -218,61 +219,6 @@
             "items" : {
               "type" : "string"
             }
-          }
-        }
-      },
-      "FileHandle" : {
-        "required" : [ "handle" ],
-        "type" : "object",
-        "properties" : {
-          "handle" : {
-            "type" : "string",
-            "description" : "Reference to an uploaded file. This can be e.g. a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
-          }
-        }
-      },
-      "Document" : {
-        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "array",
-            "description" : "the document itself",
-            "items" : {
-              "type" : "string",
-              "format" : "byte"
-            }
-          },
-          "contractId" : {
-            "maxLength" : 20,
-            "minLength" : 0,
-            "type" : "string",
-            "description" : "the contract this document belongs to"
-          },
-          "mediaType" : {
-            "type" : "string",
-            "description" : "accepted media types for documents represented by data byte[]",
-            "enum" : [ "APPLICATION_PDF", "IMAGE_JPEG", "IMAGE_TIFF", "IMAGE_PNG", "IMAGE_BMP", "IMAGE_GIF" ]
-          },
-          "fileName" : {
-            "maxLength" : 256,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "documentType" : {
-            "type" : "string",
-            "enum" : [ "CONTRACT", "RECEIPT" ]
-          }
-        }
-      },
-      "ContractReference" : {
-        "type" : "object",
-        "properties" : {
-          "reference" : {
-            "maxLength" : 30,
-            "minLength" : 1,
-            "type" : "string",
-            "description" : "under this reference the contract is stored at Baloise"
           }
         }
       },
@@ -335,6 +281,13 @@
             "minLength" : 0,
             "type" : "string",
             "description" : "identifies a company uniquely, example CHE-105.805.649"
+          },
+          "legalForm" : {
+            "maxLength" : 2,
+            "minLength" : 2,
+            "type" : "string",
+            "description" : "identifies the legal form of the company by CrediReform codes. Has to be provided if UID is missing.",
+            "enum" : [ "PRIVATPERSON", "EINZELUNTERNEHMEN", "GEWERBEBETRIEB", "EINFACHE_GESELLSCHAFT", "KOLLEKTIVGESELLSCHAFT", "KOMMANDITGESELLSCHAFT", "TREUHAENDERSCHAFT_TREUUNTERNEHMEN", "ERBENGEMEINSCHAFT", "EUROPAEISCHE_GESELLSCHAFT", "GENOSSENSCHAFT", "AKTIENGESELLSCHAFT", "KOMMANDIT_AKTIENGESELLSCHAFT", "GMBH", "STIFTUNG", "VEREIN", "ANSTALT_LI", "FORMLOSER_BERICHT", "ZWEIGNIEDERL_AUSLAEND_GESELLSCH", "INSTITUT_DES_OEFFENTL_RECHTS" ]
           },
           "contactSalutation" : {
             "type" : "string",
@@ -462,6 +415,16 @@
           }
         }
       },
+      "FileHandle" : {
+        "required" : [ "handle" ],
+        "type" : "object",
+        "properties" : {
+          "handle" : {
+            "type" : "string",
+            "description" : "Reference to an uploaded file. This can be e.g. a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
+          }
+        }
+      },
       "MonetaryAmount" : {
         "required" : [ "amount" ],
         "type" : "object",
@@ -568,6 +531,50 @@
           },
           "company" : {
             "$ref" : "#/components/schemas/Company"
+          }
+        }
+      },
+      "Document" : {
+        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "description" : "the document itself",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "contractId" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "the contract this document belongs to"
+          },
+          "mediaType" : {
+            "type" : "string",
+            "description" : "accepted media types for documents represented by data byte[]",
+            "enum" : [ "APPLICATION_PDF", "IMAGE_JPEG", "IMAGE_TIFF", "IMAGE_PNG", "IMAGE_BMP", "IMAGE_GIF" ]
+          },
+          "fileName" : {
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "documentType" : {
+            "type" : "string",
+            "enum" : [ "CONTRACT", "RECEIPT" ]
+          }
+        }
+      },
+      "Version" : {
+        "required" : [ "value" ],
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "type" : "string",
+            "description" : "version identifier of the current API definition"
           }
         }
       }
