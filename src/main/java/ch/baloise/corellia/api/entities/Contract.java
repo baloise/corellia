@@ -70,8 +70,8 @@ public class Contract implements Serializable {
   private Integer paymentCode;
 
   @NotNull
-  @Size(min = 1, max = LIST_MAX_SIZE)
-  @JsonPropertyDescription("a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts")
+  @Size(min = CONTRACT_FILE_HANDLES_MIN_SIZE, max = CONTRACT_FILE_HANDLES_MAX_SIZE)
+  @JsonPropertyDescription("a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required")
   private List<FileHandle> fileHandles;
 
   @NotNull
