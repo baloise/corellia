@@ -38,18 +38,16 @@ public class SizeConstraint {
     public final static int STREET_MAX_SIZE = 35;
     public final static int HOUSE_NUMBER_MAX_SIZE = 10;
     public final static int ZIP_CODE_SIZE = 4;
-    public final static int CITY_MAX_SIZE = 10;
+    public final static int CITY_MAX_SIZE = 30;
 
     public final static int LIST_MAX_SIZE = 99;
     public final static int MONTH_YEAR_SIZE = 4;
     public final static int FILE_NAME_MAX_SIZE = 256;
-    public final static int MESSAGE_MIN_SIZE = 1;
-    public final static int MESSAGE_MAX_SIZE = 1024;
 
     public final static int CONTRACT_ID_MAX_SIZE = 20;
 
-    public final static int CONTRACT_REFERENCE_MIN_SIZE = 1;
-    public final static int CONTRACT_REFERENCE_MAX_SIZE = 30;
+    public final static int CONTRACT_FILE_HANDLES_MIN_SIZE = 1;
+    public final static int CONTRACT_FILE_HANDLES_MAX_SIZE = 2;
 
     private SizeConstraint() {
     }

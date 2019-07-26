@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 public class ErrorResponse {
@@ -29,7 +28,6 @@ public class ErrorResponse {
   private ErrorCause errorCause;
 
   @NotNull
-  @Size(min = 1, max = 1024)
   @JsonPropertyDescription("information about the error")
   private String message;
 

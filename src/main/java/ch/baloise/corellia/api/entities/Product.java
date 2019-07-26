@@ -41,7 +41,7 @@ public class Product implements Serializable {
 
   @NotNull
   @Valid
-  @Size(min = 0, max = LIST_MAX_SIZE)
+  @Size(min = 1, max = LIST_MAX_SIZE)
   private List<Coverable> coverables;
 
   public Product() {}
