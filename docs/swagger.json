@@ -170,7 +170,7 @@
     "Address": {
       "properties": {
         "city": {
-          "maxLength": 10,
+          "maxLength": 30,
           "minLength": 0,
           "type": "string"
         },
@@ -321,11 +321,11 @@
           "type": "string"
         },
         "fileHandles": {
-          "description": "a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts",
+          "description": "a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required",
           "items": {
             "$ref": "#/definitions/FileHandle"
           },
-          "maxItems": 99,
+          "maxItems": 2,
           "minItems": 1,
           "type": "array"
         },
@@ -373,8 +373,6 @@
       "properties": {
         "reference": {
           "description": "under this reference the contract is stored at Baloise",
-          "maxLength": 30,
-          "minLength": 1,
           "type": "string"
         }
       },
@@ -495,8 +493,6 @@
         },
         "message": {
           "description": "information about the error",
-          "maxLength": 1024,
-          "minLength": 1,
           "type": "string"
         }
       },
@@ -611,7 +607,7 @@
             "$ref": "#/definitions/Coverable"
           },
           "maxItems": 99,
-          "minItems": 0,
+          "minItems": 1,
           "type": "array"
         },
         "pricingMonthYear": {
