@@ -215,8 +215,7 @@
         }
       },
       "required": [
-        "agentNumber",
-        "email"
+        "agentNumber"
       ],
       "type": "object"
     },
