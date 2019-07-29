@@ -37,10 +37,6 @@ pipeline {
             steps {
                 deleteDir()
                 checkout scm
-                script {
-                    pomInfo = readMavenPom file: 'pom.xml'
-                    currentBuild.description = "${pomInfo.version}"
-                }
             }
         }
 
@@ -48,6 +44,10 @@ pipeline {
             steps {
                 mavenbuild uploadArtifactsWithBranchnameInVersion: true,
                            mavenArgs: "-DcreateChecksum=true -Dmaven.javadoc.skip=true"
+                script {
+                    pomInfo = readMavenPom file: 'pom.xml'
+                    currentBuild.description = "${pomInfo.version}"
+                }
             }
         }
 
