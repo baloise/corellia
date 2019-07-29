@@ -245,7 +245,7 @@
         }
       },
       "Agent" : {
-        "required" : [ "agentNumber", "email" ],
+        "required" : [ "agentNumber" ],
         "type" : "object",
         "properties" : {
           "agentNumber" : {

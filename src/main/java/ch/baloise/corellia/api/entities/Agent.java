@@ -32,7 +32,6 @@ public class Agent implements Serializable {
   @JsonPropertyDescription("Identification of an Agent")
   private String agentNumber;
 
-  @NotNull
   @Size(min = EMAIL_MIN_SIZE, max = EMAIL_MAX_SIZE)
   @JsonPropertyDescription("A valid email adress")
   private String email;
