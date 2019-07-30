@@ -76,25 +76,25 @@ public class Company implements Serializable {
   private String name;
 
   @Size(max = UID_NUMBER_MAX_SIZE)
-  @JsonPropertyDescription("identifies a company uniquely, example CHE-105.805.649")
+  @JsonPropertyDescription("Identifies a company uniquely, example CHE-105.805.649")
   private String uidNumber;
 
   @Size(min = LEGAL_FORM_MIN_MAX_SIZE, max = LEGAL_FORM_MIN_MAX_SIZE)
-  @JsonPropertyDescription("identifies the legal form of the company by CrediReform codes. Has to be provided if UID is missing.")
+  @JsonPropertyDescription("Identifies the legal form of the company by CrediReform codes. Has to be provided if UID is missing.")
   private LegalForm legalForm;
 
   @NotNull
-  @JsonPropertyDescription("a contact is a person representing the company")
+  @JsonPropertyDescription("A contact is a person representing the company")
   private Person.Salutation contactSalutation;
 
   @NotNull
   @Size(min = LAST_NAME_MIN_SIZE, max = LAST_NAME_MAX_SIZE)
-  @JsonPropertyDescription("a contact is a person representing the company")
+  @JsonPropertyDescription("A contact is a person representing the company")
   private String contactLastName;
 
   @NotNull
   @Size(min = FIRST_NAME_MIN_SIZE, max = FIRST_NAME_MAX_SIZE)
-  @JsonPropertyDescription("a contact is a person representing the company")
+  @JsonPropertyDescription("A contact is a person representing the company")
   private String contactFirstName;
 
   @NotNull

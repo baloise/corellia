@@ -58,16 +58,16 @@ public class Document implements Serializable {
     }}
 
   @NotNull
-  @JsonPropertyDescription("the document itself")
+  @JsonPropertyDescription("The document itself")
   private byte[] data;
 
   @NotNull
   @Size(max = CONTRACT_ID_MAX_SIZE)
-  @JsonPropertyDescription("the contract this document belongs to")
+  @JsonPropertyDescription("The contract this document belongs to")
   private String contractId;
 
   @NotNull
-  @JsonPropertyDescription("accepted media types for documents represented by data byte[]")
+  @JsonPropertyDescription("Accepted media types for documents represented by data byte[]")
   private MediaType mediaType;
 
   @NotNull

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 public class ContractReference {
 
-  @JsonPropertyDescription("under this reference the contract is stored at Baloise")
+  @JsonPropertyDescription("Under this reference the contract is stored at the insurer")
   private String reference;
 
   public ContractReference() {

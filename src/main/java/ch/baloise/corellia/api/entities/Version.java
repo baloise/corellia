@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class Version {
   @NotNull
-  @JsonPropertyDescription("version identifier of the current API definition")
+  @JsonPropertyDescription("Version identifier of the current API definition")
   private String value;
 
   public Version() {

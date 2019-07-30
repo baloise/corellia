@@ -31,30 +31,30 @@ public class Contract implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @JsonPropertyDescription("the day the contract was issued")
+  @JsonPropertyDescription("The day the contract was issued")
   private LocalDate creationDate;
 
   @NotNull
-  @JsonPropertyDescription("start of contract which means start of insurance coverage")
+  @JsonPropertyDescription("Start of contract which means start of insurance coverage")
   private LocalDate startDate;
 
   @NotNull
-  @JsonPropertyDescription("end of contract which means end of insurance coverage")
+  @JsonPropertyDescription("End of contract which means end of insurance coverage")
   private LocalDate endDate;
 
   @NotNull
   @Size(max = CONTRACT_ID_MAX_SIZE)
-  @JsonPropertyDescription("id given by SaaS provider")
+  @JsonPropertyDescription("Id given by SaaS provider")
   private String contractId;
 
   @NotNull
-  @JsonPropertyDescription("the amount the customer pays excluding tax")
+  @JsonPropertyDescription("The amount the customer pays excluding tax")
   private MonetaryAmount totalNetPrice;
 
   @NotNull
   @Valid
   @Size(min = 1, max = LIST_MAX_SIZE)
-  @JsonPropertyDescription("all roles in the contract, e.g. insuranceHolder")
+  @JsonPropertyDescription("All roles in the contract, e.g. insuranceHolder")
   private List<Role> roles;
 
   @NotNull
@@ -62,21 +62,21 @@ public class Contract implements Serializable {
   private Product product;
 
   @Valid
-  @JsonPropertyDescription("the agent who induced the contract issuance, usually is eligible for receiving commission")
+  @JsonPropertyDescription("The agent who induced the contract issuance, usually is eligible for receiving commission")
   private Agent agent;
 
   @NotNull
-  @JsonPropertyDescription("a code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.")
+  @JsonPropertyDescription("A code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.")
   private Integer paymentCode;
 
   @NotNull
   @Size(min = CONTRACT_FILE_HANDLES_MIN_SIZE, max = CONTRACT_FILE_HANDLES_MAX_SIZE)
-  @JsonPropertyDescription("a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required")
+  @JsonPropertyDescription("A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required")
   private List<FileHandle> fileHandles;
 
   @NotNull
   @Size(min = MONTH_YEAR_SIZE, max = MONTH_YEAR_SIZE)
-  @JsonPropertyDescription("when was the condition issued? Format MMYY")
+  @JsonPropertyDescription("When was the condition issued? Format MMYY")
   private String conditionMonthYear;
 
   public Contract() {

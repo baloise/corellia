@@ -31,7 +31,7 @@ public class Product implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @JsonPropertyDescription("a code uniquely identifying the product")
+  @JsonPropertyDescription("A code uniquely identifying the product")
   private Integer code;
 
   @NotNull
