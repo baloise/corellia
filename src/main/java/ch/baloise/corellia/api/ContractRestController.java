@@ -37,21 +37,21 @@ public interface ContractRestController {
   String X_CALLER_NAME = "X-Caller-Name";
 
   @POST
-  @Operation(summary = "Upload a contract to the insurer",
+  @Operation(summary = "Upload a contract to the insurer.",
       tags = {"contracts"},
       description = "Uploads a contract. If validation fails processing is refused, a corresponding error is thrown",
       responses = {
           @ApiResponse(description = "A handle to the contract for conversation with the insurer is provided", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ContractReference.class))),
-          @ApiResponse(responseCode = "400", description = "Invalid Contract is provided. See Error details for more information about validation issues", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
+          @ApiResponse(responseCode = "400", description = "Invalid contract is provided. See ErrorResponse for more information about validation issues", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
           @ApiResponse(responseCode = "503", description = "Technical issue on server side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class)))
       })
 
   public ch.baloise.corellia.api.entities.ContractReference uploadContract(
-      @Parameter(in = ParameterIn.HEADER, name= X_CALLER_NAME, required = true, description = "identifying the sender of this event (request) ", //
-          schema = @Schema(type = "string", description = "defined by the callee"))
+      @Parameter(in = ParameterIn.HEADER, name= X_CALLER_NAME, required = true, description = "Identifying the sender of this event (request) ", //
+          schema = @Schema(type = "string", description = "Defined by the callee"))
       @HeaderParam(X_CALLER_NAME) String callerName,
-      @Parameter(in = ParameterIn.HEADER, name= X_EVENT_ID, required = true, description = "unique identifier per event (request)", //
-          schema = @Schema(type = "string", format = "uuid", description = "generated uuid"))
+      @Parameter(in = ParameterIn.HEADER, name= X_EVENT_ID, required = true, description = "Unique identifier per event (request)", //
+          schema = @Schema(type = "string", format = "uuid", description = "Generated UUID"))
       @HeaderParam(X_EVENT_ID) String eventId,
       @Parameter(description = "Contract that needs to be uploaded to the insurer", required = true) Contract contract);
 
@@ -62,15 +62,15 @@ public interface ContractRestController {
       description = "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
       responses = {
           @ApiResponse(description = "A handle for the uploaded document which can be used in providing a new contract via POST contracts", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.FileHandle.class))),
-          @ApiResponse(responseCode = "400", description = "Invalid Document is provided. See Error details for more information about validation issues", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
+          @ApiResponse(responseCode = "400", description = "Invalid document is provided. See ErrorResponse for more information about validation issues", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
           @ApiResponse(responseCode = "503", description = "Technical issue on server side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
       })
   public ch.baloise.corellia.api.entities.FileHandle uploadDocument(
-      @Parameter(in = ParameterIn.HEADER, name= X_CALLER_NAME, required = true, description = "identifying the sender of this event (request) ", //
-          schema = @Schema(type = "string", description = "defined by the callee"))
+      @Parameter(in = ParameterIn.HEADER, name= X_CALLER_NAME, required = true, description = "Identifying the sender of this event (request) ", //
+          schema = @Schema(type = "string", description = "Defined by the callee"))
       @HeaderParam(X_CALLER_NAME) String callerName,
-      @Parameter(in = ParameterIn.HEADER, name= X_EVENT_ID, required = true, description = "unique identifier per event (request)", //
-          schema = @Schema(type = "string", format = "uuid", description = "generated uuid"))
+      @Parameter(in = ParameterIn.HEADER, name= X_EVENT_ID, required = true, description = "Unique identifier per event (request)", //
+          schema = @Schema(type = "string", format = "uuid", description = "Generated UUID"))
       @HeaderParam(X_EVENT_ID) String eventId,
       @Parameter(description = "a documnent that is part of a contract", required = true) Document document);
 
