@@ -32,5 +32,6 @@ target/
 /bin/
 .idea/
 *.iml
+settings.xml
 
 node_modules/
