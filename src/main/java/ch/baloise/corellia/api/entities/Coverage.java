@@ -25,7 +25,7 @@ public class Coverage implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @JsonPropertyDescription("a code uniquely identifying a type of coverage")
+  @JsonPropertyDescription("A code uniquely identifying a type of coverage")
   private Integer code;
 
   @NotNull

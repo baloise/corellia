@@ -20,10 +20,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import java.util.List;
 
 public class ValidationError {
-  @JsonPropertyDescription("the path to the invalid value")
+  @JsonPropertyDescription("The path to the invalid value")
   private String path;
 
-  @JsonPropertyDescription("a list of error causes")
+  @JsonPropertyDescription("A list of error causes")
   private List<ErrorCause> errorCauses;
 
   public enum ErrorCause {

@@ -1,12 +1,12 @@
 /**
  * Copyright 2016 SmartBear Software
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,10 +28,10 @@ public class ErrorResponse {
   private ErrorCause errorCause;
 
   @NotNull
-  @JsonPropertyDescription("information about the error")
+  @JsonPropertyDescription("Information about the error")
   private String message;
 
-  @JsonPropertyDescription("in case of e.g. validation error, each validation error is represented by one detail message")
+  @JsonPropertyDescription("In case of e.g. validation error, each validation error is represented by one detail message")
   private List<String> detailMessages;
 
   public ErrorResponse(@JsonProperty("errorCause") ErrorCause errorCause, @JsonProperty("message") String message) {

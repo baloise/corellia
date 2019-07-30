@@ -4,7 +4,7 @@
     "contact": {
       "email": "Group.CH_Open-Source@baloise.ch"
     },
-    "description": "An API which allows to communicate with SaaS Providers, which produces Contracts for the host of this API",
+    "description": "An API which allows to communicate with SaaS Providers, which produce Contracts for the host of this API",
     "license": {
       "name": "Apache License 2.0",
       "url": "https://github.com/baloise/corellia/blob/master/LICENSE.txt"
@@ -38,7 +38,7 @@
             "type": "string"
           },
           {
-            "description": "Contract that needs to be uploaded to Baloise",
+            "description": "Contract that needs to be uploaded to the insurer",
             "in": "body",
             "name": "body",
             "required": true,
@@ -55,13 +55,13 @@
             }
           },
           "503": {
-            "description": "technical issue on our side, please retry later",
+            "description": "Technical issue on server side, please retry later",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
-            "description": "a handle to the contract for conversation with Baloise is provided",
+            "description": "A handle to the contract for conversation with the insurer is provided",
             "schema": {
               "$ref": "#/definitions/ContractReference"
             }
@@ -70,9 +70,9 @@
         "tags": [
           "contracts"
         ],
-        "description": "uploaded a contract to Baloise. If validation fails processing is refused, a corresponding error is thrown",
+        "description": "Uploads a contract. If validation fails processing is refused, a corresponding error is thrown",
         "operationId": "uploadContract",
-        "summary": "upload a contract at Baloise"
+        "summary": "Upload a contract to the insurer"
       }
     },
     "/contracts/v1/documents": {
@@ -117,13 +117,13 @@
             }
           },
           "503": {
-            "description": "technical issue on our side, please retry later",
+            "description": "Technical issue on server side, please retry later",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
-            "description": "a handle to the document for providing with a new contract to be uploaded via POST contracts",
+            "description": "A handle for the uploaded document which can be used in providing a new contract via POST contracts",
             "schema": {
               "$ref": "#/definitions/FileHandle"
             }
@@ -134,7 +134,7 @@
         ],
         "description": "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
         "operationId": "uploadDocument",
-        "summary": "upload a Document for a contract at Baloise."
+        "summary": "Upload a document for a contract."
       }
     },
     "/contracts/v1/version": {
@@ -145,13 +145,13 @@
         "parameters": [],
         "responses": {
           "503": {
-            "description": "technical issue on our side, please retry later",
+            "description": "Technical issue on server side, please retry later",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
-            "description": "version identifier",
+            "description": "Version identifier",
             "schema": {
               "$ref": "#/definitions/Version"
             }
@@ -160,9 +160,9 @@
         "tags": [
           "version"
         ],
-        "description": "callable way (compared to analyzing the URL of the endpoint) of retrieving current version. As well good for testing purposes as operation is get only",
+        "description": "Callable way (compared to analyzing the URL of the endpoint) of retrieving current API version (following semver). As well good for testing purposes as operation is get only",
         "operationId": "version",
-        "summary": "callable way of retrieving current version"
+        "summary": "Callable way of retrieving current API version (following semver)"
       }
     }
   },
@@ -199,7 +199,7 @@
       "type": "object"
     },
     "Agent": {
-      "description": "the agent who induced the contract issuance, usually is eligible for receiving commission",
+      "description": "The agent who induced the contract issuance, usually is eligible for receiving commission",
       "properties": {
         "agentNumber": {
           "description": "Identification of an Agent",
@@ -225,19 +225,19 @@
           "$ref": "#/definitions/Address"
         },
         "contactFirstName": {
-          "description": "a contact is a person representing the company",
+          "description": "A contact is a person representing the company",
           "maxLength": 35,
           "minLength": 2,
           "type": "string"
         },
         "contactLastName": {
-          "description": "a contact is a person representing the company",
+          "description": "A contact is a person representing the company",
           "maxLength": 35,
           "minLength": 2,
           "type": "string"
         },
         "contactSalutation": {
-          "description": "a contact is a person representing the company",
+          "description": "A contact is a person representing the company",
           "enum": [
             "Mr",
             "Mrs"
@@ -245,7 +245,7 @@
           "type": "string"
         },
         "legalForm": {
-          "description": "identifies the legal form of the company by CrediReform codes. Has to be provided if UID is missing.",
+          "description": "Identifies the legal form of the company by CrediReform codes. Has to be provided if UID is missing.",
           "enum": [
             "PRIVATPERSON",
             "EINZELUNTERNEHMEN",
@@ -277,7 +277,7 @@
           "type": "string"
         },
         "uidNumber": {
-          "description": "identifies a company uniquely, example CHE-105.805.649",
+          "description": "Identifies a company uniquely, example CHE-105.805.649",
           "maxLength": 15,
           "minLength": 0,
           "type": "string"
@@ -298,29 +298,29 @@
           "$ref": "#/definitions/Agent"
         },
         "conditionMonthYear": {
-          "description": "when was the condition issued? Format MMYY",
+          "description": "When was the condition issued? Format MMYY",
           "maxLength": 4,
           "minLength": 4,
           "type": "string"
         },
         "contractId": {
-          "description": "id given by SaaS provider",
+          "description": "Id given by SaaS provider",
           "maxLength": 20,
           "minLength": 0,
           "type": "string"
         },
         "creationDate": {
-          "description": "the day the contract was issued",
+          "description": "The day the contract was issued",
           "format": "date",
           "type": "string"
         },
         "endDate": {
-          "description": "end of contract which means end of insurance coverage",
+          "description": "End of contract which means end of insurance coverage",
           "format": "date",
           "type": "string"
         },
         "fileHandles": {
-          "description": "a contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required",
+          "description": "A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required",
           "items": {
             "$ref": "#/definitions/FileHandle"
           },
@@ -329,7 +329,7 @@
           "type": "array"
         },
         "paymentCode": {
-          "description": "a code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
+          "description": "A code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
           "format": "int32",
           "type": "integer"
         },
@@ -337,7 +337,7 @@
           "$ref": "#/definitions/Product"
         },
         "roles": {
-          "description": "all roles in the contract, e.g. insuranceHolder",
+          "description": "All roles in the contract, e.g. insuranceHolder",
           "items": {
             "$ref": "#/definitions/Role"
           },
@@ -346,7 +346,7 @@
           "type": "array"
         },
         "startDate": {
-          "description": "start of contract which means start of insurance coverage",
+          "description": "Start of contract which means start of insurance coverage",
           "format": "date",
           "type": "string"
         },
@@ -371,7 +371,7 @@
     "ContractReference": {
       "properties": {
         "reference": {
-          "description": "under this reference the contract is stored at Baloise",
+          "description": "Under this reference the contract is stored at the insurer",
           "type": "string"
         }
       },
@@ -380,7 +380,7 @@
     "Coverable": {
       "properties": {
         "code": {
-          "description": "a code uniquely identifying a type of coverable",
+          "description": "A code uniquely identifying a type of coverable",
           "format": "int32",
           "type": "integer"
         },
@@ -402,7 +402,7 @@
     "Coverage": {
       "properties": {
         "code": {
-          "description": "a code uniquely identifying a type of coverage",
+          "description": "A code uniquely identifying a type of coverage",
           "format": "int32",
           "type": "integer"
         },
@@ -426,13 +426,13 @@
     "Document": {
       "properties": {
         "contractId": {
-          "description": "the contract this document belongs to",
+          "description": "The contract this document belongs to",
           "maxLength": 20,
           "minLength": 0,
           "type": "string"
         },
         "data": {
-          "description": "the document itself",
+          "description": "The document itself",
           "items": {
             "format": "byte",
             "type": "string"
@@ -452,7 +452,7 @@
           "type": "string"
         },
         "mediaType": {
-          "description": "accepted media types for documents represented by data byte[]",
+          "description": "Accepted media types for documents represented by data byte[]",
           "enum": [
             "APPLICATION_PDF",
             "IMAGE_JPEG",
@@ -476,7 +476,7 @@
     "ErrorResponse": {
       "properties": {
         "detailMessages": {
-          "description": "in case of e.g. validation error, each validation error is represented by one detail message",
+          "description": "In case of e.g. validation error, each validation error is represented by one detail message",
           "items": {
             "type": "string"
           },
@@ -491,7 +491,7 @@
           "type": "string"
         },
         "message": {
-          "description": "information about the error",
+          "description": "Information about the error",
           "type": "string"
         }
       },
@@ -597,7 +597,7 @@
     "Product": {
       "properties": {
         "code": {
-          "description": "a code uniquely identifying the product",
+          "description": "A code uniquely identifying the product",
           "format": "int32",
           "type": "integer"
         },
@@ -647,7 +647,7 @@
     "Version": {
       "properties": {
         "value": {
-          "description": "version identifier of the current API definition",
+          "description": "Version identifier of the current API definition",
           "type": "string"
         }
       },

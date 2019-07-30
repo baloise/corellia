@@ -30,7 +30,7 @@ public class Coverable implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @JsonPropertyDescription("a code uniquely identifying a type of coverable")
+  @JsonPropertyDescription("A code uniquely identifying a type of coverable")
   private Integer code;
 
   @NotNull
