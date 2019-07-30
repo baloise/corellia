@@ -16,26 +16,26 @@
     "/contracts/v1" : {
       "post" : {
         "tags" : [ "contracts" ],
-        "summary" : "Upload a contract to the insurer",
+        "summary" : "Upload a contract to the insurer.",
         "description" : "Uploads a contract. If validation fails processing is refused, a corresponding error is thrown",
         "operationId" : "uploadContract",
         "parameters" : [ {
           "name" : "X-Caller-Name",
           "in" : "header",
-          "description" : "identifying the sender of this event (request) ",
+          "description" : "Identifying the sender of this event (request) ",
           "required" : true,
           "schema" : {
             "type" : "string",
-            "description" : "defined by the callee"
+            "description" : "Defined by the callee"
           }
         }, {
           "name" : "X-Event-ID",
           "in" : "header",
-          "description" : "unique identifier per event (request)",
+          "description" : "Unique identifier per event (request)",
           "required" : true,
           "schema" : {
             "type" : "string",
-            "description" : "generated uuid",
+            "description" : "Generated UUID",
             "format" : "uuid"
           }
         } ],
@@ -62,7 +62,7 @@
             }
           },
           "400" : {
-            "description" : "Invalid Contract is provided. See Error details for more information about validation issues",
+            "description" : "Invalid contract is provided. See ErrorResponse for more information about validation issues",
             "content" : {
               "application/json; charset=UTF-8" : {
                 "schema" : {
@@ -93,20 +93,20 @@
         "parameters" : [ {
           "name" : "X-Caller-Name",
           "in" : "header",
-          "description" : "identifying the sender of this event (request) ",
+          "description" : "Identifying the sender of this event (request) ",
           "required" : true,
           "schema" : {
             "type" : "string",
-            "description" : "defined by the callee"
+            "description" : "Defined by the callee"
           }
         }, {
           "name" : "X-Event-ID",
           "in" : "header",
-          "description" : "unique identifier per event (request)",
+          "description" : "Unique identifier per event (request)",
           "required" : true,
           "schema" : {
             "type" : "string",
-            "description" : "generated uuid",
+            "description" : "Generated UUID",
             "format" : "uuid"
           }
         } ],
@@ -133,7 +133,7 @@
             }
           },
           "400" : {
-            "description" : "Invalid Document is provided. See Error details for more information about validation issues",
+            "description" : "Invalid document is provided. See ErrorResponse for more information about validation issues",
             "content" : {
               "application/json; charset=UTF-8" : {
                 "schema" : {
