@@ -27,6 +27,8 @@ public class OpenApi3DocGenerator {
             // Required to get the @JsonPropertyDescription
             ModelConverters.getInstance().addConverter(new JsonPropertyDescriptionResolver(Json.mapper()));
 
+            ModelConverters.getInstance().addConverter(new JsonFormatObjectEnumConverter());
+
             OpenAPI openAPI = new JaxrsOpenApiContextBuilder()
                     .buildContext(true)
                     .read();

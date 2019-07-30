@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "Contracts API",
-    "description" : "An API which allows to communicate with SaaS Providers, which produces Contracts for the host of this API",
+    "description" : "An API which allows to communicate with SaaS Providers, which produce Contracts for the host of this API",
     "contact" : {
       "email" : "Group.CH_Open-Source@baloise.ch"
     },
@@ -13,6 +13,36 @@
     "version" : "0.1.0"
   },
   "paths" : {
+    "/contracts/v1/version" : {
+      "get" : {
+        "tags" : [ "version" ],
+        "summary" : "callable way of retrieving current version",
+        "description" : "callable way (compared to analyzing the URL of the endpoint) of retrieving current version. As well good for testing purposes as operation is get only",
+        "operationId" : "version",
+        "responses" : {
+          "default" : {
+            "description" : "version identifier",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Version"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "technical issue on our side, please retry later",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/contracts/v1" : {
       "post" : {
         "tags" : [ "contracts" ],
@@ -154,46 +184,17 @@
           }
         }
       }
-    },
-    "/contracts/v1/version" : {
-      "get" : {
-        "tags" : [ "version" ],
-        "summary" : "callable way of retrieving current version",
-        "description" : "callable way (compared to analyzing the URL of the endpoint) of retrieving current version. As well good for testing purposes as operation is get only",
-        "operationId" : "version",
-        "responses" : {
-          "default" : {
-            "description" : "version identifier",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Version"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "technical issue on our side, please retry later",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components" : {
     "schemas" : {
-      "ContractReference" : {
+      "Version" : {
+        "required" : [ "value" ],
         "type" : "object",
         "properties" : {
-          "reference" : {
+          "value" : {
             "type" : "string",
-            "description" : "under this reference the contract is stored at Baloise"
+            "description" : "version identifier of the current API definition"
           }
         }
       },
@@ -215,6 +216,15 @@
             "items" : {
               "type" : "string"
             }
+          }
+        }
+      },
+      "ContractReference" : {
+        "type" : "object",
+        "properties" : {
+          "reference" : {
+            "type" : "string",
+            "description" : "under this reference the contract is stored at Baloise"
           }
         }
       },
@@ -282,8 +292,7 @@
             "maxLength" : 2,
             "minLength" : 2,
             "type" : "string",
-            "description" : "identifies the legal form of the company by CrediReform codes. Has to be provided if UID is missing.",
-            "enum" : [ "PRIVATPERSON", "EINZELUNTERNEHMEN", "GEWERBEBETRIEB", "EINFACHE_GESELLSCHAFT", "KOLLEKTIVGESELLSCHAFT", "KOMMANDITGESELLSCHAFT", "TREUHAENDERSCHAFT_TREUUNTERNEHMEN", "ERBENGEMEINSCHAFT", "EUROPAEISCHE_GESELLSCHAFT", "GENOSSENSCHAFT", "AKTIENGESELLSCHAFT", "KOMMANDIT_AKTIENGESELLSCHAFT", "GMBH", "STIFTUNG", "VEREIN", "ANSTALT_LI", "FORMLOSER_BERICHT", "ZWEIGNIEDERL_AUSLAEND_GESELLSCH", "INSTITUT_DES_OEFFENTL_RECHTS" ]
+            "enum" : [ "INSTITUT_DES_OEFFENTL_RECHTS: 55", "EINFACHE_GESELLSCHAFT: 20", "KOLLEKTIVGESELLSCHAFT: 21", "EINZELUNTERNEHMEN: 10", "GENOSSENSCHAFT: 30", "GMBH: 33", "GEWERBEBETRIEB: 15", "AKTIENGESELLSCHAFT: 31", "KOMMANDITGESELLSCHAFT: 22", "ANSTALT_LI: 38", "KOMMANDIT_AKTIENGESELLSCHAFT: 32", "VEREIN: 36", "PRIVATPERSON: 01", "TREUHAENDERSCHAFT_TREUUNTERNEHMEN: 23", "ERBENGEMEINSCHAFT: 25", "STIFTUNG: 34", "FORMLOSER_BERICHT: 40", "ZWEIGNIEDERL_AUSLAEND_GESELLSCH: 41", "EUROPAEISCHE_GESELLSCHAFT: 29" ]
           },
           "contactSalutation" : {
             "type" : "string",
@@ -561,16 +570,6 @@
           "documentType" : {
             "type" : "string",
             "enum" : [ "CONTRACT", "RECEIPT" ]
-          }
-        }
-      },
-      "Version" : {
-        "required" : [ "value" ],
-        "type" : "object",
-        "properties" : {
-          "value" : {
-            "type" : "string",
-            "description" : "version identifier of the current API definition"
           }
         }
       }

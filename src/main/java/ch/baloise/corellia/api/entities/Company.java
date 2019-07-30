@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.v3.oas.annotations.extensions.Extension;
+import io.swagger.v3.oas.annotations.extensions.ExtensionProperty;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -34,24 +36,138 @@ public class Company implements Serializable {
 
   @JsonFormat(shape = JsonFormat.Shape.OBJECT)
   public enum LegalForm {
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "01")
+        }
+    )
     PRIVATPERSON("01"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     EINZELUNTERNEHMEN("10"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     GEWERBEBETRIEB("15"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     EINFACHE_GESELLSCHAFT("20"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     KOLLEKTIVGESELLSCHAFT("21"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     KOMMANDITGESELLSCHAFT("22"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     TREUHAENDERSCHAFT_TREUUNTERNEHMEN("23"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     ERBENGEMEINSCHAFT("25"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     EUROPAEISCHE_GESELLSCHAFT("29"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     GENOSSENSCHAFT("30"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     AKTIENGESELLSCHAFT("31"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     KOMMANDIT_AKTIENGESELLSCHAFT("32"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     GMBH("33"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     STIFTUNG("34"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     VEREIN("36"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     ANSTALT_LI("38"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     FORMLOSER_BERICHT("40"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     ZWEIGNIEDERL_AUSLAEND_GESELLSCH("41"),
+    @Extension(
+        name = "properties",
+        properties = {
+            @ExtensionProperty(name = "value", value = "10")
+        }
+    )
     INSTITUT_DES_OEFFENTL_RECHTS("55");
 
     private final String legalForm;
