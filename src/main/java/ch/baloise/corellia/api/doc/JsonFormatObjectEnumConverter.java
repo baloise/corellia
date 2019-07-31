@@ -7,6 +7,7 @@ import io.swagger.v3.core.converter.AnnotatedType;
 import io.swagger.v3.core.converter.ModelConverter;
 import io.swagger.v3.core.converter.ModelConverterContext;
 import io.swagger.v3.core.util.Json;
+import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
 
@@ -23,6 +24,9 @@ import java.util.stream.Collectors;
  * This is then used to create a specification for a enum in the form of ENUM_INSTANCE_NAME: VALUE.
  */
 public class JsonFormatObjectEnumConverter implements ModelConverter {
+
+  private JsonPropertyDescriptionResolver jsonPropertyDescriptionResolver = new JsonPropertyDescriptionResolver(Json.mapper());
+
   @Override
   public Schema resolve(AnnotatedType type, ModelConverterContext context, Iterator<ModelConverter> chain) {
     if(type.isSchemaProperty()){
@@ -46,8 +50,19 @@ public class JsonFormatObjectEnumConverter implements ModelConverter {
                     ex.printStackTrace(); // Could be safely ignored, as the method shall exist and there is no security
                   }
                 }
+                /*
+                // Alternative: create custom key-value pairs. However this is not very effektive.
+                ObjectSchema objectSchema = new ObjectSchema();
+                values.forEach((key, value) -> objectSchema.addEnumItemObject(value));
+                return objectSchema;*/
                 StringSchema stringSchema = new StringSchema();
-                values.forEach((key, value) -> stringSchema.addEnumItem(key + ": " + value));
+//                values.forEach((key, value) -> stringSchema.addEnumItem(key + ": " + value));
+                values.forEach((key, value) -> stringSchema.addEnumItem(value.toString()));
+                String desc = jsonPropertyDescriptionResolver.resolveDescription(null, type.getCtxAnnotations(), null);
+                StringBuilder sb = new StringBuilder();
+                sb.append("Enum Value: Enum Name\n");
+                values.forEach((key, value) -> sb.append(value).append(": ").append(key).append("\n"));
+                stringSchema.description(desc+"\n"+sb.toString());
                 return stringSchema;
               }
             }
