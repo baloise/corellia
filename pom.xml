@@ -51,33 +51,6 @@
     <javax.ws.rs-api.version>2.1</javax.ws.rs-api.version>
   </properties>
 
-  <!-- https://help.github.com/en/articles/configuring-apache-maven-for-use-with-github-package-registry -->
-  <profiles>
-    <profile>
-      <id>github</id>
-      <repositories>
-        <repository>
-          <id>central</id>
-          <url>https://repo1.maven.org/maven2</url>
-          <releases><enabled>true</enabled></releases>
-          <snapshots><enabled>true</enabled></snapshots>
-        </repository>
-        <repository>
-          <id>github</id>
-          <name>GitHub Baloise Apache Maven Packages</name>
-          <url>https://maven.pkg.github.com/baloise</url>
-        </repository>
-      </repositories>
-    </profile>
-  </profiles>
-
-  <distributionManagement>
-     <repository>
-       <id>github</id>
-       <name>GitHub Baloise Apache Maven Packages</name>
-       <url>https://maven.pkg.github.com/baloise/corellia</url>
-     </repository>
-  </distributionManagement>
 
   <build>
     <plugins>
