@@ -1,0 +1,50 @@
+pipeline {
+    agent {
+        // run on any slave labeled as 'common'
+        label 'common'
+    }
+
+    options {
+        skipStagesAfterUnstable()
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '28'))
+        timeout(time: 1, unit: 'HOURS')
+    }
+
+    stages {
+        stage("SCM checkout") {
+            steps {
+                deleteDir()
+                checkout scm
+            }
+        }
+
+        stage("Release Build") {
+            steps {
+                release()
+                script {
+                    pomInfo = readMavenPom file: 'pom.xml'
+                    currentBuild.description = "${pomInfo.version}"
+                }
+            }
+        }
+
+        stage("Nexus Lifecycle") {
+            steps {
+                nexusPolicyEvaluation iqApplication: 'com.baloise.open.corellia',
+                    iqScanPatterns: [[scanPattern: 'target/*.jar']],
+                    iqStage: 'release'
+            }
+        }
+    }
+
+    post {
+        fixed {
+            mailTo status: "SUCCESS", actuator: true, recipients: [], logExtract: true
+        }
+
+        failure {
+            mailTo status: "FAILURE", actuator: true, recipients: [], logExtract: true
+        }
+    }
+}
