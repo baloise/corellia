@@ -79,7 +79,7 @@ public interface ContractRestController {
   @Path("/version")
   @Operation(summary = "Callable way of retrieving current API version (following semver)",
       tags = {"version"},
-      description = "Callable way (compared to analyzing the URL of the endpoint) of retrieving current API version (following semver). As well good for testing purposes as operation is get only",
+      description = "Endpoint to retrieve the current API version (following semver). Can be compared to the URI version. Can be used for testing purposes.",
       responses = {
           @ApiResponse(description = "Version identifier", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.Version.class))),
           @ApiResponse(responseCode = "503", description = "Technical issue on server side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
