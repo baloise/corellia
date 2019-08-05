@@ -38,7 +38,8 @@
 
   <scm>
     <url>https://github.com/baloise/corellia.git</url>
-    <connection>scm:git:git@github.com:baloise/corellia.git</connection>
+    <connection>scm:git:https://github.com/baloise/corellia.git</connection>
+    <developerConnection>scm:git:https://github.com/baloise/corellia.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
