@@ -1,0 +1,69 @@
+pipeline {
+    agent {
+        // run on any slave labeled as 'common'
+        label 'common'
+    }
+
+    options {
+        skipStagesAfterUnstable()
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '28'))
+        timeout(time: 1, unit: 'HOURS')
+    }
+
+    stages {
+        stage("SCM checkout") {
+            steps {
+                deleteDir()
+                checkout scm
+            }
+        }
+
+        stage("Release Build") {
+            steps {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'ProxyUser', usernameVariable: 'PROXY_USERNAME', passwordVariable: 'PROXY_PASSWORD']]) {
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'baopso.github.com', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+                        sh("git --version")
+                        
+                        // for local push
+                        sh("git config --local  http.proxy http://${PROXY_USERNAME}:${PROXY_PASSWORD}@webproxy.balgroupit.com:3038")
+                        sh("git config --local https.proxy http://${PROXY_USERNAME}:${PROXY_PASSWORD}@webproxy.balgroupit.com:3038")
+                        
+                        // for new cloning after pushing
+                        sh("git config --global http.github.com.proxy  http://${PROXY_USERNAME}:${PROXY_PASSWORD}@webproxy.balgroupit.com:3038")
+                        sh("git config --global https.github.com.proxy http://${PROXY_USERNAME}:${PROXY_PASSWORD}@webproxy.balgroupit.com:3038")
+                        
+                        mavenbuild cmd: "release:clean release:prepare release:perform", mavenArgs: "-B  -DtagNameFormat=@{project.version} -Dusername=${GIT_USERNAME} -Dpassword=${GIT_PASSWORD} -DaltDeploymentRepository=baloise-releases::default::https://nexus.balgroupit.com/repository/baloise-ch-releases/"
+                    }
+                }
+                script {
+                    pomInfo = readMavenPom file: 'pom.xml'
+                    currentBuild.description = "${pomInfo.version}"
+                }
+            }
+        }
+
+        stage("Nexus Lifecycle") {
+            steps {
+                nexusPolicyEvaluation iqApplication: 'com.baloise.open.corellia',
+                    iqScanPatterns: [[scanPattern: 'target/*.jar']],
+                    iqStage: 'release'
+            }
+        }
+    }
+
+    post {
+        always {
+            sh("git config --global --unset  http.github.com.proxy || true")
+            sh("git config --global --unset https.github.com.proxy || true")
+        }
+        
+        fixed {
+            mailTo status: "SUCCESS", actuator: true, recipients: [], logExtract: true
+        }
+
+        failure {
+            mailTo status: "FAILURE", actuator: true, recipients: [], logExtract: true
+        }
+    }
+}
