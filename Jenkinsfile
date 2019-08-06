@@ -53,7 +53,7 @@ pipeline {
 
         stage("Nexus Lifecycle") {
             steps {
-                nexusPolicyEvaluation iqApplication: 'com.baloise.open.corellia', 
+                nexusPolicyEvaluation iqApplication: 'ch.baloise.corellia.api', 
                     iqScanPatterns: [[scanPattern: 'target/*.jar']], 
                     iqStage: 'build'
             }
