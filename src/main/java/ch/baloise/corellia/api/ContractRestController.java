@@ -15,6 +15,7 @@
  */
 package ch.baloise.corellia.api;
 
+import ch.baloise.corellia.api.entities.Cancellation;
 import ch.baloise.corellia.api.entities.Contract;
 import ch.baloise.corellia.api.entities.Document;
 import ch.baloise.corellia.api.entities.Version;
@@ -54,6 +55,26 @@ public interface ContractRestController {
           schema = @Schema(type = "string", format = "uuid", description = "Generated UUID"))
       @HeaderParam(X_EVENT_ID) String eventId,
       @Parameter(description = "Contract that needs to be uploaded to the insurer", required = true) Contract contract);
+
+  @POST
+  @Path("/cancellations")
+  @Operation(summary = "cancel a contract",
+      tags = {"contracts"},
+      description = "cancels a contract. If validation fails processing is refused, a corresponding error is thrown",
+      responses = {
+          @ApiResponse(description = "A handle to the contract which was cancelled. It's intended for conversation between consumer and insurer", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ContractReference.class))),
+          @ApiResponse(responseCode = "400", description = "Invalid cancellation is provided. See ErrorResponse for more information about validation issues", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
+          @ApiResponse(responseCode = "503", description = "Technical issue on server side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class)))
+      })
+
+  public ch.baloise.corellia.api.entities.ContractReference cancelContract(
+      @Parameter(in = ParameterIn.HEADER, name= X_CALLER_NAME, required = true, description = "Identifying the sender of this event (request) ", //
+          schema = @Schema(type = "string", description = "Defined by the callee"))
+      @HeaderParam(X_CALLER_NAME) String callerName,
+      @Parameter(in = ParameterIn.HEADER, name= X_EVENT_ID, required = true, description = "Unique identifier per event (request)", //
+          schema = @Schema(type = "string", format = "uuid", description = "Generated UUID"))
+      @HeaderParam(X_EVENT_ID) String eventId,
+      @Parameter(description = "Cancellation to instruct the insurer to cancel the contract", required = true) Cancellation cancellation);
 
   @POST
   @Path("/documents")

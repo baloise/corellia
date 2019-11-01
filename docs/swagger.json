@@ -75,6 +75,68 @@
         "summary": "Upload a contract to the insurer."
       }
     },
+    "/contracts/v1/cancellations": {
+      "post": {
+        "consumes": [
+          "application/json; charset=UTF-8"
+        ],
+        "produces": [
+          "application/json; charset=UTF-8"
+        ],
+        "parameters": [
+          {
+            "description": "Identifying the sender of this event (request) ",
+            "in": "header",
+            "name": "X-Caller-Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Unique identifier per event (request)",
+            "format": "uuid",
+            "in": "header",
+            "name": "X-Event-ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Cancellation to instruct the insurer to cancel the contract",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Cancellation"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid cancellation is provided. See ErrorResponse for more information about validation issues",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "503": {
+            "description": "Technical issue on server side, please retry later",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "A handle to the contract which was cancelled. It's intended for conversation between consumer and insurer",
+            "schema": {
+              "$ref": "#/definitions/ContractReference"
+            }
+          }
+        },
+        "tags": [
+          "contracts"
+        ],
+        "description": "cancels a contract. If validation fails processing is refused, a corresponding error is thrown",
+        "operationId": "cancelContract",
+        "summary": "cancel a contract"
+      }
+    },
     "/contracts/v1/documents": {
       "post": {
         "consumes": [
@@ -216,6 +278,32 @@
       },
       "required": [
         "agentNumber"
+      ],
+      "type": "object"
+    },
+    "Cancellation": {
+      "properties": {
+        "contractId": {
+          "description": "Id given by SaaS provider. Identifies the contract which should be cancelled",
+          "maxLength": 20,
+          "minLength": 0,
+          "type": "string"
+        },
+        "effectiveDate": {
+          "description": "effecitve date of cancellation",
+          "format": "date",
+          "type": "string"
+        },
+        "reasonCode": {
+          "description": "A code uniquely identifying the cancellation reason",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "contractId",
+        "effectiveDate",
+        "reasonCode"
       ],
       "type": "object"
     },
