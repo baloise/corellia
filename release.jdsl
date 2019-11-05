@@ -53,10 +53,10 @@ pipeline {
     }
 
     post {
-        always {
+        // always {
             // sh("git config --global --unset  http.github.com.proxy || true")
             // sh("git config --global --unset https.github.com.proxy || true")
-        }
+        // }
         
         fixed {
             mailTo status: "SUCCESS", actuator: true, recipients: [], logExtract: true
