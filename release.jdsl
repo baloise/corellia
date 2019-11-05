@@ -30,8 +30,8 @@ pipeline {
                         sh("git config --local https.proxy http://${PROXY_USERNAME}:${PROXY_PASSWORD}@webproxy.balgroupit.com:3038")
                         
                         // for new cloning after pushing
-                        sh("git config --global http.github.com.proxy  http://${PROXY_USERNAME}:${PROXY_PASSWORD}@webproxy.balgroupit.com:3038")
-                        sh("git config --global https.github.com.proxy http://${PROXY_USERNAME}:${PROXY_PASSWORD}@webproxy.balgroupit.com:3038")
+                        // sh("git config --global http.github.com.proxy  http://${PROXY_USERNAME}:${PROXY_PASSWORD}@webproxy.balgroupit.com:3038")
+                        // sh("git config --global https.github.com.proxy http://${PROXY_USERNAME}:${PROXY_PASSWORD}@webproxy.balgroupit.com:3038")
                         
                         mavenbuild cmd: "release:clean release:prepare release:perform", mavenArgs: "-B  -DtagNameFormat=@{project.version} -Dusername=${GIT_USERNAME} -Dpassword=${GIT_PASSWORD} -DaltDeploymentRepository=baloise-releases::default::https://nexus.balgroupit.com/repository/baloise-ch-releases/"
                     }
@@ -54,8 +54,8 @@ pipeline {
 
     post {
         always {
-            sh("git config --global --unset  http.github.com.proxy || true")
-            sh("git config --global --unset https.github.com.proxy || true")
+            // sh("git config --global --unset  http.github.com.proxy || true")
+            // sh("git config --global --unset https.github.com.proxy || true")
         }
         
         fixed {
