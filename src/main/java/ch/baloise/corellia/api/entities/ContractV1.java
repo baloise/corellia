@@ -17,6 +17,7 @@ package ch.baloise.corellia.api.entities;
 
 import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_FILE_HANDLES_MAX_SIZE;
 import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_FILE_HANDLES_MIN_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_ID_MAX_SIZE;
 import static ch.baloise.corellia.api.constraints.SizeConstraint.LIST_MAX_SIZE;
 import static ch.baloise.corellia.api.constraints.SizeConstraint.MONTH_YEAR_SIZE;
 
@@ -28,7 +29,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class Contract implements Serializable {
+public class ContractV1 implements Serializable {
 
   private static final long serialVersionUID = 10;
 
@@ -43,6 +44,11 @@ public class Contract implements Serializable {
   @NotNull
   @JsonPropertyDescription("End of contract which means end of insurance coverage")
   private LocalDate endDate;
+
+  @NotNull
+  @Size(max = CONTRACT_ID_MAX_SIZE)
+  @JsonPropertyDescription("Id given by SaaS provider")
+  private String contractId;
 
   @NotNull
   @JsonPropertyDescription("The amount the customer pays excluding tax")
@@ -63,6 +69,10 @@ public class Contract implements Serializable {
   private Agent agent;
 
   @NotNull
+  @JsonPropertyDescription("A code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.")
+  private Integer paymentCode;
+
+  @NotNull
   @Size(min = CONTRACT_FILE_HANDLES_MIN_SIZE, max = CONTRACT_FILE_HANDLES_MAX_SIZE)
   @JsonPropertyDescription("A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required")
   private List<FileHandle> fileHandles;
@@ -72,30 +82,7 @@ public class Contract implements Serializable {
   @JsonPropertyDescription("When was the condition issued? Format MMYY")
   private String conditionMonthYear;
 
-  @JsonPropertyDescription("Describe the co-insurerer for this contract")
-  private String coinsured;
-
-  @NotNull
-  @JsonPropertyDescription("The tax stamp code for this contract")
-  private Integer stampTaxCode;
-
-  @NotNull
-  @Valid
-  private TermsOfService termsOfService;
-
-  @NotNull
-  @Valid
-  private Transaction transaction;
-
-  @NotNull
-  @Valid
-  private ContractId contract;
-
-  public Contract() {
-  }
-
-  public static long getSerialVersionUID() {
-    return serialVersionUID;
+  public ContractV1() {
   }
 
   public LocalDate getCreationDate() {
@@ -120,6 +107,14 @@ public class Contract implements Serializable {
 
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
+  }
+
+  public String getContractId() {
+    return contractId;
+  }
+
+  public void setContractId(String contractId) {
+    this.contractId = contractId;
   }
 
   public MonetaryAmount getTotalNetPrice() {
@@ -154,6 +149,14 @@ public class Contract implements Serializable {
     this.agent = agent;
   }
 
+  public Integer getPaymentCode() {
+    return paymentCode;
+  }
+
+  public void setPaymentCode(Integer paymentCode) {
+    this.paymentCode = paymentCode;
+  }
+
   public List<FileHandle> getFileHandles() {
     return fileHandles;
   }
@@ -168,45 +171,5 @@ public class Contract implements Serializable {
 
   public void setConditionMonthYear(String conditionMonthYear) {
     this.conditionMonthYear = conditionMonthYear;
-  }
-
-  public String getCoinsured() {
-    return coinsured;
-  }
-
-  public void setCoinsured(String coinsured) {
-    this.coinsured = coinsured;
-  }
-
-  public Integer getStampTaxCode() {
-    return stampTaxCode;
-  }
-
-  public void setStampTaxCode(Integer stampTaxCode) {
-    this.stampTaxCode = stampTaxCode;
-  }
-
-  public TermsOfService getTermsOfService() {
-    return termsOfService;
-  }
-
-  public void setTermsOfService(TermsOfService termsOfService) {
-    this.termsOfService = termsOfService;
-  }
-
-  public Transaction getTransaction() {
-    return transaction;
-  }
-
-  public void setTransaction(Transaction transaction) {
-    this.transaction = transaction;
-  }
-
-  public ContractId getContract() {
-    return contract;
-  }
-
-  public void setContract(ContractId contract) {
-    this.contract = contract;
   }
 }
