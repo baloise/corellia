@@ -569,6 +569,9 @@
           "minItems": 1,
           "type": "array"
         },
+        "payment": {
+          "$ref": "#/definitions/Payment"
+        },
         "product": {
           "$ref": "#/definitions/Product"
         },
@@ -607,6 +610,7 @@
         "creationDate",
         "endDate",
         "fileHandles",
+        "payment",
         "product",
         "roles",
         "stampTaxCode",
@@ -868,6 +872,30 @@
       },
       "required": [
         "amount"
+      ],
+      "type": "object"
+    },
+    "Payment": {
+      "properties": {
+        "code": {
+          "description": "A code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "dueDate": {
+          "description": "The due date for the recurring type",
+          "format": "date",
+          "type": "string"
+        },
+        "recurringType": {
+          "description": "The recurring type code.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "code",
+        "recurringType"
       ],
       "type": "object"
     },

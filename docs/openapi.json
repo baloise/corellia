@@ -551,7 +551,7 @@
         }
       },
       "Contract" : {
-        "required" : [ "conditionMonthYear", "contract", "creationDate", "endDate", "fileHandles", "product", "roles", "stampTaxCode", "startDate", "termsOfService", "totalNetPrice", "transaction" ],
+        "required" : [ "conditionMonthYear", "contract", "creationDate", "endDate", "fileHandles", "payment", "product", "roles", "stampTaxCode", "startDate", "termsOfService", "totalNetPrice", "transaction" ],
         "type" : "object",
         "properties" : {
           "creationDate" : {
@@ -619,6 +619,9 @@
           },
           "contract" : {
             "$ref" : "#/components/schemas/ContractId"
+          },
+          "payment" : {
+            "$ref" : "#/components/schemas/Payment"
           }
         }
       },
@@ -695,6 +698,27 @@
           "amount" : {
             "type" : "number",
             "description" : "An amount with two decimal digit like an insured sum or a deductible (e.g. 100,22)."
+          }
+        }
+      },
+      "Payment" : {
+        "required" : [ "code", "recurringType" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "description" : "A code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
+            "format" : "int32"
+          },
+          "recurringType" : {
+            "type" : "integer",
+            "description" : "The recurring type code.",
+            "format" : "int32"
+          },
+          "dueDate" : {
+            "type" : "string",
+            "description" : "The due date for the recurring type",
+            "format" : "date"
           }
         }
       },
