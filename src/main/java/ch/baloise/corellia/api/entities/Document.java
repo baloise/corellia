@@ -15,21 +15,20 @@
  */
 package ch.baloise.corellia.api.entities;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_ID_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.FILE_NAME_MAX_SIZE;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_ID_MAX_SIZE;
-import static ch.baloise.corellia.api.constraints.SizeConstraint.FILE_NAME_MAX_SIZE;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.apache.commons.lang3.StringUtils;
 
 public class Document implements Serializable {
 
@@ -47,7 +46,7 @@ public class Document implements Serializable {
     }
   }
   public enum DocumentType {
-    CONTRACT, RECEIPT;
+    CONTRACT, RECEIPT, INTERNE_KORRESPONDENZ;
 
     private static Map<String, DocumentType> ELEMENTS_MAP = Stream.of(DocumentType.values()).collect(Collectors.toMap(Enum::name, Function.identity()));
 
