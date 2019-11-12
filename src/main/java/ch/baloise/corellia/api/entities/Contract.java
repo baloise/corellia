@@ -91,6 +91,10 @@ public class Contract implements Serializable {
   @Valid
   private ContractId contract;
 
+  @NotNull
+  @Valid
+  private Payment payment;
+
   public Contract() {
   }
 
