@@ -213,4 +213,12 @@ public class Contract implements Serializable {
   public void setContract(ContractId contract) {
     this.contract = contract;
   }
+
+  public Payment getPayment() {
+    return payment;
+  }
+
+  public void setPayment(Payment payment) {
+    this.payment = payment;
+  }
 }
