@@ -13,77 +13,6 @@
     "version" : "0.1.0"
   },
   "paths" : {
-    "/contracts/v2" : {
-      "post" : {
-        "tags" : [ "contracts" ],
-        "summary" : "Upload a contract to the insurer.",
-        "description" : "Uploads a contract. If validation fails processing is refused, a corresponding error is thrown",
-        "operationId" : "uploadContract",
-        "parameters" : [ {
-          "name" : "X-Caller-Name",
-          "in" : "header",
-          "description" : "Identifying the sender of this event (request) ",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Defined by the callee"
-          }
-        }, {
-          "name" : "X-Event-ID",
-          "in" : "header",
-          "description" : "Unique identifier per event (request)",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Generated UUID",
-            "format" : "uuid"
-          }
-        } ],
-        "requestBody" : {
-          "description" : "Contract that needs to be uploaded to the insurer",
-          "content" : {
-            "application/json; charset=UTF-8" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Contract"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "default" : {
-            "description" : "A handle to the contract for conversation with the insurer is provided",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ContractReference"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid contract is provided. See ErrorResponse for more information about validation issues",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "Technical issue on server side, please retry later",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/contracts/v1/cancellations" : {
       "post" : {
         "tags" : [ "contracts" ],
@@ -296,6 +225,77 @@
           }
         }
       }
+    },
+    "/contracts/v2" : {
+      "post" : {
+        "tags" : [ "contracts" ],
+        "summary" : "Upload a contract to the insurer.",
+        "description" : "Uploads a contract. If validation fails processing is refused, a corresponding error is thrown",
+        "operationId" : "uploadContract",
+        "parameters" : [ {
+          "name" : "X-Caller-Name",
+          "in" : "header",
+          "description" : "Identifying the sender of this event (request) ",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Defined by the callee"
+          }
+        }, {
+          "name" : "X-Event-ID",
+          "in" : "header",
+          "description" : "Unique identifier per event (request)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Generated UUID",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Contract that needs to be uploaded to the insurer",
+          "content" : {
+            "application/json; charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Contract"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "A handle to the contract for conversation with the insurer is provided",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ContractReference"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid contract is provided. See ErrorResponse for more information about validation issues",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Technical issue on server side, please retry later",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -327,6 +327,72 @@
             "items" : {
               "type" : "string"
             }
+          }
+        }
+      },
+      "Cancellation" : {
+        "required" : [ "contractId", "effectiveDate", "reasonCode" ],
+        "type" : "object",
+        "properties" : {
+          "contractId" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Id given by SaaS provider. Identifies the contract which should be cancelled"
+          },
+          "effectiveDate" : {
+            "type" : "string",
+            "description" : "effecitve date of cancellation",
+            "format" : "date"
+          },
+          "reasonCode" : {
+            "type" : "integer",
+            "description" : "A code uniquely identifying the cancellation reason",
+            "format" : "int32"
+          }
+        }
+      },
+      "FileHandle" : {
+        "required" : [ "handle" ],
+        "type" : "object",
+        "properties" : {
+          "handle" : {
+            "type" : "string",
+            "description" : "Reference to an uploaded document. This can be a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
+          }
+        }
+      },
+      "Document" : {
+        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "description" : "The document itself",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "contractId" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "The contract this document belongs to"
+          },
+          "mediaType" : {
+            "type" : "string",
+            "description" : "Accepted media types for documents represented by data byte[]",
+            "enum" : [ "APPLICATION_PDF", "IMAGE_JPEG", "IMAGE_TIFF", "IMAGE_PNG", "IMAGE_BMP", "IMAGE_GIF" ]
+          },
+          "fileName" : {
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "documentType" : {
+            "type" : "string",
+            "enum" : [ "CONTRACT", "RECEIPT", "INTERNE_KORRESPONDENZ" ]
           }
         }
       },
@@ -419,8 +485,8 @@
           }
         }
       },
-      "Contract" : {
-        "required" : [ "conditionMonthYear", "contract", "creationDate", "endDate", "fileHandles", "product", "roles", "stampTaxCode", "startDate", "termsOfService", "totalNetPrice", "transaction" ],
+      "ContractV1" : {
+        "required" : [ "conditionMonthYear", "contractId", "creationDate", "endDate", "fileHandles", "paymentCode", "product", "roles", "startDate", "totalNetPrice" ],
         "type" : "object",
         "properties" : {
           "creationDate" : {
@@ -437,6 +503,12 @@
             "type" : "string",
             "description" : "End of contract which means end of insurance coverage",
             "format" : "date"
+          },
+          "contractId" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Id given by SaaS provider"
           },
           "totalNetPrice" : {
             "$ref" : "#/components/schemas/MonetaryAmount"
@@ -456,6 +528,11 @@
           "agent" : {
             "$ref" : "#/components/schemas/Agent"
           },
+          "paymentCode" : {
+            "type" : "integer",
+            "description" : "A code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
+            "format" : "int32"
+          },
           "fileHandles" : {
             "maxItems" : 2,
             "minItems" : 1,
@@ -470,38 +547,6 @@
             "minLength" : 4,
             "type" : "string",
             "description" : "When was the condition issued? Format MMYY"
-          },
-          "coinsured" : {
-            "type" : "string",
-            "description" : "Describe the co-insurerer for this contract"
-          },
-          "stampTaxCode" : {
-            "type" : "integer",
-            "description" : "The tax stamp code for this contract",
-            "format" : "int32"
-          },
-          "termsOfService" : {
-            "$ref" : "#/components/schemas/TermsOfService"
-          },
-          "transaction" : {
-            "$ref" : "#/components/schemas/Transaction"
-          },
-          "contract" : {
-            "$ref" : "#/components/schemas/ContractId"
-          }
-        }
-      },
-      "ContractId" : {
-        "required" : [ "id", "type" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string",
-            "description" : "Id depending on the type."
-          },
-          "type" : {
-            "type" : "string",
-            "description" : "The type of the id. EXT or INT."
           }
         }
       },
@@ -544,16 +589,6 @@
           },
           "sumInsured" : {
             "$ref" : "#/components/schemas/MonetaryAmount"
-          }
-        }
-      },
-      "FileHandle" : {
-        "required" : [ "handle" ],
-        "type" : "object",
-        "properties" : {
-          "handle" : {
-            "type" : "string",
-            "description" : "Reference to an uploaded document. This can be a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
           }
         }
       },
@@ -666,6 +701,92 @@
           }
         }
       },
+      "Contract" : {
+        "required" : [ "conditionMonthYear", "contract", "creationDate", "endDate", "fileHandles", "product", "roles", "stampTaxCode", "startDate", "termsOfService", "totalNetPrice", "transaction" ],
+        "type" : "object",
+        "properties" : {
+          "creationDate" : {
+            "type" : "string",
+            "description" : "The day the contract was issued",
+            "format" : "date"
+          },
+          "startDate" : {
+            "type" : "string",
+            "description" : "Start of contract which means start of insurance coverage",
+            "format" : "date"
+          },
+          "endDate" : {
+            "type" : "string",
+            "description" : "End of contract which means end of insurance coverage",
+            "format" : "date"
+          },
+          "totalNetPrice" : {
+            "$ref" : "#/components/schemas/MonetaryAmount"
+          },
+          "roles" : {
+            "maxItems" : 99,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "All roles in the contract, e.g. insuranceHolder",
+            "items" : {
+              "$ref" : "#/components/schemas/Role"
+            }
+          },
+          "product" : {
+            "$ref" : "#/components/schemas/Product"
+          },
+          "agent" : {
+            "$ref" : "#/components/schemas/Agent"
+          },
+          "fileHandles" : {
+            "maxItems" : 2,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required",
+            "items" : {
+              "$ref" : "#/components/schemas/FileHandle"
+            }
+          },
+          "conditionMonthYear" : {
+            "maxLength" : 4,
+            "minLength" : 4,
+            "type" : "string",
+            "description" : "When was the condition issued? Format MMYY"
+          },
+          "coinsured" : {
+            "type" : "string",
+            "description" : "Describe the co-insurerer for this contract"
+          },
+          "stampTaxCode" : {
+            "type" : "integer",
+            "description" : "The tax stamp code for this contract",
+            "format" : "int32"
+          },
+          "termsOfService" : {
+            "$ref" : "#/components/schemas/TermsOfService"
+          },
+          "transaction" : {
+            "$ref" : "#/components/schemas/Transaction"
+          },
+          "contract" : {
+            "$ref" : "#/components/schemas/ContractId"
+          }
+        }
+      },
+      "ContractId" : {
+        "required" : [ "id", "type" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Id depending on the type."
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "The type of the id. EXT or INT."
+          }
+        }
+      },
       "TermsOfService" : {
         "required" : [ "type", "year" ],
         "type" : "object",
@@ -700,127 +821,6 @@
             "type" : "string",
             "description" : "The date when this change should be effective.",
             "format" : "date"
-          }
-        }
-      },
-      "Cancellation" : {
-        "required" : [ "contractId", "effectiveDate", "reasonCode" ],
-        "type" : "object",
-        "properties" : {
-          "contractId" : {
-            "maxLength" : 20,
-            "minLength" : 0,
-            "type" : "string",
-            "description" : "Id given by SaaS provider. Identifies the contract which should be cancelled"
-          },
-          "effectiveDate" : {
-            "type" : "string",
-            "description" : "effecitve date of cancellation",
-            "format" : "date"
-          },
-          "reasonCode" : {
-            "type" : "integer",
-            "description" : "A code uniquely identifying the cancellation reason",
-            "format" : "int32"
-          }
-        }
-      },
-      "Document" : {
-        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "array",
-            "description" : "The document itself",
-            "items" : {
-              "type" : "string",
-              "format" : "byte"
-            }
-          },
-          "contractId" : {
-            "maxLength" : 20,
-            "minLength" : 0,
-            "type" : "string",
-            "description" : "The contract this document belongs to"
-          },
-          "mediaType" : {
-            "type" : "string",
-            "description" : "Accepted media types for documents represented by data byte[]",
-            "enum" : [ "APPLICATION_PDF", "IMAGE_JPEG", "IMAGE_TIFF", "IMAGE_PNG", "IMAGE_BMP", "IMAGE_GIF" ]
-          },
-          "fileName" : {
-            "maxLength" : 256,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "documentType" : {
-            "type" : "string",
-            "enum" : [ "CONTRACT", "RECEIPT" ]
-          }
-        }
-      },
-      "ContractV1" : {
-        "required" : [ "conditionMonthYear", "contractId", "creationDate", "endDate", "fileHandles", "paymentCode", "product", "roles", "startDate", "totalNetPrice" ],
-        "type" : "object",
-        "properties" : {
-          "creationDate" : {
-            "type" : "string",
-            "description" : "The day the contract was issued",
-            "format" : "date"
-          },
-          "startDate" : {
-            "type" : "string",
-            "description" : "Start of contract which means start of insurance coverage",
-            "format" : "date"
-          },
-          "endDate" : {
-            "type" : "string",
-            "description" : "End of contract which means end of insurance coverage",
-            "format" : "date"
-          },
-          "contractId" : {
-            "maxLength" : 20,
-            "minLength" : 0,
-            "type" : "string",
-            "description" : "Id given by SaaS provider"
-          },
-          "totalNetPrice" : {
-            "$ref" : "#/components/schemas/MonetaryAmount"
-          },
-          "roles" : {
-            "maxItems" : 99,
-            "minItems" : 1,
-            "type" : "array",
-            "description" : "All roles in the contract, e.g. insuranceHolder",
-            "items" : {
-              "$ref" : "#/components/schemas/Role"
-            }
-          },
-          "product" : {
-            "$ref" : "#/components/schemas/Product"
-          },
-          "agent" : {
-            "$ref" : "#/components/schemas/Agent"
-          },
-          "paymentCode" : {
-            "type" : "integer",
-            "description" : "A code uniquely identifying the type of payment e.g. invoice or creditcard, Paypal etc.",
-            "format" : "int32"
-          },
-          "fileHandles" : {
-            "maxItems" : 2,
-            "minItems" : 1,
-            "type" : "array",
-            "description" : "A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required",
-            "items" : {
-              "$ref" : "#/components/schemas/FileHandle"
-            }
-          },
-          "conditionMonthYear" : {
-            "maxLength" : 4,
-            "minLength" : 4,
-            "type" : "string",
-            "description" : "When was the condition issued? Format MMYY"
           }
         }
       }
