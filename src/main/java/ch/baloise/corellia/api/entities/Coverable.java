@@ -15,15 +15,14 @@
  */
 package ch.baloise.corellia.api.entities;
 
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.LIST_MAX_SIZE;
 
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import java.io.Serializable;
+import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.List;
-
-import static ch.baloise.corellia.api.constraints.SizeConstraint.LIST_MAX_SIZE;
 
 public class Coverable implements Serializable {
 
@@ -33,6 +32,9 @@ public class Coverable implements Serializable {
   @JsonPropertyDescription("A code uniquely identifying a type of coverable")
   private Integer code;
 
+  @Valid
+  private Address riskLocation;
+
   @NotNull
   @Valid
   @Size(min = 1, max = LIST_MAX_SIZE)
@@ -41,12 +43,24 @@ public class Coverable implements Serializable {
   public Coverable() {
   }
 
+  public static long getSerialVersionUID() {
+    return serialVersionUID;
+  }
+
   public Integer getCode() {
     return code;
   }
 
   public void setCode(Integer code) {
     this.code = code;
+  }
+
+  public Address getRiskLocation() {
+    return riskLocation;
+  }
+
+  public void setRiskLocation(Address riskLocation) {
+    this.riskLocation = riskLocation;
   }
 
   public List<Coverage> getCoverages() {
