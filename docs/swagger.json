@@ -669,7 +669,8 @@
         "documentType": {
           "enum": [
             "CONTRACT",
-            "RECEIPT"
+            "RECEIPT",
+            "INTERNE_KORRESPONDENZ"
           ],
           "type": "string"
         },
