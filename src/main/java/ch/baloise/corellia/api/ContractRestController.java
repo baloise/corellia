@@ -19,6 +19,7 @@ import ch.baloise.corellia.api.entities.Cancellation;
 import ch.baloise.corellia.api.entities.Contract;
 import ch.baloise.corellia.api.entities.ContractV1;
 import ch.baloise.corellia.api.entities.Document;
+import ch.baloise.corellia.api.entities.Version;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -26,6 +27,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -81,7 +83,67 @@ public interface ContractRestController {
       @Parameter(description = "Contract that needs to be uploaded to the insurer", required = true) Contract contract);
 
   @POST
-  @Path("/v1/cancellations")
+  @Path("/v1/documents")
+  @Operation(summary = "Upload a document for a contract.",
+      tags = {"documents"},
+      description = "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
+      responses = {
+          @ApiResponse(description = "A handle for the uploaded document which can be used in providing a new contract via POST contracts", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.FileHandle.class))),
+          @ApiResponse(responseCode = "400", description = "Invalid document is provided. See ErrorResponse for more information about validation issues", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
+          @ApiResponse(responseCode = "503", description = "Technical issue on server side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
+      })
+  public ch.baloise.corellia.api.entities.FileHandle uploadDocumentV1(
+      @Parameter(in = ParameterIn.HEADER, name= X_CALLER_NAME, required = true, description = "Identifying the sender of this event (request) ", //
+          schema = @Schema(type = "string", description = "Defined by the callee"))
+      @HeaderParam(X_CALLER_NAME) String callerName,
+      @Parameter(in = ParameterIn.HEADER, name= X_EVENT_ID, required = true, description = "Unique identifier per event (request)", //
+          schema = @Schema(type = "string", format = "uuid", description = "Generated UUID"))
+      @HeaderParam(X_EVENT_ID) String eventId,
+      @Parameter(description = "a documnent that is part of a contract", required = true) Document document);
+
+  @POST
+  @Path("/v2/documents")
+  @Operation(summary = "Upload a document for a contract.",
+      tags = {"documents"},
+      description = "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
+      responses = {
+          @ApiResponse(description = "A handle for the uploaded document which can be used in providing a new contract via POST contracts", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.FileHandle.class))),
+          @ApiResponse(responseCode = "400", description = "Invalid document is provided. See ErrorResponse for more information about validation issues", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
+          @ApiResponse(responseCode = "503", description = "Technical issue on server side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
+      })
+  public ch.baloise.corellia.api.entities.FileHandle uploadDocument(
+      @Parameter(in = ParameterIn.HEADER, name= X_CALLER_NAME, required = true, description = "Identifying the sender of this event (request) ", //
+          schema = @Schema(type = "string", description = "Defined by the callee"))
+      @HeaderParam(X_CALLER_NAME) String callerName,
+      @Parameter(in = ParameterIn.HEADER, name= X_EVENT_ID, required = true, description = "Unique identifier per event (request)", //
+          schema = @Schema(type = "string", format = "uuid", description = "Generated UUID"))
+      @HeaderParam(X_EVENT_ID) String eventId,
+      @Parameter(description = "a documnent that is part of a contract", required = true) Document document);
+
+  @GET
+  @Path("/v1/version")
+  @Operation(summary = "Callable way of retrieving current API version (following semver)",
+      tags = {"version"},
+      description = "Endpoint to retrieve the current API version (following semver). Can be compared to the URI version. Can be used for testing purposes.",
+      responses = {
+          @ApiResponse(description = "Version identifier", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.Version.class))),
+          @ApiResponse(responseCode = "503", description = "Technical issue on server side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
+      })
+  public Version versionV1();
+
+  @GET
+  @Path("/v2/version")
+  @Operation(summary = "Callable way of retrieving current API version (following semver)",
+      tags = {"version"},
+      description = "Endpoint to retrieve the current API version (following semver). Can be compared to the URI version. Can be used for testing purposes.",
+      responses = {
+          @ApiResponse(description = "Version identifier", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.Version.class))),
+          @ApiResponse(responseCode = "503", description = "Technical issue on server side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
+      })
+  public Version version();
+
+  @POST
+  @Path("/v2/cancellations")
   @Operation(summary = "cancel a contract",
       tags = {"contracts"},
       description = "cancels a contract. If validation fails processing is refused, a corresponding error is thrown",
@@ -99,23 +161,4 @@ public interface ContractRestController {
           schema = @Schema(type = "string", format = "uuid", description = "Generated UUID"))
       @HeaderParam(X_EVENT_ID) String eventId,
       @Parameter(description = "Cancellation to instruct the insurer to cancel the contract", required = true) Cancellation cancellation);
-
-  @POST
-  @Path("/v1/documents")
-  @Operation(summary = "Upload a document for a contract.",
-      tags = {"documents"},
-      description = "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
-      responses = {
-          @ApiResponse(description = "A handle for the uploaded document which can be used in providing a new contract via POST contracts", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.FileHandle.class))),
-          @ApiResponse(responseCode = "400", description = "Invalid document is provided. See ErrorResponse for more information about validation issues", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
-          @ApiResponse(responseCode = "503", description = "Technical issue on server side, please retry later", content = @Content(schema = @Schema(implementation = ch.baloise.corellia.api.entities.ErrorResponse.class))),
-      })
-  public ch.baloise.corellia.api.entities.FileHandle uploadDocument(
-      @Parameter(in = ParameterIn.HEADER, name= X_CALLER_NAME, required = true, description = "Identifying the sender of this event (request) ", //
-          schema = @Schema(type = "string", description = "Defined by the callee"))
-      @HeaderParam(X_CALLER_NAME) String callerName,
-      @Parameter(in = ParameterIn.HEADER, name= X_EVENT_ID, required = true, description = "Unique identifier per event (request)", //
-          schema = @Schema(type = "string", format = "uuid", description = "Generated UUID"))
-      @HeaderParam(X_EVENT_ID) String eventId,
-      @Parameter(description = "a documnent that is part of a contract", required = true) Document document);
 }
