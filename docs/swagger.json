@@ -43,7 +43,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Contract"
+              "$ref": "#/definitions/ContractV1"
             }
           }
         ],
@@ -71,8 +71,8 @@
           "contracts"
         ],
         "description": "Uploads a contract. If validation fails processing is refused, a corresponding error is thrown",
-        "operationId": "uploadContract",
-        "summary": "Upload a contract to the insurer."
+        "operationId": "uploadContractV1",
+        "summary": "Upload a contract V1 to the insurer."
       }
     },
     "/contracts/v1/cancellations": {
@@ -199,13 +199,47 @@
         "summary": "Upload a document for a contract."
       }
     },
-    "/contracts/v1/version": {
-      "get": {
+    "/contracts/v2": {
+      "post": {
+        "consumes": [
+          "application/json; charset=UTF-8"
+        ],
         "produces": [
           "application/json; charset=UTF-8"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "description": "Identifying the sender of this event (request) ",
+            "in": "header",
+            "name": "X-Caller-Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Unique identifier per event (request)",
+            "format": "uuid",
+            "in": "header",
+            "name": "X-Event-ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Contract that needs to be uploaded to the insurer",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Contract"
+            }
+          }
+        ],
         "responses": {
+          "400": {
+            "description": "Invalid contract is provided. See ErrorResponse for more information about validation issues",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
           "503": {
             "description": "Technical issue on server side, please retry later",
             "schema": {
@@ -213,18 +247,18 @@
             }
           },
           "default": {
-            "description": "Version identifier",
+            "description": "A handle to the contract for conversation with the insurer is provided",
             "schema": {
-              "$ref": "#/definitions/Version"
+              "$ref": "#/definitions/ContractReference"
             }
           }
         },
         "tags": [
-          "version"
+          "contracts"
         ],
-        "description": "Endpoint to retrieve the current API version (following semver). Can be compared to the URI version. Can be used for testing purposes.",
-        "operationId": "version",
-        "summary": "Callable way of retrieving current API version (following semver)"
+        "description": "Uploads a contract. If validation fails processing is refused, a corresponding error is thrown",
+        "operationId": "uploadContract",
+        "summary": "Upload a contract to the insurer."
       }
     }
   },
@@ -385,6 +419,117 @@
         "agent": {
           "$ref": "#/definitions/Agent"
         },
+        "coinsured": {
+          "description": "Describe the co-insurerer for this contract",
+          "type": "string"
+        },
+        "conditionMonthYear": {
+          "description": "When was the condition issued? Format MMYY",
+          "maxLength": 4,
+          "minLength": 4,
+          "type": "string"
+        },
+        "contract": {
+          "$ref": "#/definitions/ContractId"
+        },
+        "creationDate": {
+          "description": "The day the contract was issued",
+          "format": "date",
+          "type": "string"
+        },
+        "endDate": {
+          "description": "End of contract which means end of insurance coverage",
+          "format": "date",
+          "type": "string"
+        },
+        "fileHandles": {
+          "description": "A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required",
+          "items": {
+            "$ref": "#/definitions/FileHandle"
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "type": "array"
+        },
+        "product": {
+          "$ref": "#/definitions/Product"
+        },
+        "roles": {
+          "description": "All roles in the contract, e.g. insuranceHolder",
+          "items": {
+            "$ref": "#/definitions/Role"
+          },
+          "maxItems": 99,
+          "minItems": 1,
+          "type": "array"
+        },
+        "stampTaxCode": {
+          "description": "The tax stamp code for this contract",
+          "format": "int32",
+          "type": "integer"
+        },
+        "startDate": {
+          "description": "Start of contract which means start of insurance coverage",
+          "format": "date",
+          "type": "string"
+        },
+        "termsOfService": {
+          "$ref": "#/definitions/TermsOfService"
+        },
+        "totalNetPrice": {
+          "$ref": "#/definitions/MonetaryAmount"
+        },
+        "transaction": {
+          "$ref": "#/definitions/Transaction"
+        }
+      },
+      "required": [
+        "conditionMonthYear",
+        "contract",
+        "creationDate",
+        "endDate",
+        "fileHandles",
+        "product",
+        "roles",
+        "stampTaxCode",
+        "startDate",
+        "termsOfService",
+        "totalNetPrice",
+        "transaction"
+      ],
+      "type": "object"
+    },
+    "ContractId": {
+      "properties": {
+        "id": {
+          "description": "Id depending on the type.",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the id. EXT or INT.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "type": "object"
+    },
+    "ContractReference": {
+      "properties": {
+        "reference": {
+          "description": "Under this reference the contract is stored at the insurer",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ContractV1": {
+      "properties": {
+        "agent": {
+          "$ref": "#/definitions/Agent"
+        },
         "conditionMonthYear": {
           "description": "When was the condition issued? Format MMYY",
           "maxLength": 4,
@@ -456,15 +601,6 @@
       ],
       "type": "object"
     },
-    "ContractReference": {
-      "properties": {
-        "reference": {
-          "description": "Under this reference the contract is stored at the insurer",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "Coverable": {
       "properties": {
         "code": {
@@ -479,6 +615,9 @@
           "maxItems": 99,
           "minItems": 1,
           "type": "array"
+        },
+        "riskLocation": {
+          "$ref": "#/definitions/Address"
         }
       },
       "required": [
@@ -732,15 +871,46 @@
       ],
       "type": "object"
     },
-    "Version": {
+    "TermsOfService": {
       "properties": {
-        "value": {
-          "description": "Version identifier of the current API definition",
-          "type": "string"
+        "type": {
+          "description": "The type of service terms",
+          "format": "int32",
+          "type": "integer"
+        },
+        "year": {
+          "description": "The publish year of the service terms",
+          "format": "int32",
+          "type": "integer"
         }
       },
       "required": [
-        "value"
+        "type",
+        "year"
+      ],
+      "type": "object"
+    },
+    "Transaction": {
+      "properties": {
+        "effective": {
+          "description": "The date when this change should be effective.",
+          "format": "date",
+          "type": "string"
+        },
+        "reason": {
+          "description": "The reason for this type.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "type": {
+          "description": "The type of the transaction.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "reason",
+        "type"
       ],
       "type": "object"
     }
