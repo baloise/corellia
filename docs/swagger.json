@@ -998,6 +998,9 @@
         "company": {
           "$ref": "#/definitions/Company"
         },
+        "partnerNr": {
+          "type": "string"
+        },
         "person": {
           "$ref": "#/definitions/Person"
         },
