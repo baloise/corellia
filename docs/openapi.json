@@ -602,10 +602,6 @@
             "type" : "string",
             "description" : "When was the condition issued? Format MMYY"
           },
-          "coinsured" : {
-            "type" : "string",
-            "description" : "Describe the co-insurerer for this contract"
-          },
           "stampTaxCode" : {
             "type" : "integer",
             "description" : "The tax stamp code for this contract",
