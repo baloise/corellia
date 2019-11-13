@@ -999,7 +999,8 @@
           "$ref": "#/definitions/Company"
         },
         "partnerNr": {
-          "type": "string"
+          "format": "int32",
+          "type": "integer"
         },
         "person": {
           "$ref": "#/definitions/Person"
