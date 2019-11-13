@@ -72,9 +72,6 @@ public class Contract implements Serializable {
   @JsonPropertyDescription("When was the condition issued? Format MMYY")
   private String conditionMonthYear;
 
-  @JsonPropertyDescription("Describe the co-insurerer for this contract")
-  private String coinsured;
-
   @NotNull
   @JsonPropertyDescription("The tax stamp code for this contract")
   private Integer stampTaxCode;
