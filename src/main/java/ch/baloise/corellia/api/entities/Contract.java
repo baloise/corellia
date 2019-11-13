@@ -82,21 +82,17 @@ public class Contract implements Serializable {
 
   @NotNull
   @Valid
-  private Transaction transaction;
+  private Action action;
 
   @NotNull
   @Valid
-  private ContractId contract;
+  private Identifier identifier;
 
   @NotNull
   @Valid
   private Payment payment;
 
   public Contract() {
-  }
-
-  public static long getSerialVersionUID() {
-    return serialVersionUID;
   }
 
   public LocalDate getCreationDate() {
@@ -187,20 +183,20 @@ public class Contract implements Serializable {
     this.termsOfService = termsOfService;
   }
 
-  public Transaction getTransaction() {
-    return transaction;
+  public Action getAction() {
+    return action;
   }
 
-  public void setTransaction(Transaction transaction) {
-    this.transaction = transaction;
+  public void setAction(Action action) {
+    this.action = action;
   }
 
-  public ContractId getContract() {
-    return contract;
+  public Identifier getIdentifier() {
+    return identifier;
   }
 
-  public void setContract(ContractId contract) {
-    this.contract = contract;
+  public void setIdentifier(Identifier identifier) {
+    this.identifier = identifier;
   }
 
   public Payment getPayment() {

@@ -3,7 +3,7 @@ package ch.baloise.corellia.api.entities;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import javax.validation.constraints.NotNull;
 
-public class ContractId {
+public class Identifier {
 
   @NotNull
   @JsonPropertyDescription("Id depending on the type.")
@@ -13,7 +13,7 @@ public class ContractId {
   @JsonPropertyDescription("The type of the id. EXT or INT.")
   private String type;
 
-  public ContractId() {
+  public Identifier() {
   }
 
   public String getId() {

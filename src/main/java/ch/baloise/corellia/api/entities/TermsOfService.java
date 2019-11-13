@@ -10,8 +10,8 @@ public class TermsOfService {
   private Integer type;
 
   @NotNull
-  @JsonPropertyDescription("The publish year of the service terms")
-  private Integer year;
+  @JsonPropertyDescription("The edition of the service terms")
+  private Integer edition;
 
   public TermsOfService() {
   }
@@ -24,11 +24,11 @@ public class TermsOfService {
     this.type = type;
   }
 
-  public Integer getYear() {
-    return year;
+  public Integer getEdition() {
+    return edition;
   }
 
-  public void setYear(Integer year) {
-    this.year = year;
+  public void setEdition(Integer edition) {
+    this.edition = edition;
   }
 }
