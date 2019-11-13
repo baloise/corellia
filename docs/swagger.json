@@ -537,10 +537,6 @@
         "agent": {
           "$ref": "#/definitions/Agent"
         },
-        "coinsured": {
-          "description": "Describe the co-insurerer for this contract",
-          "type": "string"
-        },
         "conditionMonthYear": {
           "description": "When was the condition issued? Format MMYY",
           "maxLength": 4,
