@@ -814,6 +814,9 @@
           },
           "company" : {
             "$ref" : "#/components/schemas/Company"
+          },
+          "partnerNr" : {
+            "type" : "string"
           }
         }
       },
