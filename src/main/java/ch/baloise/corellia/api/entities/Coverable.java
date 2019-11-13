@@ -43,10 +43,6 @@ public class Coverable implements Serializable {
   public Coverable() {
   }
 
-  public static long getSerialVersionUID() {
-    return serialVersionUID;
-  }
-
   public Integer getCode() {
     return code;
   }

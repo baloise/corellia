@@ -4,20 +4,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import java.time.LocalDate;
 import javax.validation.constraints.NotNull;
 
-public class Transaction {
+public class Action {
 
   @NotNull
-  @JsonPropertyDescription("The type of the transaction.")
+  @JsonPropertyDescription("The type of the action")
   private Integer type;
 
   @NotNull
-  @JsonPropertyDescription("The reason for this type.")
+  @JsonPropertyDescription("The reason for this type")
   private Integer reason;
 
-  @JsonPropertyDescription("The date when this change should be effective.")
+  @JsonPropertyDescription("The date when this change should be effective")
   private LocalDate effective;
 
-  public Transaction() {
+  public Action() {
   }
 
   public Integer getType() {
