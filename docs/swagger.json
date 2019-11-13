@@ -381,6 +381,30 @@
     }
   },
   "definitions": {
+    "Action": {
+      "properties": {
+        "effective": {
+          "description": "The date when this change should be effective",
+          "format": "date",
+          "type": "string"
+        },
+        "reason": {
+          "description": "The reason for this type",
+          "format": "int32",
+          "type": "integer"
+        },
+        "type": {
+          "description": "The type of the action",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "reason",
+        "type"
+      ],
+      "type": "object"
+    },
     "Address": {
       "properties": {
         "city": {
@@ -534,6 +558,9 @@
     },
     "Contract": {
       "properties": {
+        "action": {
+          "$ref": "#/definitions/Action"
+        },
         "agent": {
           "$ref": "#/definitions/Agent"
         },
@@ -542,9 +569,6 @@
           "maxLength": 4,
           "minLength": 4,
           "type": "string"
-        },
-        "contract": {
-          "$ref": "#/definitions/ContractId"
         },
         "creationDate": {
           "description": "The day the contract was issued",
@@ -564,6 +588,9 @@
           "maxItems": 2,
           "minItems": 1,
           "type": "array"
+        },
+        "identifier": {
+          "$ref": "#/definitions/Identifier"
         },
         "payment": {
           "$ref": "#/definitions/Payment"
@@ -595,42 +622,22 @@
         },
         "totalNetPrice": {
           "$ref": "#/definitions/MonetaryAmount"
-        },
-        "transaction": {
-          "$ref": "#/definitions/Transaction"
         }
       },
       "required": [
+        "action",
         "conditionMonthYear",
-        "contract",
         "creationDate",
         "endDate",
         "fileHandles",
+        "identifier",
         "payment",
         "product",
         "roles",
         "stampTaxCode",
         "startDate",
         "termsOfService",
-        "totalNetPrice",
-        "transaction"
-      ],
-      "type": "object"
-    },
-    "ContractId": {
-      "properties": {
-        "id": {
-          "description": "Id depending on the type.",
-          "type": "string"
-        },
-        "type": {
-          "description": "The type of the id. EXT or INT.",
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "type"
+        "totalNetPrice"
       ],
       "type": "object"
     },
@@ -859,6 +866,23 @@
       ],
       "type": "object"
     },
+    "Identifier": {
+      "properties": {
+        "id": {
+          "description": "Id depending on the type.",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the id. EXT or INT.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "type": "object"
+    },
     "MonetaryAmount": {
       "properties": {
         "amount": {
@@ -1020,43 +1044,19 @@
     },
     "TermsOfService": {
       "properties": {
+        "edition": {
+          "description": "The edition of the service terms",
+          "format": "int32",
+          "type": "integer"
+        },
         "type": {
           "description": "The type of service terms",
           "format": "int32",
           "type": "integer"
-        },
-        "year": {
-          "description": "The publish year of the service terms",
-          "format": "int32",
-          "type": "integer"
         }
       },
       "required": [
-        "type",
-        "year"
-      ],
-      "type": "object"
-    },
-    "Transaction": {
-      "properties": {
-        "effective": {
-          "description": "The date when this change should be effective.",
-          "format": "date",
-          "type": "string"
-        },
-        "reason": {
-          "description": "The reason for this type.",
-          "format": "int32",
-          "type": "integer"
-        },
-        "type": {
-          "description": "The type of the transaction.",
-          "format": "int32",
-          "type": "integer"
-        }
-      },
-      "required": [
-        "reason",
+        "edition",
         "type"
       ],
       "type": "object"
