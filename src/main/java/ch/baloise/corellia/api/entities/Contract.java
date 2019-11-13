@@ -171,14 +171,6 @@ public class Contract implements Serializable {
     this.conditionMonthYear = conditionMonthYear;
   }
 
-  public String getCoinsured() {
-    return coinsured;
-  }
-
-  public void setCoinsured(String coinsured) {
-    this.coinsured = coinsured;
-  }
-
   public Integer getStampTaxCode() {
     return stampTaxCode;
   }
