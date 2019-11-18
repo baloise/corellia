@@ -489,19 +489,19 @@
           "$ref": "#/definitions/Address"
         },
         "contactFirstName": {
-          "description": "A contact is a person representing the company",
+          "description": "A contact is a person representing the company. Required when partnerNr not set!",
           "maxLength": 35,
           "minLength": 2,
           "type": "string"
         },
         "contactLastName": {
-          "description": "A contact is a person representing the company",
+          "description": "A contact is a person representing the company. Required when partnerNr not set!",
           "maxLength": 35,
           "minLength": 2,
           "type": "string"
         },
         "contactSalutation": {
-          "description": "A contact is a person representing the company",
+          "description": "A contact is a person representing the company. Required when partnerNr not set!",
           "enum": [
             "Mr",
             "Mrs"
@@ -536,9 +536,15 @@
           "type": "string"
         },
         "name": {
+          "description": "Required when partnerNr not set!",
           "maxLength": 70,
           "minLength": 3,
           "type": "string"
+        },
+        "partnerNr": {
+          "description": "The PartnerNr of the partner.",
+          "format": "int32",
+          "type": "integer"
         },
         "uidNumber": {
           "description": "Identifies a company uniquely, example CHE-105.805.649",
@@ -547,13 +553,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "address",
-        "contactFirstName",
-        "contactLastName",
-        "contactSalutation",
-        "name"
-      ],
       "type": "object"
     },
     "Contract": {
@@ -935,25 +934,33 @@
           "type": "string"
         },
         "firstName": {
+          "description": "Required when partnerNr not set!",
           "maxLength": 35,
           "minLength": 2,
           "type": "string"
         },
         "language": {
-          "description": "The language for correspondence with the customer. According to ISO 639-1 language codes, only the values 'de', 'fr', 'it' or 'en' are accepted.",
+          "description": "The language for correspondence with the customer. According to ISO 639-1 language codes, only the values 'de', 'fr', 'it' or 'en' are accepted. Required when partnerNr not set!",
           "maxLength": 2,
           "minLength": 2,
           "type": "string"
         },
         "lastName": {
+          "description": "Required when partnerNr not set!",
           "maxLength": 35,
           "minLength": 2,
           "type": "string"
+        },
+        "partnerNr": {
+          "description": "The PartnerNr of the partner.",
+          "format": "int32",
+          "type": "integer"
         },
         "phoneNumber": {
           "$ref": "#/definitions/PhoneNumber"
         },
         "salutation": {
+          "description": "Required when partnerNr not set!",
           "enum": [
             "Mr",
             "Mrs"
@@ -961,13 +968,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "address",
-        "firstName",
-        "language",
-        "lastName",
-        "salutation"
-      ],
       "type": "object"
     },
     "PhoneNumber": {
@@ -1021,10 +1021,6 @@
       "properties": {
         "company": {
           "$ref": "#/definitions/Company"
-        },
-        "partnerNr": {
-          "format": "int32",
-          "type": "integer"
         },
         "person": {
           "$ref": "#/definitions/Person"
