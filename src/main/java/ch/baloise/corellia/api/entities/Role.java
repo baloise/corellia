@@ -34,8 +34,6 @@ public class Role implements Serializable {
   @Valid
   private Company company;
 
-  private Integer partnerNr;
-
   public Role() {
   }
 
@@ -61,13 +59,5 @@ public class Role implements Serializable {
 
   public void setCompany(Company company) {
     this.company = company;
-  }
-
-  public Integer getPartnerNr() {
-    return partnerNr;
-  }
-
-  public void setPartnerNr(Integer partnerNr) {
-    this.partnerNr = partnerNr;
   }
 }
