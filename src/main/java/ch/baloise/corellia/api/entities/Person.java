@@ -15,16 +15,20 @@
  */
 package ch.baloise.corellia.api.entities;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.EMAIL_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.EMAIL_MIN_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.FIRST_NAME_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.FIRST_NAME_MIN_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.LANGUAGE_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.LAST_NAME_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.LAST_NAME_MIN_SIZE;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-
-import static ch.baloise.corellia.api.constraints.SizeConstraint.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 public class Person implements Serializable {
 
@@ -32,14 +36,14 @@ public class Person implements Serializable {
 
   public enum Salutation {  Mr, Mrs }
 
-  @NotNull
+  @JsonPropertyDescription("Required when partnerNr not set!")
   private Salutation salutation;
 
-  @NotNull
+  @JsonPropertyDescription("Required when partnerNr not set!")
   @Size(min = LAST_NAME_MIN_SIZE, max = LAST_NAME_MAX_SIZE)
   private String lastName;
 
-  @NotNull
+  @JsonPropertyDescription("Required when partnerNr not set!")
   @Size(min = FIRST_NAME_MIN_SIZE, max = FIRST_NAME_MAX_SIZE)
   private String firstName;
 
@@ -52,15 +56,17 @@ public class Person implements Serializable {
   @JsonPropertyDescription("A valid email address")
   private String emailAddress;
 
-  @NotNull
   @Size(min = LANGUAGE_SIZE, max = LANGUAGE_SIZE)
   @JsonProperty
-  @JsonPropertyDescription("The language for correspondence with the customer. According to ISO 639-1 language codes, only the values 'de', 'fr', 'it' or 'en' are accepted.")
+  @JsonPropertyDescription("The language for correspondence with the customer. According to ISO 639-1 language codes, only the values 'de', 'fr', 'it' or 'en' are accepted. Required when partnerNr not set!")
   private String language;
 
-  @NotNull
+  @JsonPropertyDescription("Required when partnerNr not set!")
   @Valid
   private Address address;
+
+  @JsonPropertyDescription("The PartnerNr of the partner.")
+  private Integer partnerNr;
 
   public Person() {}
 
@@ -126,5 +132,13 @@ public class Person implements Serializable {
 
   public void setAddress(Address address) {
     this.address = address;
+  }
+
+  public Integer getPartnerNr() {
+    return partnerNr;
+  }
+
+  public void setPartnerNr(Integer partnerNr) {
+    this.partnerNr = partnerNr;
   }
 }

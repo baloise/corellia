@@ -15,18 +15,23 @@
  */
 package ch.baloise.corellia.api.entities;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.COMPANY_NAME_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.COMPANY_NAME_MIN_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.FIRST_NAME_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.FIRST_NAME_MIN_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.LAST_NAME_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.LAST_NAME_MIN_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.LEGAL_FORM_MIN_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.UID_NUMBER_MAX_SIZE;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonValue;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Arrays;
-
-import static ch.baloise.corellia.api.constraints.SizeConstraint.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 public class Company implements Serializable {
 
@@ -71,7 +76,7 @@ public class Company implements Serializable {
     }
   }
 
-  @NotNull
+  @JsonPropertyDescription("Required when partnerNr not set!")
   @Size(min = COMPANY_NAME_MIN_SIZE, max = COMPANY_NAME_MAX_SIZE)
   private String name;
 
@@ -83,23 +88,23 @@ public class Company implements Serializable {
   @JsonPropertyDescription("Identifies the legal form of the company by CrediReform codes. Has to be provided if UID is missing.")
   private LegalForm legalForm;
 
-  @NotNull
-  @JsonPropertyDescription("A contact is a person representing the company")
+  @JsonPropertyDescription("A contact is a person representing the company. Required when partnerNr not set!")
   private Person.Salutation contactSalutation;
 
-  @NotNull
   @Size(min = LAST_NAME_MIN_SIZE, max = LAST_NAME_MAX_SIZE)
-  @JsonPropertyDescription("A contact is a person representing the company")
+  @JsonPropertyDescription("A contact is a person representing the company. Required when partnerNr not set!")
   private String contactLastName;
 
-  @NotNull
   @Size(min = FIRST_NAME_MIN_SIZE, max = FIRST_NAME_MAX_SIZE)
-  @JsonPropertyDescription("A contact is a person representing the company")
+  @JsonPropertyDescription("A contact is a person representing the company. Required when partnerNr not set!")
   private String contactFirstName;
 
-  @NotNull
+  @JsonPropertyDescription("Required when partnerNr not set!")
   @Valid
   private Address address;
+
+  @JsonPropertyDescription("The PartnerNr of the partner.")
+  private Integer partnerNr;
 
   public Company() {
   }
@@ -158,5 +163,13 @@ public class Company implements Serializable {
 
   public void setAddress(Address address) {
     this.address = address;
+  }
+
+  public Integer getPartnerNr() {
+    return partnerNr;
+  }
+
+  public void setPartnerNr(Integer partnerNr) {
+    this.partnerNr = partnerNr;
   }
 }
