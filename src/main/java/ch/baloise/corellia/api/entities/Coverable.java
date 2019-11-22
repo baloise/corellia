@@ -32,16 +32,22 @@ public class Coverable implements Serializable {
   @JsonPropertyDescription("A code uniquely identifying a type of coverable")
   private Integer code;
 
+  @JsonPropertyDescription(
+      "The address of the risk location. Either this field or the field riskLocationRef must be filled if it is a risk location relevant coverable.")
   @Valid
   private Address riskLocation;
+
+  @JsonPropertyDescription(
+      "The number of the address of a partner as reference to the risk location. Either this field or the field riskLocation must be filled if it is a risk location relevant coverable.")
+  @Valid
+  private Integer riskLocationRef;
 
   @NotNull
   @Valid
   @Size(min = 1, max = LIST_MAX_SIZE)
   private List<Coverage> coverages;
 
-  public Coverable() {
-  }
+  public Coverable() {}
 
   public Integer getCode() {
     return code;
@@ -57,6 +63,14 @@ public class Coverable implements Serializable {
 
   public void setRiskLocation(Address riskLocation) {
     this.riskLocation = riskLocation;
+  }
+
+  public Integer getRiskLocationRef() {
+    return riskLocationRef;
+  }
+
+  public void setRiskLocationRef(Integer riskLocationRef) {
+    this.riskLocationRef = riskLocationRef;
   }
 
   public List<Coverage> getCoverages() {
