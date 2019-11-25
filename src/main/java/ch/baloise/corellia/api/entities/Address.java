@@ -15,15 +15,25 @@
  */
 package ch.baloise.corellia.api.entities;
 
+import static ch.baloise.corellia.api.constraints.SizeConstraint.CITY_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.HOUSE_NUMBER_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.STREET_MAX_SIZE;
+import static ch.baloise.corellia.api.constraints.SizeConstraint.ZIP_CODE_SIZE;
+
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import java.io.Serializable;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-
-import static ch.baloise.corellia.api.constraints.SizeConstraint.*;
 
 public class Address implements Serializable {
 
   private static final long serialVersionUID = 10;
+
+  @JsonPropertyDescription(
+      "With access to the Baloise internal partner system it is also possible to deliver the internal reference to the corresponding address of the risk location.")
+  @Valid
+  private Integer riskLocationRef;
 
   @NotNull
   @Size(max = STREET_MAX_SIZE)
@@ -41,8 +51,7 @@ public class Address implements Serializable {
   @Size(max = CITY_MAX_SIZE)
   private String city;
 
-  public Address() {
-  }
+  public Address() {}
 
   public String getStreet() {
     return street;
