@@ -417,8 +417,8 @@
           "minLength": 0,
           "type": "string"
         },
-        "riskLocationRef": {
-          "description": "With access to the Baloise internal partner system it is also possible to deliver the internal reference to the corresponding address of the risk location.",
+        "sequentialAddressNumber": {
+          "description": "The sequential address number within the Baloise internal partner system.",
           "format": "int32",
           "type": "integer"
         },
