@@ -873,6 +873,10 @@
         },
         "type": {
           "description": "The type of the id. EXT or INT.",
+          "enum": [
+            "INT",
+            "EXT"
+          ],
           "type": "string"
         }
       },
