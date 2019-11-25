@@ -794,7 +794,7 @@
           "enum": [
             "CONTRACT",
             "RECEIPT",
-            "INTERNE_KORRESPONDENZ"
+            "COVER_LETTER"
           ],
           "type": "string"
         },
