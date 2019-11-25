@@ -22,7 +22,6 @@ import static ch.baloise.corellia.api.constraints.SizeConstraint.ZIP_CODE_SIZE;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import java.io.Serializable;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -32,7 +31,6 @@ public class Address implements Serializable {
 
   @JsonPropertyDescription(
       "With access to the Baloise internal partner system it is also possible to deliver the internal reference to the corresponding address of the risk location.")
-  @Valid
   private Integer riskLocationRef;
 
   @NotNull
@@ -52,6 +50,14 @@ public class Address implements Serializable {
   private String city;
 
   public Address() {}
+
+  public Integer getRiskLocationRef() {
+    return riskLocationRef;
+  }
+
+  public void setRiskLocationRef(Integer riskLocationRef) {
+    this.riskLocationRef = riskLocationRef;
+  }
 
   public String getStreet() {
     return street;
