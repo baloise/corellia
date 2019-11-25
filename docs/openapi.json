@@ -475,6 +475,11 @@
         "required" : [ "city", "houseNumber", "street", "zipCode" ],
         "type" : "object",
         "properties" : {
+          "riskLocationRef" : {
+            "type" : "integer",
+            "description" : "With access to the Baloise internal partner system it is also possible to deliver the internal reference to the corresponding address of the risk location.",
+            "format" : "int32"
+          },
           "street" : {
             "maxLength" : 35,
             "minLength" : 0,
@@ -495,8 +500,7 @@
             "minLength" : 0,
             "type" : "string"
           }
-        },
-        "description" : "The address of the risk location. Either this field or the field riskLocationRef must be filled if it is a risk location relevant coverable."
+        }
       },
       "Agent" : {
         "required" : [ "agentNumber" ],
@@ -642,11 +646,6 @@
           },
           "riskLocation" : {
             "$ref" : "#/components/schemas/Address"
-          },
-          "riskLocationRef" : {
-            "type" : "integer",
-            "description" : "The number of the address of a partner as reference to the risk location. Either this field or the field riskLocation must be filled if it is a risk location relevant coverable.",
-            "format" : "int32"
           },
           "coverages" : {
             "maxItems" : 99,
@@ -906,7 +905,8 @@
           },
           "type" : {
             "type" : "string",
-            "description" : "The type of the id. EXT or INT."
+            "description" : "The type of the id. EXT or INT.",
+            "enum" : [ "INT", "EXT" ]
           }
         }
       },
@@ -977,7 +977,7 @@
           },
           "documentType" : {
             "type" : "string",
-            "enum" : [ "CONTRACT", "RECEIPT", "INTERNE_KORRESPONDENZ" ]
+            "enum" : [ "CONTRACT", "RECEIPT", "COVER_LETTER" ]
           }
         }
       },
