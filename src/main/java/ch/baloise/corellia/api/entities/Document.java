@@ -46,7 +46,7 @@ public class Document implements Serializable {
     }
   }
   public enum DocumentType {
-    CONTRACT, RECEIPT, INTERNE_KORRESPONDENZ;
+    CONTRACT, RECEIPT, COVER_LETTER;
 
     private static Map<String, DocumentType> ELEMENTS_MAP = Stream.of(DocumentType.values()).collect(Collectors.toMap(Enum::name, Function.identity()));
 
