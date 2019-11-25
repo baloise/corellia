@@ -417,6 +417,11 @@
           "minLength": 0,
           "type": "string"
         },
+        "riskLocationRef": {
+          "description": "With access to the Baloise internal partner system it is also possible to deliver the internal reference to the corresponding address of the risk location.",
+          "format": "int32",
+          "type": "integer"
+        },
         "street": {
           "maxLength": 35,
           "minLength": 0,
