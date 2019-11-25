@@ -30,8 +30,8 @@ public class Address implements Serializable {
   private static final long serialVersionUID = 10;
 
   @JsonPropertyDescription(
-      "With access to the Baloise internal partner system it is also possible to deliver the internal reference to the corresponding address of the risk location.")
-  private Integer riskLocationRef;
+      "The sequential address number within the Baloise internal partner system.")
+  private Integer sequentialAddressNumber;
 
   @NotNull
   @Size(max = STREET_MAX_SIZE)
@@ -51,12 +51,12 @@ public class Address implements Serializable {
 
   public Address() {}
 
-  public Integer getRiskLocationRef() {
-    return riskLocationRef;
+  public Integer getSequentialAddressNumber() {
+    return sequentialAddressNumber;
   }
 
-  public void setRiskLocationRef(Integer riskLocationRef) {
-    this.riskLocationRef = riskLocationRef;
+  public void setSequentialAddressNumber(Integer sequentialAddressNumber) {
+    this.sequentialAddressNumber = sequentialAddressNumber;
   }
 
   public String getStreet() {
