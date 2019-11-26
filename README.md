@@ -43,3 +43,9 @@ Then use the following call to convert the OpenAPI v2 specs (will be located at 
 $ mvn exec:java@gen-swagger
 ```
 Note: _(One must have issued `npm install` previously.)_
+
+## releasing
+
+Run e.g. on master: `mvn -B release:prepare` e.g. via [![Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/baloise/corellia)
+
+Subsequently the GitHub action worksflow "create release" will pick up the published tag and release and deploy the artifacts in the Github package registry.
