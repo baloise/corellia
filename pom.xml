@@ -46,7 +46,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Baloise Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/baloise/repository-template-java</url>
+            <url>https://maven.pkg.github.com/baloise/corellia</url>
         </repository>
     </distributionManagement>
 
