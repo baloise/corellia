@@ -3,7 +3,6 @@
 [![swagger-editor](https://img.shields.io/badge/open--API-in--editor-green.svg?style=flat&label=open-api-v2)](https://editor.swagger.io/?url=https://raw.githubusercontent.com/baloise/corellia/master/docs/swagger.json)
 [![DepShield Badge](https://depshield.sonatype.org/badges/baloise/corellia/depshield.svg)](https://depshield.github.io)
 [![CI Status](https://github.com/baloise/corellia/workflows/CI/badge.svg)](https://github.com/baloise/corellia/actions)
-[![Codecov](https://img.shields.io/codecov/c/github/baloise/corellia.svg)](https://codecov.io/gh/baloise/corellia)
 
 ## workspace
 [![Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/baloise/corellia)
