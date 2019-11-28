@@ -56,6 +56,7 @@ public class Contract implements Serializable {
 
   @NotNull
   @Valid
+  @JsonPropertyDescription("Test is a test")
   private Product product;
 
   @Valid
