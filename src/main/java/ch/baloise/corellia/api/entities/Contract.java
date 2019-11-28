@@ -45,7 +45,7 @@ public class Contract implements Serializable {
   private LocalDate endDate;
 
   @NotNull
-  @JsonPropertyDescription("The amount the customer pays excluding tax")
+  @JsonPropertyDescription("The amount the customer pays excluding tax. If the coverages premium sum doesn't match this amount, an error INVALID_VALUE will be thrown.")
   private MonetaryAmount totalNetPrice;
 
   @NotNull
