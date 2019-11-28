@@ -29,6 +29,7 @@ public class Coverage implements Serializable {
   private Integer code;
 
   @NotNull
+  @JsonPropertyDescription("Test is a test")
   private MonetaryAmount premium;
 
   private MonetaryAmount deductible;
