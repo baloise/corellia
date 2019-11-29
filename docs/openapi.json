@@ -13,6 +13,148 @@
     "version" : "0.1.0"
   },
   "paths" : {
+    "/contracts/v1" : {
+      "post" : {
+        "tags" : [ "contracts" ],
+        "summary" : "Upload a contract V1 to the insurer.",
+        "description" : "Uploads a contract. If validation fails processing is refused, a corresponding error is thrown",
+        "operationId" : "uploadContractV1",
+        "parameters" : [ {
+          "name" : "X-Caller-Name",
+          "in" : "header",
+          "description" : "Identifying the sender of this event (request) ",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Defined by the callee"
+          }
+        }, {
+          "name" : "X-Event-ID",
+          "in" : "header",
+          "description" : "Unique identifier per event (request)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Generated UUID",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Contract that needs to be uploaded to the insurer",
+          "content" : {
+            "application/json; charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ContractV1"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "A handle to the contract for conversation with the insurer is provided",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ContractReference"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid contract is provided. See ErrorResponse for more information about validation issues",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Technical issue on server side, please retry later",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contracts/v2" : {
+      "post" : {
+        "tags" : [ "contracts" ],
+        "summary" : "Upload a contract to the insurer.",
+        "description" : "Uploads a contract. If validation fails processing is refused, a corresponding error is thrown",
+        "operationId" : "uploadContract",
+        "parameters" : [ {
+          "name" : "X-Caller-Name",
+          "in" : "header",
+          "description" : "Identifying the sender of this event (request) ",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Defined by the callee"
+          }
+        }, {
+          "name" : "X-Event-ID",
+          "in" : "header",
+          "description" : "Unique identifier per event (request)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Generated UUID",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Contract that needs to be uploaded to the insurer",
+          "content" : {
+            "application/json; charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Contract"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "A handle to the contract for conversation with the insurer is provided",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ContractReference"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid contract is provided. See ErrorResponse for more information about validation issues",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Technical issue on server side, please retry later",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/contracts/v1/documents" : {
       "post" : {
         "tags" : [ "documents" ],
@@ -256,148 +398,6 @@
         }
       }
     },
-    "/contracts/v1" : {
-      "post" : {
-        "tags" : [ "contracts" ],
-        "summary" : "Upload a contract V1 to the insurer.",
-        "description" : "Uploads a contract. If validation fails processing is refused, a corresponding error is thrown",
-        "operationId" : "uploadContractV1",
-        "parameters" : [ {
-          "name" : "X-Caller-Name",
-          "in" : "header",
-          "description" : "Identifying the sender of this event (request) ",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Defined by the callee"
-          }
-        }, {
-          "name" : "X-Event-ID",
-          "in" : "header",
-          "description" : "Unique identifier per event (request)",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Generated UUID",
-            "format" : "uuid"
-          }
-        } ],
-        "requestBody" : {
-          "description" : "Contract that needs to be uploaded to the insurer",
-          "content" : {
-            "application/json; charset=UTF-8" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/ContractV1"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "default" : {
-            "description" : "A handle to the contract for conversation with the insurer is provided",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ContractReference"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid contract is provided. See ErrorResponse for more information about validation issues",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "Technical issue on server side, please retry later",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/contracts/v2" : {
-      "post" : {
-        "tags" : [ "contracts" ],
-        "summary" : "Upload a contract to the insurer.",
-        "description" : "Uploads a contract. If validation fails processing is refused, a corresponding error is thrown",
-        "operationId" : "uploadContract",
-        "parameters" : [ {
-          "name" : "X-Caller-Name",
-          "in" : "header",
-          "description" : "Identifying the sender of this event (request) ",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Defined by the callee"
-          }
-        }, {
-          "name" : "X-Event-ID",
-          "in" : "header",
-          "description" : "Unique identifier per event (request)",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Generated UUID",
-            "format" : "uuid"
-          }
-        } ],
-        "requestBody" : {
-          "description" : "Contract that needs to be uploaded to the insurer",
-          "content" : {
-            "application/json; charset=UTF-8" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Contract"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "default" : {
-            "description" : "A handle to the contract for conversation with the insurer is provided",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ContractReference"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid contract is provided. See ErrorResponse for more information about validation issues",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "Technical issue on server side, please retry later",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/contracts/v2/version" : {
       "get" : {
         "tags" : [ "version" ],
@@ -431,13 +431,12 @@
   },
   "components" : {
     "schemas" : {
-      "FileHandle" : {
-        "required" : [ "handle" ],
+      "ContractReference" : {
         "type" : "object",
         "properties" : {
-          "handle" : {
+          "reference" : {
             "type" : "string",
-            "description" : "Reference to an uploaded document. This can be a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
+            "description" : "Under this reference the contract is stored at the insurer"
           }
         }
       },
@@ -459,81 +458,6 @@
             "items" : {
               "type" : "string"
             }
-          }
-        }
-      },
-      "Document" : {
-        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "array",
-            "description" : "The document itself",
-            "items" : {
-              "type" : "string",
-              "format" : "byte"
-            }
-          },
-          "contractId" : {
-            "maxLength" : 20,
-            "minLength" : 0,
-            "type" : "string",
-            "description" : "The contract this document belongs to"
-          },
-          "mediaType" : {
-            "type" : "string",
-            "description" : "Accepted media types for documents represented by data byte[]",
-            "enum" : [ "APPLICATION_PDF", "IMAGE_JPEG", "IMAGE_TIFF", "IMAGE_PNG", "IMAGE_BMP", "IMAGE_GIF" ]
-          },
-          "fileName" : {
-            "maxLength" : 256,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "documentType" : {
-            "type" : "string",
-            "enum" : [ "CONTRACT", "RECEIPT", "COVER_LETTER" ]
-          }
-        }
-      },
-      "Version" : {
-        "required" : [ "value" ],
-        "type" : "object",
-        "properties" : {
-          "value" : {
-            "type" : "string",
-            "description" : "Version identifier of the current API definition"
-          }
-        }
-      },
-      "ContractReference" : {
-        "type" : "object",
-        "properties" : {
-          "reference" : {
-            "type" : "string",
-            "description" : "Under this reference the contract is stored at the insurer"
-          }
-        }
-      },
-      "Cancellation" : {
-        "required" : [ "contractId", "effectiveDate", "reasonCode" ],
-        "type" : "object",
-        "properties" : {
-          "contractId" : {
-            "maxLength" : 20,
-            "minLength" : 0,
-            "type" : "string",
-            "description" : "Id given by SaaS provider. Identifies the contract which should be cancelled"
-          },
-          "effectiveDate" : {
-            "type" : "string",
-            "description" : "effecitve date of cancellation",
-            "format" : "date"
-          },
-          "reasonCode" : {
-            "type" : "integer",
-            "description" : "A code uniquely identifying the cancellation reason",
-            "format" : "int32"
           }
         }
       },
@@ -740,6 +664,16 @@
           },
           "sumInsured" : {
             "$ref" : "#/components/schemas/MonetaryAmount"
+          }
+        }
+      },
+      "FileHandle" : {
+        "required" : [ "handle" ],
+        "type" : "object",
+        "properties" : {
+          "handle" : {
+            "type" : "string",
+            "description" : "Reference to an uploaded document. This can be a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
           }
         }
       },
@@ -999,6 +933,72 @@
           "edition" : {
             "type" : "integer",
             "description" : "The edition of the service terms",
+            "format" : "int32"
+          }
+        }
+      },
+      "Document" : {
+        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "description" : "The document itself",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "contractId" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "The contract this document belongs to"
+          },
+          "mediaType" : {
+            "type" : "string",
+            "description" : "Accepted media types for documents represented by data byte[]",
+            "enum" : [ "APPLICATION_PDF", "IMAGE_JPEG", "IMAGE_TIFF", "IMAGE_PNG", "IMAGE_BMP", "IMAGE_GIF" ]
+          },
+          "fileName" : {
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "documentType" : {
+            "type" : "string",
+            "enum" : [ "CONTRACT", "RECEIPT", "COVER_LETTER" ]
+          }
+        }
+      },
+      "Version" : {
+        "required" : [ "value" ],
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "type" : "string",
+            "description" : "Version identifier of the current API definition"
+          }
+        }
+      },
+      "Cancellation" : {
+        "required" : [ "contractId", "effectiveDate", "reasonCode" ],
+        "type" : "object",
+        "properties" : {
+          "contractId" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Id given by SaaS provider. Identifies the contract which should be cancelled"
+          },
+          "effectiveDate" : {
+            "type" : "string",
+            "description" : "effecitve date of cancellation",
+            "format" : "date"
+          },
+          "reasonCode" : {
+            "type" : "integer",
+            "description" : "A code uniquely identifying the cancellation reason",
             "format" : "int32"
           }
         }
