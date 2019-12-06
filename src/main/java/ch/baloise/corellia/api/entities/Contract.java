@@ -18,7 +18,6 @@ package ch.baloise.corellia.api.entities;
 import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_FILE_HANDLES_MAX_SIZE;
 import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_FILE_HANDLES_MIN_SIZE;
 import static ch.baloise.corellia.api.constraints.SizeConstraint.LIST_MAX_SIZE;
-import static ch.baloise.corellia.api.constraints.SizeConstraint.MONTH_YEAR_SIZE;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import java.io.Serializable;
@@ -66,11 +65,6 @@ public class Contract implements Serializable {
   @Size(min = CONTRACT_FILE_HANDLES_MIN_SIZE, max = CONTRACT_FILE_HANDLES_MAX_SIZE)
   @JsonPropertyDescription("A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required")
   private List<FileHandle> fileHandles;
-
-  @NotNull
-  @Size(min = MONTH_YEAR_SIZE, max = MONTH_YEAR_SIZE)
-  @JsonPropertyDescription("When was the condition issued? Format MMYY")
-  private String conditionMonthYear;
 
   @NotNull
   @JsonPropertyDescription("The tax stamp code for this contract")
@@ -157,14 +151,6 @@ public class Contract implements Serializable {
 
   public void setFileHandles(List<FileHandle> fileHandles) {
     this.fileHandles = fileHandles;
-  }
-
-  public String getConditionMonthYear() {
-    return conditionMonthYear;
-  }
-
-  public void setConditionMonthYear(String conditionMonthYear) {
-    this.conditionMonthYear = conditionMonthYear;
   }
 
   public Integer getStampTaxCode() {
