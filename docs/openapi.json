@@ -815,7 +815,7 @@
         }
       },
       "Contract" : {
-        "required" : [ "action", "conditionMonthYear", "creationDate", "endDate", "fileHandles", "identifier", "payment", "product", "roles", "stampTaxCode", "startDate", "termsOfService", "totalNetPrice" ],
+        "required" : [ "action", "creationDate", "endDate", "fileHandles", "identifier", "payment", "product", "roles", "stampTaxCode", "startDate", "termsOfService", "totalNetPrice" ],
         "type" : "object",
         "properties" : {
           "creationDate" : {
@@ -859,12 +859,6 @@
             "items" : {
               "$ref" : "#/components/schemas/FileHandle"
             }
-          },
-          "conditionMonthYear" : {
-            "maxLength" : 4,
-            "minLength" : 4,
-            "type" : "string",
-            "description" : "When was the condition issued? Format MMYY"
           },
           "stampTaxCode" : {
             "type" : "integer",

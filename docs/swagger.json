@@ -568,12 +568,6 @@
         "agent": {
           "$ref": "#/definitions/Agent"
         },
-        "conditionMonthYear": {
-          "description": "When was the condition issued? Format MMYY",
-          "maxLength": 4,
-          "minLength": 4,
-          "type": "string"
-        },
         "creationDate": {
           "description": "The day the contract was issued",
           "format": "date",
@@ -630,7 +624,6 @@
       },
       "required": [
         "action",
-        "conditionMonthYear",
         "creationDate",
         "endDate",
         "fileHandles",
