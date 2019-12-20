@@ -57,7 +57,7 @@ public class Document implements Serializable {
     }}
 
   @NotNull
-  @JsonPropertyDescription("The document itself. If the documentType is CONTRACT then the document must contain one of 'Versicherungsvertrag, Contrat d’assurance, Contratto di assicurazione, Insurance policy'")
+  @JsonPropertyDescription("The document itself. If the documentType is CONTRACT then the document must contain one of these keywords 'Versicherungsvertrag, Contrat d’assurance, Contratto di assicurazione, Insurance policy'")
   private byte[] data;
 
   @NotNull
