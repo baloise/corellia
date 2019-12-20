@@ -937,7 +937,7 @@
         "properties" : {
           "data" : {
             "type" : "array",
-            "description" : "The document itself",
+            "description" : "The document itself. If the documentType is CONTRACT then the document must contain one of 'Versicherungsvertrag, Contrat d’assurance, Contratto di assicurazione, Insurance policy'",
             "items" : {
               "type" : "string",
               "format" : "byte"
