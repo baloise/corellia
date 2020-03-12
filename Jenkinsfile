@@ -51,14 +51,6 @@ pipeline {
             }
         }
 
-        stage("Nexus Lifecycle") {
-            steps {
-                nexusPolicyEvaluation iqApplication: 'ch.baloise.corellia.api', 
-                    iqScanPatterns: [[scanPattern: 'target/*.jar']], 
-                    iqStage: 'build'
-            }
-        }
-
         stage("Quality assurance") {
             when {
                 expression { return params.RUN_QUALITY_CHECKS }
