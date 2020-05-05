@@ -473,7 +473,7 @@
           "$ref": "#/definitions/Identifier"
         },
         "reasonCode": {
-          "description": "A code uniquely identifying the cancellation reason",
+          "description": "A code uniquely identifying the ccancellation reason",
           "format": "int32",
           "type": "integer"
         }
