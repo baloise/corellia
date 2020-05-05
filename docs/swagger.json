@@ -464,16 +464,13 @@
     },
     "Cancellation": {
       "properties": {
-        "contractId": {
-          "description": "Id given by SaaS provider. Identifies the contract which should be cancelled",
-          "maxLength": 20,
-          "minLength": 0,
-          "type": "string"
-        },
         "effectiveDate": {
           "description": "effecitve date of cancellation",
           "format": "date",
           "type": "string"
+        },
+        "identifier": {
+          "$ref": "#/definitions/Identifier"
         },
         "reasonCode": {
           "description": "A code uniquely identifying the cancellation reason",
@@ -482,8 +479,8 @@
         }
       },
       "required": [
-        "contractId",
         "effectiveDate",
+        "identifier",
         "reasonCode"
       ],
       "type": "object"
