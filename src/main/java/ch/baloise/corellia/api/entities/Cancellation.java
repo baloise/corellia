@@ -5,6 +5,7 @@ import static ch.baloise.corellia.api.constraints.SizeConstraint.CONTRACT_ID_MAX
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -13,26 +14,20 @@ public class Cancellation implements Serializable {
   private static final long serialVersionUID = 10;
 
   @NotNull
-  @Size(max = CONTRACT_ID_MAX_SIZE)
-  @JsonPropertyDescription(
-      "Id given by SaaS provider. Identifies the contract which should be cancelled")
-  private String contractId;
+  @Valid
+  private Identifier identifier;
 
   @NotNull
   @JsonPropertyDescription("effecitve date of cancellation")
   private LocalDate effectiveDate;
 
   @NotNull
-  @JsonPropertyDescription("A code uniquely identifying the cancellation reason")
+  @JsonPropertyDescription("A code uniquely identifying the ccancellation reason")
   private Integer reasonCode;
 
-  public String getContractId() {
-    return contractId;
-  }
+  public Identifier getIdentifier() { return identifier; }
 
-  public void setContractId(String contractId) {
-    this.contractId = contractId;
-  }
+  public void setIdentifier(Identifier identifier) { this.identifier = identifier; }
 
   public LocalDate getEffectiveDate() {
     return effectiveDate;
