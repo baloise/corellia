@@ -976,24 +976,14 @@
         }
       },
       "Cancellation" : {
-        "required" : [ "contractId", "effectiveDate", "reasonCode" ],
+        "required" : [ "action", "identifier" ],
         "type" : "object",
         "properties" : {
-          "contractId" : {
-            "maxLength" : 20,
-            "minLength" : 0,
-            "type" : "string",
-            "description" : "Id given by SaaS provider. Identifies the contract which should be cancelled"
+          "identifier" : {
+            "$ref" : "#/components/schemas/Identifier"
           },
-          "effectiveDate" : {
-            "type" : "string",
-            "description" : "effecitve date of cancellation",
-            "format" : "date"
-          },
-          "reasonCode" : {
-            "type" : "integer",
-            "description" : "A code uniquely identifying the cancellation reason",
-            "format" : "int32"
+          "action" : {
+            "$ref" : "#/components/schemas/Action"
           }
         }
       }
