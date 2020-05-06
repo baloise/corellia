@@ -469,17 +469,11 @@
         },
         "identifier": {
           "$ref": "#/definitions/Identifier"
-        },
-        "reasonCode": {
-          "description": "A code uniquely identifying the cancellation reason",
-          "format": "int32",
-          "type": "integer"
         }
       },
       "required": [
         "action",
-        "identifier",
-        "reasonCode"
+        "identifier"
       ],
       "type": "object"
     },

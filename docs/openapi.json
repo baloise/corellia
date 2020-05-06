@@ -976,7 +976,7 @@
         }
       },
       "Cancellation" : {
-        "required" : [ "action", "identifier", "reasonCode" ],
+        "required" : [ "action", "identifier" ],
         "type" : "object",
         "properties" : {
           "identifier" : {
@@ -984,11 +984,6 @@
           },
           "action" : {
             "$ref" : "#/components/schemas/Action"
-          },
-          "reasonCode" : {
-            "type" : "integer",
-            "description" : "A code uniquely identifying the cancellation reason",
-            "format" : "int32"
           }
         }
       }
