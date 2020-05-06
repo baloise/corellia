@@ -976,20 +976,18 @@
         }
       },
       "Cancellation" : {
-        "required" : [ "effectiveDate", "identifier", "reasonCode" ],
+        "required" : [ "action", "identifier", "reasonCode" ],
         "type" : "object",
         "properties" : {
           "identifier" : {
             "$ref" : "#/components/schemas/Identifier"
           },
-          "effectiveDate" : {
-            "type" : "string",
-            "description" : "effecitve date of cancellation",
-            "format" : "date"
+          "action" : {
+            "$ref" : "#/components/schemas/Action"
           },
           "reasonCode" : {
             "type" : "integer",
-            "description" : "A code uniquely identifying the ccancellation reason",
+            "description" : "A code uniquely identifying the cancellation reason",
             "format" : "int32"
           }
         }

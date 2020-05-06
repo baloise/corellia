@@ -2,43 +2,46 @@ package ch.baloise.corellia.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import java.io.Serializable;
-import java.time.LocalDate;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 public class Cancellation implements Serializable {
 
-  private static final long serialVersionUID = 10;
+    private static final long serialVersionUID = 10;
 
-  @NotNull
-  @Valid
-  private Identifier identifier;
+    @NotNull
+    @Valid
+    private Identifier identifier;
 
-  @NotNull
-  @JsonPropertyDescription("effecitve date of cancellation")
-  private LocalDate effectiveDate;
+    @NotNull
+    @Valid
+    private Action action;
 
-  @NotNull
-  @JsonPropertyDescription("A code uniquely identifying the cancellation reason")
-  private Integer reasonCode;
+    @NotNull
+    @JsonPropertyDescription("A code uniquely identifying the cancellation reason")
+    private Integer reasonCode;
 
-  public Identifier getIdentifier() { return identifier; }
+    public Identifier getIdentifier() {
+        return identifier;
+    }
 
-  public void setIdentifier(Identifier identifier) { this.identifier = identifier; }
+    public void setIdentifier(Identifier identifier) {
+        this.identifier = identifier;
+    }
 
-  public LocalDate getEffectiveDate() {
-    return effectiveDate;
-  }
+    public Action getAction() {
+        return action;
+    }
 
-  public void setEffectiveDate(LocalDate effectiveDate) {
-    this.effectiveDate = effectiveDate;
-  }
+    public void setAction(Action action) {
+        this.action = action;
+    }
 
-  public Integer getReasonCode() {
-    return reasonCode;
-  }
+    public Integer getReasonCode() {
+        return reasonCode;
+    }
 
-  public void setReasonCode(Integer reasonCode) {
-    this.reasonCode = reasonCode;
-  }
+    public void setReasonCode(Integer reasonCode) {
+        this.reasonCode = reasonCode;
+    }
 }

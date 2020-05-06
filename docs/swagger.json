@@ -464,22 +464,20 @@
     },
     "Cancellation": {
       "properties": {
-        "effectiveDate": {
-          "description": "effecitve date of cancellation",
-          "format": "date",
-          "type": "string"
+        "action": {
+          "$ref": "#/definitions/Action"
         },
         "identifier": {
           "$ref": "#/definitions/Identifier"
         },
         "reasonCode": {
-          "description": "A code uniquely identifying the ccancellation reason",
+          "description": "A code uniquely identifying the cancellation reason",
           "format": "int32",
           "type": "integer"
         }
       },
       "required": [
-        "effectiveDate",
+        "action",
         "identifier",
         "reasonCode"
       ],
