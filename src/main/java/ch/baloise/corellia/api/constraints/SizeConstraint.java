@@ -46,7 +46,7 @@ public class SizeConstraint {
 
     public final static int CONTRACT_ID_MAX_SIZE = 20;
 
-    public final static int CONTRACT_FILE_HANDLES_MIN_SIZE = 1;
+    public final static int CONTRACT_FILE_HANDLES_MIN_SIZE = 0;
     public final static int CONTRACT_FILE_HANDLES_MAX_SIZE = 2;
 
     private SizeConstraint() {

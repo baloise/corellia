@@ -13,6 +13,279 @@
     "version" : "0.1.0"
   },
   "paths" : {
+    "/contracts/v2/version" : {
+      "get" : {
+        "tags" : [ "version" ],
+        "summary" : "Callable way of retrieving current API version (following semver)",
+        "description" : "Endpoint to retrieve the current API version (following semver). Can be compared to the URI version. Can be used for testing purposes.",
+        "operationId" : "version",
+        "responses" : {
+          "default" : {
+            "description" : "Version identifier",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Version"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Technical issue on server side, please retry later",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contracts/v1/documents" : {
+      "post" : {
+        "tags" : [ "documents" ],
+        "summary" : "Upload a document for a contract.",
+        "description" : "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
+        "operationId" : "uploadDocumentV1",
+        "parameters" : [ {
+          "name" : "X-Caller-Name",
+          "in" : "header",
+          "description" : "Identifying the sender of this event (request) ",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Defined by the callee"
+          }
+        }, {
+          "name" : "X-Event-ID",
+          "in" : "header",
+          "description" : "Unique identifier per event (request)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Generated UUID",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "a documnent that is part of a contract",
+          "content" : {
+            "application/json; charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Document"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "A handle for the uploaded document which can be used in providing a new contract via POST contracts",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FileHandle"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid document is provided. See ErrorResponse for more information about validation issues",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Technical issue on server side, please retry later",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contracts/v1/version" : {
+      "get" : {
+        "tags" : [ "version" ],
+        "summary" : "Callable way of retrieving current API version (following semver)",
+        "description" : "Endpoint to retrieve the current API version (following semver). Can be compared to the URI version. Can be used for testing purposes.",
+        "operationId" : "versionV1",
+        "responses" : {
+          "default" : {
+            "description" : "Version identifier",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Version"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Technical issue on server side, please retry later",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contracts/v2/documents" : {
+      "post" : {
+        "tags" : [ "documents" ],
+        "summary" : "Upload a document for a contract.",
+        "description" : "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
+        "operationId" : "uploadDocument",
+        "parameters" : [ {
+          "name" : "X-Caller-Name",
+          "in" : "header",
+          "description" : "Identifying the sender of this event (request) ",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Defined by the callee"
+          }
+        }, {
+          "name" : "X-Event-ID",
+          "in" : "header",
+          "description" : "Unique identifier per event (request)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Generated UUID",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "a documnent that is part of a contract",
+          "content" : {
+            "application/json; charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Document"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "A handle for the uploaded document which can be used in providing a new contract via POST contracts",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FileHandle"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid document is provided. See ErrorResponse for more information about validation issues",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Technical issue on server side, please retry later",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contracts/v2/cancellations" : {
+      "post" : {
+        "tags" : [ "contracts" ],
+        "summary" : "cancel a contract",
+        "description" : "cancels a contract. If validation fails processing is refused, a corresponding error is thrown",
+        "operationId" : "cancelContract",
+        "parameters" : [ {
+          "name" : "X-Caller-Name",
+          "in" : "header",
+          "description" : "Identifying the sender of this event (request) ",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Defined by the callee"
+          }
+        }, {
+          "name" : "X-Event-ID",
+          "in" : "header",
+          "description" : "Unique identifier per event (request)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "description" : "Generated UUID",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Cancellation to instruct the insurer to cancel the contract",
+          "content" : {
+            "application/json; charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Cancellation"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "A handle to the contract which was cancelled. It's intended for conversation between consumer and insurer",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ContractReference"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid cancellation is provided. See ErrorResponse for more information about validation issues",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Technical issue on server side, please retry later",
+            "content" : {
+              "application/json; charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/contracts/v1" : {
       "post" : {
         "tags" : [ "contracts" ],
@@ -154,289 +427,17 @@
           }
         }
       }
-    },
-    "/contracts/v1/documents" : {
-      "post" : {
-        "tags" : [ "documents" ],
-        "summary" : "Upload a document for a contract.",
-        "description" : "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
-        "operationId" : "uploadDocumentV1",
-        "parameters" : [ {
-          "name" : "X-Caller-Name",
-          "in" : "header",
-          "description" : "Identifying the sender of this event (request) ",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Defined by the callee"
-          }
-        }, {
-          "name" : "X-Event-ID",
-          "in" : "header",
-          "description" : "Unique identifier per event (request)",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Generated UUID",
-            "format" : "uuid"
-          }
-        } ],
-        "requestBody" : {
-          "description" : "a documnent that is part of a contract",
-          "content" : {
-            "application/json; charset=UTF-8" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Document"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "default" : {
-            "description" : "A handle for the uploaded document which can be used in providing a new contract via POST contracts",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/FileHandle"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid document is provided. See ErrorResponse for more information about validation issues",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "Technical issue on server side, please retry later",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/contracts/v2/documents" : {
-      "post" : {
-        "tags" : [ "documents" ],
-        "summary" : "Upload a document for a contract.",
-        "description" : "Please note that this operation needs to be called per document for a contract to be uploaded. The response contains a handle to the document. This handle should be provided with the contract to be uploaded via uploadContract",
-        "operationId" : "uploadDocument",
-        "parameters" : [ {
-          "name" : "X-Caller-Name",
-          "in" : "header",
-          "description" : "Identifying the sender of this event (request) ",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Defined by the callee"
-          }
-        }, {
-          "name" : "X-Event-ID",
-          "in" : "header",
-          "description" : "Unique identifier per event (request)",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Generated UUID",
-            "format" : "uuid"
-          }
-        } ],
-        "requestBody" : {
-          "description" : "a documnent that is part of a contract",
-          "content" : {
-            "application/json; charset=UTF-8" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Document"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "default" : {
-            "description" : "A handle for the uploaded document which can be used in providing a new contract via POST contracts",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/FileHandle"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid document is provided. See ErrorResponse for more information about validation issues",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "Technical issue on server side, please retry later",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/contracts/v1/version" : {
-      "get" : {
-        "tags" : [ "version" ],
-        "summary" : "Callable way of retrieving current API version (following semver)",
-        "description" : "Endpoint to retrieve the current API version (following semver). Can be compared to the URI version. Can be used for testing purposes.",
-        "operationId" : "versionV1",
-        "responses" : {
-          "default" : {
-            "description" : "Version identifier",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Version"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "Technical issue on server side, please retry later",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/contracts/v2/cancellations" : {
-      "post" : {
-        "tags" : [ "contracts" ],
-        "summary" : "cancel a contract",
-        "description" : "cancels a contract. If validation fails processing is refused, a corresponding error is thrown",
-        "operationId" : "cancelContract",
-        "parameters" : [ {
-          "name" : "X-Caller-Name",
-          "in" : "header",
-          "description" : "Identifying the sender of this event (request) ",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Defined by the callee"
-          }
-        }, {
-          "name" : "X-Event-ID",
-          "in" : "header",
-          "description" : "Unique identifier per event (request)",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "description" : "Generated UUID",
-            "format" : "uuid"
-          }
-        } ],
-        "requestBody" : {
-          "description" : "Cancellation to instruct the insurer to cancel the contract",
-          "content" : {
-            "application/json; charset=UTF-8" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Cancellation"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "default" : {
-            "description" : "A handle to the contract which was cancelled. It's intended for conversation between consumer and insurer",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ContractReference"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid cancellation is provided. See ErrorResponse for more information about validation issues",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "Technical issue on server side, please retry later",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/contracts/v2/version" : {
-      "get" : {
-        "tags" : [ "version" ],
-        "summary" : "Callable way of retrieving current API version (following semver)",
-        "description" : "Endpoint to retrieve the current API version (following semver). Can be compared to the URI version. Can be used for testing purposes.",
-        "operationId" : "version",
-        "responses" : {
-          "default" : {
-            "description" : "Version identifier",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Version"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "Technical issue on server side, please retry later",
-            "content" : {
-              "application/json; charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components" : {
     "schemas" : {
-      "ContractReference" : {
+      "Version" : {
+        "required" : [ "value" ],
         "type" : "object",
         "properties" : {
-          "reference" : {
+          "value" : {
             "type" : "string",
-            "description" : "Under this reference the contract is stored at the insurer"
+            "description" : "Version identifier of the current API definition"
           }
         }
       },
@@ -458,6 +459,107 @@
             "items" : {
               "type" : "string"
             }
+          }
+        }
+      },
+      "FileHandle" : {
+        "required" : [ "handle" ],
+        "type" : "object",
+        "properties" : {
+          "handle" : {
+            "type" : "string",
+            "description" : "Reference to an uploaded document. This can be a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
+          }
+        }
+      },
+      "Document" : {
+        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "description" : "The document itself. If the documentType is CONTRACT then the document must contain one of these keywords 'Versicherungsvertrag, Contrat d’assurance, Contratto di assicurazione, Insurance policy'",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "contractId" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "The contract this document belongs to"
+          },
+          "mediaType" : {
+            "type" : "string",
+            "description" : "Accepted media types for documents represented by data byte[]",
+            "enum" : [ "APPLICATION_PDF", "IMAGE_JPEG", "IMAGE_TIFF", "IMAGE_PNG", "IMAGE_BMP", "IMAGE_GIF" ]
+          },
+          "fileName" : {
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "documentType" : {
+            "type" : "string",
+            "enum" : [ "CONTRACT", "RECEIPT", "COVER_LETTER" ]
+          }
+        }
+      },
+      "ContractReference" : {
+        "type" : "object",
+        "properties" : {
+          "reference" : {
+            "type" : "string",
+            "description" : "Under this reference the contract is stored at the insurer"
+          }
+        }
+      },
+      "Action" : {
+        "required" : [ "reason", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "integer",
+            "description" : "The type of the action",
+            "format" : "int32"
+          },
+          "reason" : {
+            "type" : "integer",
+            "description" : "The reason for this type",
+            "format" : "int32"
+          },
+          "effective" : {
+            "type" : "string",
+            "description" : "The date when this change should be effective",
+            "format" : "date"
+          }
+        }
+      },
+      "Cancellation" : {
+        "required" : [ "action", "identifier" ],
+        "type" : "object",
+        "properties" : {
+          "identifier" : {
+            "$ref" : "#/components/schemas/Identifier"
+          },
+          "action" : {
+            "$ref" : "#/components/schemas/Action"
+          }
+        }
+      },
+      "Identifier" : {
+        "required" : [ "id", "type" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Id depending on the type."
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "The type of the id. EXT or INT.",
+            "enum" : [ "INT", "EXT" ]
           }
         }
       },
@@ -610,7 +712,7 @@
           },
           "fileHandles" : {
             "maxItems" : 2,
-            "minItems" : 1,
+            "minItems" : 0,
             "type" : "array",
             "description" : "A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required",
             "items" : {
@@ -664,16 +766,6 @@
           },
           "sumInsured" : {
             "$ref" : "#/components/schemas/MonetaryAmount"
-          }
-        }
-      },
-      "FileHandle" : {
-        "required" : [ "handle" ],
-        "type" : "object",
-        "properties" : {
-          "handle" : {
-            "type" : "string",
-            "description" : "Reference to an uploaded document. This can be a PDF or a picture (e.g. JPG) of a contract or a purchase receipt."
           }
         }
       },
@@ -793,27 +885,6 @@
           }
         }
       },
-      "Action" : {
-        "required" : [ "reason", "type" ],
-        "type" : "object",
-        "properties" : {
-          "type" : {
-            "type" : "integer",
-            "description" : "The type of the action",
-            "format" : "int32"
-          },
-          "reason" : {
-            "type" : "integer",
-            "description" : "The reason for this type",
-            "format" : "int32"
-          },
-          "effective" : {
-            "type" : "string",
-            "description" : "The date when this change should be effective",
-            "format" : "date"
-          }
-        }
-      },
       "Contract" : {
         "required" : [ "action", "creationDate", "endDate", "fileHandles", "identifier", "payment", "product", "roles", "stampTaxCode", "startDate", "termsOfService", "totalNetPrice" ],
         "type" : "object",
@@ -853,9 +924,9 @@
           },
           "fileHandles" : {
             "maxItems" : 2,
-            "minItems" : 1,
+            "minItems" : 0,
             "type" : "array",
-            "description" : "A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required",
+            "description" : "A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required. In case of migration contracts zero documents are accepted.",
             "items" : {
               "$ref" : "#/components/schemas/FileHandle"
             }
@@ -876,21 +947,6 @@
           },
           "payment" : {
             "$ref" : "#/components/schemas/Payment"
-          }
-        }
-      },
-      "Identifier" : {
-        "required" : [ "id", "type" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string",
-            "description" : "Id depending on the type."
-          },
-          "type" : {
-            "type" : "string",
-            "description" : "The type of the id. EXT or INT.",
-            "enum" : [ "INT", "EXT" ]
           }
         }
       },
@@ -928,62 +984,6 @@
             "type" : "integer",
             "description" : "The edition of the service terms",
             "format" : "int32"
-          }
-        }
-      },
-      "Document" : {
-        "required" : [ "contractId", "data", "documentType", "fileName", "mediaType" ],
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "array",
-            "description" : "The document itself. If the documentType is CONTRACT then the document must contain one of these keywords 'Versicherungsvertrag, Contrat dâ€™assurance, Contratto di assicurazione, Insurance policy'",
-            "items" : {
-              "type" : "string",
-              "format" : "byte"
-            }
-          },
-          "contractId" : {
-            "maxLength" : 20,
-            "minLength" : 0,
-            "type" : "string",
-            "description" : "The contract this document belongs to"
-          },
-          "mediaType" : {
-            "type" : "string",
-            "description" : "Accepted media types for documents represented by data byte[]",
-            "enum" : [ "APPLICATION_PDF", "IMAGE_JPEG", "IMAGE_TIFF", "IMAGE_PNG", "IMAGE_BMP", "IMAGE_GIF" ]
-          },
-          "fileName" : {
-            "maxLength" : 256,
-            "minLength" : 0,
-            "type" : "string"
-          },
-          "documentType" : {
-            "type" : "string",
-            "enum" : [ "CONTRACT", "RECEIPT", "COVER_LETTER" ]
-          }
-        }
-      },
-      "Version" : {
-        "required" : [ "value" ],
-        "type" : "object",
-        "properties" : {
-          "value" : {
-            "type" : "string",
-            "description" : "Version identifier of the current API definition"
-          }
-        }
-      },
-      "Cancellation" : {
-        "required" : [ "action", "identifier" ],
-        "type" : "object",
-        "properties" : {
-          "identifier" : {
-            "$ref" : "#/components/schemas/Identifier"
-          },
-          "action" : {
-            "$ref" : "#/components/schemas/Action"
           }
         }
       }

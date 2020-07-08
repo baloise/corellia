@@ -568,12 +568,12 @@
           "type": "string"
         },
         "fileHandles": {
-          "description": "A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required",
+          "description": "A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required. In case of migration contracts zero documents are accepted.",
           "items": {
             "$ref": "#/definitions/FileHandle"
           },
           "maxItems": 2,
-          "minItems": 1,
+          "minItems": 0,
           "type": "array"
         },
         "identifier": {
@@ -669,7 +669,7 @@
             "$ref": "#/definitions/FileHandle"
           },
           "maxItems": 2,
-          "minItems": 1,
+          "minItems": 0,
           "type": "array"
         },
         "paymentCode": {
@@ -770,7 +770,7 @@
           "type": "string"
         },
         "data": {
-          "description": "The document itself. If the documentType is CONTRACT then the document must contain one of these keywords 'Versicherungsvertrag, Contrat d’assurance, Contratto di assicurazione, Insurance policy'",
+          "description": "The document itself. If the documentType is CONTRACT then the document must contain one of these keywords 'Versicherungsvertrag, Contrat dï¿½assurance, Contratto di assicurazione, Insurance policy'",
           "items": {
             "format": "byte",
             "type": "string"
