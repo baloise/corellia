@@ -568,7 +568,7 @@
           "type": "string"
         },
         "fileHandles": {
-          "description": "A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required",
+          "description": "A contract is only complete with its corresponding documents. This is the contract issued by the SaaS provider and maybe some further documents like e.g. customer provided documents like e.g. receipts. At least one contract document is required. In case of migration contracts zero documents are accepted.",
           "items": {
             "$ref": "#/definitions/FileHandle"
           },
