@@ -747,6 +747,27 @@
         "deductible": {
           "$ref": "#/definitions/MonetaryAmount"
         },
+        "discountType": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "discountValue": {
+          "$ref": "#/definitions/MonetaryAmount"
+        },
+        "extraChargeType": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "extraChargeValue": {
+          "$ref": "#/definitions/MonetaryAmount"
+        },
+        "measurandType": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "measurandValue": {
+          "$ref": "#/definitions/MonetaryAmount"
+        },
         "premium": {
           "$ref": "#/definitions/MonetaryAmount"
         },
