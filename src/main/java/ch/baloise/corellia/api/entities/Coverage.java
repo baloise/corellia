@@ -36,6 +36,18 @@ public class Coverage implements Serializable {
   @NotNull
   private MonetaryAmount sumInsured;
 
+  private int measurandType;
+
+  private MonetaryAmount measurandValue;
+
+  private int discountType;
+
+  private MonetaryAmount discountValue;
+
+  private int extraChargeType;
+
+  private MonetaryAmount extraChargeValue;
+
   public Coverage() {
   }
 
@@ -69,5 +81,53 @@ public class Coverage implements Serializable {
 
   public void setSumInsured(MonetaryAmount sumInsured) {
     this.sumInsured = sumInsured;
+  }
+
+  public int getMeasurandType() {
+    return measurandType;
+  }
+
+  public void setMeasurandType(int measurandType) {
+    this.measurandType = measurandType;
+  }
+
+  public MonetaryAmount getMeasurandValue() {
+    return measurandValue;
+  }
+
+  public void setMeasurandValue(MonetaryAmount measurandValue) {
+    this.measurandValue = measurandValue;
+  }
+
+  public int getDiscountType() {
+    return discountType;
+  }
+
+  public void setDiscountType(int discountType) {
+    this.discountType = discountType;
+  }
+
+  public MonetaryAmount getDiscountValue() {
+    return discountValue;
+  }
+
+  public void setDiscountValue(MonetaryAmount discountValue) {
+    this.discountValue = discountValue;
+  }
+
+  public int getExtraChargeType() {
+    return extraChargeType;
+  }
+
+  public void setExtraChargeType(int extraChargeType) {
+    this.extraChargeType = extraChargeType;
+  }
+
+  public MonetaryAmount getExtraChargeValue() {
+    return extraChargeValue;
+  }
+
+  public void setExtraChargeValue(MonetaryAmount extraChargeValue) {
+    this.extraChargeValue = extraChargeValue;
   }
 }
