@@ -36,15 +36,15 @@ public class Coverage implements Serializable {
   @NotNull
   private MonetaryAmount sumInsured;
 
-  private int measurandType;
+  private Integer measurandType;
 
   private MonetaryAmount measurandValue;
 
-  private int discountType;
+  private Integer discountType;
 
   private MonetaryAmount discountValue;
 
-  private int extraChargeType;
+  private Integer extraChargeType;
 
   private MonetaryAmount extraChargeValue;
 
@@ -83,11 +83,11 @@ public class Coverage implements Serializable {
     this.sumInsured = sumInsured;
   }
 
-  public int getMeasurandType() {
+  public Integer getMeasurandType() {
     return measurandType;
   }
 
-  public void setMeasurandType(int measurandType) {
+  public void setMeasurandType(Integer measurandType) {
     this.measurandType = measurandType;
   }
 
@@ -99,11 +99,11 @@ public class Coverage implements Serializable {
     this.measurandValue = measurandValue;
   }
 
-  public int getDiscountType() {
+  public Integer getDiscountType() {
     return discountType;
   }
 
-  public void setDiscountType(int discountType) {
+  public void setDiscountType(Integer discountType) {
     this.discountType = discountType;
   }
 
@@ -115,11 +115,11 @@ public class Coverage implements Serializable {
     this.discountValue = discountValue;
   }
 
-  public int getExtraChargeType() {
+  public Integer getExtraChargeType() {
     return extraChargeType;
   }
 
-  public void setExtraChargeType(int extraChargeType) {
+  public void setExtraChargeType(Integer extraChargeType) {
     this.extraChargeType = extraChargeType;
   }
 
