@@ -14,6 +14,6 @@
   },
   "scripts": {
     "convert": "api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=json docs/openapi.json",
-    "spectral": "spectral lint docs/openapi.json --ruleset"
+    "spectral": "spectral lint docs/openapi.json"
   }
 }
