@@ -13,5 +13,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Lint with spectral
+      run: npm install && ./node_modules/.bin/spectral.cmd lint ./docs/openapi.json
     - name: Build with Maven
       run: mvn clean verify --file pom.xml
