@@ -14,6 +14,6 @@ jobs:
       with:
         java-version: 1.8
     - name: Lint with spectral
-      run: npm install
+      run: npm install && npm run spectral
     - name: Build with Maven
       run: mvn clean verify --file pom.xml
