@@ -1,0 +1,20 @@
+extends: spectral:oas
+functions: [x-header-parameter]
+rules:
+  wrong-version:
+    description: OpenApi version must be 3.0.1
+    given: $.openapi
+    severity: error
+    then:
+      field: "@value"
+      function: pattern
+      functionOptions:
+        match: "^3.0.1+$"
+  x-header-not-set:
+    message: "{{error}}"
+    given: $.paths.*.post
+    severity: error
+    then:
+      function: "x-header-parameter"
+      functionOptions:
+        value: "test"

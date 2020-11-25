@@ -50,3 +50,22 @@ Note: _(One must have issued `npm install` previously.)_
 Run e.g. on master: `mvn -B release:prepare` e.g. via [![Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/baloise/corellia)
 
 Subsequently the GitHub action worksflow "create release" will pick up the published tag and release and deploy the artifacts in the Github package registry.
+
+
+## Spectral linting (just to not forget how to do it.)
+
+use the following comand to lint openapi.json
+```
+node_modules\.bin\spectral.cmd lint docs\openapi.json
+```
+.spectral contains the rules and functions/ contains the custome functions used in the rule
+Custom example rules are:
+ - Version must be 3.0.1
+ - all post actions must have X-Caller-Name and X-EventId in the header
+ 
+All standard rules for openapie 3 are usesd as well.
+
+Documentation can be found here:
+https://meta.stoplight.io/docs/spectral/README.md
+
+docker run --rm -it -v %cd%:/tmp  quay.balgroupit.com/baloise-base-images/spectral lint  /tmp/docs/openapi.json --ruleset=/tmp/docs/spectral.yaml
