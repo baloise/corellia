@@ -56,9 +56,10 @@ Subsequently the GitHub action worksflow "create release" will pick up the publi
 
 use the following comand to lint openapi.json
 ```
-node_modules\.bin\spectral.cmd lint docs\openapi.json
+node run spectral
 ```
-.spectral contains the rules and functions/ contains the custome functions used in the rule
+`.spectral` contains the rules and `functions/` contains the custom functions used in the rule
+
 Custom example rules are:
  - Version must be 3.0.1
  - all post actions must have X-Caller-Name and X-EventId in the header
@@ -68,4 +69,4 @@ All standard rules for openapie 3 are usesd as well.
 Documentation can be found here:
 https://meta.stoplight.io/docs/spectral/README.md
 
-docker run --rm -it -v %cd%:/tmp  quay.balgroupit.com/baloise-base-images/spectral lint  /tmp/docs/openapi.json --ruleset=/tmp/docs/spectral.yaml
+`docker run --rm -it -v %cd%:/tmp  quay.balgroupit.com/baloise-base-images/spectral lint  /tmp/docs/openapi.json --ruleset=/tmp/docs/spectral.yaml`
