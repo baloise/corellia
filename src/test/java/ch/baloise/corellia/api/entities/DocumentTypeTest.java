@@ -21,13 +21,13 @@ class DocumentTypeTest {
 
   @Test
   void fromLowerCase() throws IOException {
-    Document.DocumentType documentType = objectMapper.readValue("\"application_pdf\"", Document.DocumentType.class);
+    Document.DocumentType documentType = objectMapper.readValue("\"contract\"", Document.DocumentType.class);
     assertEquals(Document.DocumentType.CONTRACT, documentType);
   }
 
   @Test
   void fromUpperCase() throws IOException {
-    Document.DocumentType documentType = objectMapper.readValue("\"APPLICATION_PDF\"", Document.DocumentType.class);
+    Document.DocumentType documentType = objectMapper.readValue("\"CONTRACT\"", Document.DocumentType.class);
     assertEquals(Document.DocumentType.CONTRACT, documentType);
   }
 
