@@ -9,8 +9,11 @@
   "dependencies": {
     "api-spec-converter": "2.7.32"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@stoplight/spectral": "^5.7.1"
+  },
   "scripts": {
-    "convert": "api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=json docs/openapi.json"
+    "convert": "api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=json docs/openapi.json",
+    "spectral": "spectral lint docs/openapi.json"
   }
 }
