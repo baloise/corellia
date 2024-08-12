@@ -14,6 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
       - name: Deploy to Github Package Registry
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+          cache: 'maven'
         env:
             GITHUB_USERNAME: x-access-token
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
