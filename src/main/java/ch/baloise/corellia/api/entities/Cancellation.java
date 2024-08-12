@@ -1,8 +1,8 @@
 package ch.baloise.corellia.api.entities;
 
 import java.io.Serializable;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 public class Cancellation implements Serializable {
 

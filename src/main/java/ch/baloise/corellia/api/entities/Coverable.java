@@ -20,9 +20,9 @@ import static ch.baloise.corellia.api.constraints.SizeConstraint.LIST_MAX_SIZE;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import java.io.Serializable;
 import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class Coverable implements Serializable {
 
