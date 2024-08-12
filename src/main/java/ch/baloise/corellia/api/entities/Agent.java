@@ -17,8 +17,8 @@ package ch.baloise.corellia.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
 import static ch.baloise.corellia.api.constraints.SizeConstraint.*;

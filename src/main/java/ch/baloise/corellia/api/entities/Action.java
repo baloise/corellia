@@ -2,7 +2,7 @@ package ch.baloise.corellia.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import java.time.LocalDate;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 public class Action {
 
